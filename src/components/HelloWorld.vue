@@ -107,6 +107,7 @@
         >
       </li>
     </ul>
+    <button class="btn btn-sucess">aaa</button>
   </div>
 </template>
 
@@ -117,6 +118,9 @@ export default defineComponent({
   name: "HelloWorld",
   props: {
     msg: String,
+  },
+  created() {
+    console.log(process.env.VUE_APP_TITLE);
   },
 });
 </script>
