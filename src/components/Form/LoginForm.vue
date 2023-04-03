@@ -46,6 +46,8 @@
   </div>
 </template>
 <script lang="ts">
+// import UserRepository from "../../helpers/axios/UserRepository";
+import {BaseRepository} from '@/helpers/axios/BaseRepository';
 export default {
   data() {
     return {
@@ -59,7 +61,9 @@ export default {
     onSubmit: function (event: any) {
       event.preventDefault();
       console.log(this.form.email, this.form.password);
-      this.$router.push({ path: "/" });
+      // this.$router.push({ path: "/" });
+      // const postForm = new UserRepository("auth");
+      // const a = postForm.login();
     },
     onReset: function (event: any) {
       this.resetData();
