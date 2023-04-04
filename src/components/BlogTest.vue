@@ -5,8 +5,9 @@
   </div>
 </template>
 <script lang="ts">
+import { defineComponent } from "vue";
 import InputTest from "./InputTest.vue";
-export default {
+export default defineComponent({
   components: {
     InputTest,
   },
@@ -20,5 +21,5 @@ export default {
       this.mes = mes;
     },
   },
-};
+});
 </script>

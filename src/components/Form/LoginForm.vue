@@ -45,9 +45,10 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import UserRepository from "@/helpers/axios/UserRepository";
-export default {
+export default defineComponent({
   data() {
     return {
       email: "",
@@ -56,7 +57,8 @@ export default {
   },
   // https://bap.udemy.com/course/vue-web-apps/learn/lecture/6825910#overview
   methods: {
-    onSubmit: async function (event) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onSubmit: async function (event: any) {
       event.preventDefault();
       const formPost = new UserRepository("auth/login");
       const dataPost = {
@@ -77,5 +79,5 @@ export default {
       this.password = "";
     },
   },
-};
+});
 </script>

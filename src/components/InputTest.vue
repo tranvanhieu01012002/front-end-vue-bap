@@ -6,9 +6,10 @@
   </div>
 </template>
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   emits: {
-    sendMsg: (msg) => {
+    sendMsg: (msg: string) => {
       if (msg) {
         return true;
       } else {
@@ -28,5 +29,5 @@ export default {
       this.$emit("sendMsg", this.message);
     },
   },
-};
+});
 </script>
