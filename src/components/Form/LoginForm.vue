@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit="(e) => onSubmit(e)" @reset="() => onReset()">
       <div class="row">
         <b-form-group
           class="col-6"
@@ -11,7 +11,7 @@
         >
           <b-form-input
             id="input-1"
-            v-model="form.email"
+            v-model="email"
             type="email"
             placeholder="Enter email"
             required
@@ -28,7 +28,7 @@
           <b-form-input
             type="password"
             id="input-2"
-            v-model="form.password"
+            v-model="password"
             placeholder="Enter password"
             required
           ></b-form-input>
@@ -40,37 +40,40 @@
       </div>
     </b-form>
     <div>
-      Your account: {{ form.email }} <br />
-      Your password: {{ form.password }}
+      Your account: {{ email }} <br />
+      Your password: {{ password }}
     </div>
   </div>
 </template>
-<script lang="ts">
-// import UserRepository from "../../helpers/axios/UserRepository";
-import {BaseRepository} from '@/helpers/axios/BaseRepository';
+<script>
+import UserRepository from "@/helpers/axios/UserRepository";
 export default {
   data() {
     return {
-      form: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
     };
   },
   methods: {
-    onSubmit: function (event: any) {
+    onSubmit: async function (event) {
       event.preventDefault();
-      console.log(this.form.email, this.form.password);
-      // this.$router.push({ path: "/" });
-      // const postForm = new UserRepository("auth");
-      // const a = postForm.login();
+      const formPost = new UserRepository("auth/login");
+      const dataPost = {
+        email: this.email,
+        password: this.password,
+      };
+      try {
+        const res = await formPost.login(dataPost);
+        localStorage.setItem("token", res.data.token);
+        this.$router.push({ path: "/" });
+      } catch (error) {
+        console.log(error);
+        alert("sai r cu ");
+      }
     },
-    onReset: function (event: any) {
-      this.resetData();
-    },
-    resetData: function () {
-      this.form.email = "";
-      this.form.password = "";
+    onReset: function () {
+      this.email = "";
+      this.password = "";
     },
   },
 };

@@ -1,12 +1,10 @@
 import axios from "axios";
 
 const http = axios.create();
-
-const baseURL = process.env.VUE_APP_BASE_URL || "http://localhost:8000";
-
 http.interceptors.request.use(
   function (config) {
-    config.baseURL = baseURL;
+    const token = localStorage.getItem("token");
+    config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
   },
   function (error) {

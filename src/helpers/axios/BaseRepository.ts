@@ -3,16 +3,25 @@ import http from ".";
 
 export default class BaseRepository {
   protected resource: string;
-
-  constructor(resource: string) {
+  protected baseURl: string =
+    process.env.VUE_APP_BASE_URL || "http://localhost:8000";
+  constructor(resource = "") {
     this.resource = resource;
   }
 
   async get(): Promise<AxiosResponse> {
-    return await http.get(this.resource);
+    return await http.get(this.setUpURL());
   }
 
   async post(object: object): Promise<AxiosResponse> {
-    return await http.post(this.resource, object);
+    return await http.post(this.setUpURL(), object);
+  }
+
+  protected setUpURL(): string {
+    return `${this.baseURl}/${this.resource}`;
+  }
+
+  public setResource(resource: string) {
+    this.resource = resource;
   }
 }
