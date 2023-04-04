@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
+import UserView from "../views/UserView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,6 +23,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "login",
     component: LoginView,
   },
+  {
+    path: "/users",
+    name: "users",
+    component: UserView,
+  },
 ];
 
 const router = createRouter({
@@ -29,4 +35,4 @@ const router = createRouter({
   routes,
 });
 
-export default router;
+export { router, routes };
