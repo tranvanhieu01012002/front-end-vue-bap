@@ -1,12 +1,12 @@
 <template>
   <div>
     <p>Hello</p>
-    <input v-model="message" placeholder="enter, please" />
+    <input ref="input" v-model="message" placeholder="enter, please" />
     <button @click="send">Send msg to pattern</button>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, HTMLAttributes } from "vue";
 export default defineComponent({
   emits: {
     sendMsg: (msg: string) => {
@@ -19,6 +19,14 @@ export default defineComponent({
     },
   },
   name: "InputTest",
+  watch: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    message(newMessage: string, oldMessage: string): void {
+      if (newMessage.includes(":)")) {
+        console.log("mat cuoi cc a");
+      }
+    },
+  },
   data() {
     return {
       message: "hello ah zai",
@@ -27,6 +35,7 @@ export default defineComponent({
   methods: {
     send: function () {
       this.$emit("sendMsg", this.message);
+      (this.$refs.input as HTMLInputElement).focus();
     },
   },
 });
