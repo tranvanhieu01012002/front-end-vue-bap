@@ -9,5 +9,9 @@ class UserRepository extends BaseRepository {
     this.setResource("profile");
     return await this.get();
   }
+  async getAllUser() {
+    this.setResource("users");
+    return await this.get();
+  }
 }
 export default UserRepository;
