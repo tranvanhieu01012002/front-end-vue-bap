@@ -1,38 +1,34 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Hello sir. {{ name }}</h2>
+    <h2>Hello sir. {{ user }}</h2>
   </div>
 </template>
 
 <script lang="ts">
-import UserRepository from "@/helpers/axios/UserRepository";
 import { defineComponent } from "vue";
+import { mapState } from "pinia";
+import { useUserStore } from "@/store/userStore";
+import { useAuthStore } from "@/store/authStore";
 
 export default defineComponent({
   name: "HelloWorld",
   props: {
     msg: String,
   },
-  data() {
-    return {
-      name: "",
-    };
-  },
   created() {
-    this.getProfile();
+    this.checkLogin();
   },
   methods: {
-    async getProfile() {
-      const user = new UserRepository();
-      try {
-        const { data } = await user.profile();
-        console.log("call api...");
-        this.name = data.name;
-      } catch (error) {
+    checkLogin() {
+      if (!this.isLogin) {
         this.$router.push({ path: "/login" });
       }
     },
+  },
+  computed: {
+    ...mapState(useUserStore, { user: "getUsername" }),
+    ...mapState(useAuthStore, { isLogin: "isLogin" }),
   },
 });
 </script>

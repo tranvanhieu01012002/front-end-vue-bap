@@ -42,12 +42,17 @@
     <div>
       Your account: {{ email }} <br />
       Your password: {{ password }}
+      {{ statusLogin }}
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState, mapActions } from "pinia";
+import { useAuthStore } from "@/store/authStore";
+import { useUserStore } from "@/store/userStore";
 import UserRepository from "@/helpers/axios/UserRepository";
+
 export default defineComponent({
   data() {
     return {
@@ -55,7 +60,6 @@ export default defineComponent({
       password: "",
     };
   },
-  // https://bap.udemy.com/course/vue-web-apps/learn/lecture/6825910#overview
   methods: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSubmit: async function (event: any) {
@@ -67,8 +71,14 @@ export default defineComponent({
       };
       try {
         const res = await formPost.login(dataPost);
+
         localStorage.setItem("token", res.data.token);
-        this.$router.push({ path: "/" });
+        this.setLogin(!this.statusLogin);
+        const user = new UserRepository();
+        const { data } = await user.profile();
+        this.updateUser(data);
+        console.log("call api...");
+        return this.$router.push({ path: "/" });
       } catch (error) {
         console.log(error);
         alert("sai r cu ");
@@ -78,6 +88,11 @@ export default defineComponent({
       this.email = "";
       this.password = "";
     },
+    ...mapActions(useAuthStore, { setLogin: "setIsLogin" }),
+    ...mapActions(useUserStore, { updateUser: "updateUser" }),
+  },
+  computed: {
+    ...mapState(useAuthStore, { statusLogin: "isLogin" }),
   },
 });
 </script>
