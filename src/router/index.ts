@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import UserView from "../views/UserView.vue";
 import AboutView from "../views/AboutView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 import Auth from "@/helpers/auth";
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,6 +37,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    path: "/not",
+    name: "notfound",
+    component: NotFoundView,
+    meta: { requiresAuth: false },
   },
 ];
 
