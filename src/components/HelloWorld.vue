@@ -7,28 +7,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useUserStore } from "@/store/userStore";
-import { useAuthStore } from "@/store/authStore";
-
+import UserRepository from "@/helpers/axios/UserRepository";
 export default defineComponent({
   name: "HelloWorld",
   props: {
     msg: String,
   },
-  created() {
-    this.checkLogin();
-  },
-  methods: {
-    checkLogin() {
-      if (!this.isLogin) {
-        this.$router.push({ path: "/login" });
-      }
-    },
-  },
   computed: {
     ...mapState(useUserStore, { user: "getUsername" }),
-    ...mapState(useAuthStore, { isLogin: "isLogin" }),
+  },
+  methods: {
+    ...mapActions(useUserStore, ["updateUser"]),
+    async getUserInfo() {
+      const user = new UserRepository();
+      const { data } = await user.profile();
+      this.updateUser(data);
+      console.log("call api...");
+    },
+  },
+  created() {
+    this.user ?? this.getUserInfo();
   },
 });
 </script>

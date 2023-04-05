@@ -12,11 +12,13 @@ http.interceptors.request.use(
   }
 );
 
-http.interceptors.response.use((config) => {
-  if (config.status === 401) {
-    console.log("Error auth");
+http.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
 export default http;

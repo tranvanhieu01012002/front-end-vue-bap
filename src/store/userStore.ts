@@ -8,7 +8,7 @@ export const useUserStore = defineStore("UserStore", {
     };
   },
   getters: {
-    getUsername(): string {
+    getUsername(): string | null {
       return this.user.email;
     },
   },

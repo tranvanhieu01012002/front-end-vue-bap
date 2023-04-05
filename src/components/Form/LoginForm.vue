@@ -71,13 +71,8 @@ export default defineComponent({
       };
       try {
         const res = await formPost.login(dataPost);
-
         localStorage.setItem("token", res.data.token);
         this.setLogin(!this.statusLogin);
-        const user = new UserRepository();
-        const { data } = await user.profile();
-        this.updateUser(data);
-        console.log("call api...");
         return this.$router.push({ path: "/" });
       } catch (error) {
         console.log(error);
