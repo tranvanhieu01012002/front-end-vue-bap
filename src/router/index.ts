@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import UserView from "../views/UserView.vue";
 import AboutView from "../views/AboutView.vue";
+import DetailUserView from "../views/DetailUserView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import Auth from "@/helpers/auth";
 import nProgress from "nprogress";
@@ -38,6 +39,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    path: "/users/:id",
+    name: "user detail",
+    component: DetailUserView,
+    meta: {
+      requiresAuth: true,
+    },
+    props: true,
   },
   {
     path: "/:catchAll(.*)",

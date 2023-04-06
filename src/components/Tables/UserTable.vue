@@ -7,6 +7,7 @@
       hover
       :items="users"
       :fields="fields"
+      @row-clicked="(item, index, event) => onRowClicked(item, index)"
     ></b-table>
     <b-pagination
       v-model="currentPage"
@@ -65,8 +66,11 @@ export default defineComponent({
         this.$router.push({ path: "/login" });
       }
     },
+    onRowClicked(item: UserInfo, index: number): void {
+      this.$router.push({ name: "user detail", params: { id: item.id } });
+    },
   },
-  created() {
+  mounted() {
     this.getUsers(this.currentPage);
   },
   // updated() {
