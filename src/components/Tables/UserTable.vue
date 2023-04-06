@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p>Current page is: {{ currentPage }}</p>
     <b-table
       sort-by="name"
       striped
@@ -19,11 +20,10 @@ import { defineComponent } from "vue";
 import UserRepository from "@/helpers/axios/UserRepository";
 import BootstrapTableField from "@/interfaces/BootstrapTableField";
 import UserInfo from "@/interfaces/UserInfo";
-
 export default defineComponent({
   data() {
     return {
-      currentPage: 0,
+      currentPage: 1,
       perPage: 0,
       rows: 0,
       fields: [
@@ -41,13 +41,20 @@ export default defineComponent({
         },
       ] as BootstrapTableField[],
       users: [] as UserInfo[],
+      userRepository: new UserRepository("users"),
     };
   },
+  watch: {
+    currentPage: {
+      handler(newPage) {
+        this.getUsers(newPage);
+      },
+    },
+  },
   methods: {
-    async getUsers(): Promise<void> {
-      const userRepository = new UserRepository();
+    async getUsers(page: number): Promise<void> {
       try {
-        const { data } = await userRepository.getAllUser();
+        const { data } = await this.userRepository.getAtPage(page);
         this.users = data.data;
         this.currentPage = data.current_page;
         this.perPage = data.per_page;
@@ -59,7 +66,10 @@ export default defineComponent({
     },
   },
   created() {
-    this.getUsers();
+    this.getUsers(this.currentPage);
   },
+  // updated() {
+  //   console.log(this.currentPage);
+  // },
 });
 </script>

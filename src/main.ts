@@ -6,7 +6,7 @@ import store from "./store";
 import { createPinia } from "pinia";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
-
+import "nprogress/nprogress.css";
 const pinia = createPinia();
 
 createApp(App)

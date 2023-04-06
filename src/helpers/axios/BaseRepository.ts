@@ -7,6 +7,7 @@ export default class BaseRepository {
     process.env.VUE_APP_BASE_URL || "http://localhost:8000";
   constructor(resource = "") {
     this.resource = resource;
+    console.log("khoi tao instant ne");
   }
 
   async get(): Promise<AxiosResponse> {
@@ -23,5 +24,9 @@ export default class BaseRepository {
 
   public setResource(resource: string) {
     this.resource = resource;
+  }
+
+  async getAtPage(page: number): Promise<AxiosResponse> {
+    return await http.get(`${this.setUpURL()}?page=${page}`);
   }
 }

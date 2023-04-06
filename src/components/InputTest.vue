@@ -13,7 +13,7 @@ export default defineComponent({
       if (msg) {
         return true;
       } else {
-        console.warn("dang loi kia");
+        console.log("dang loi kia");
         return false;
       }
     },
