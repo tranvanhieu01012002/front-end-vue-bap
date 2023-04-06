@@ -59,6 +59,7 @@ export default defineComponent({
         this.currentPage = data.current_page;
         this.perPage = data.per_page;
         this.rows = data.total;
+        this.$router.push({ query: { page } });
       } catch (error: any) {
         console.log(error.response.status);
         this.$router.push({ path: "/login" });

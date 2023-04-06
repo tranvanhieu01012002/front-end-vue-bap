@@ -5,6 +5,7 @@ import UserView from "../views/UserView.vue";
 import AboutView from "../views/AboutView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import Auth from "@/helpers/auth";
+import nProgress from "nprogress";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -53,6 +54,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   console.log("chuan bi move ne");
+  nProgress.start();
   const auth = new Auth();
   auth.isLogin;
   if (to.meta.requiresAuth && !auth.isLogin)
@@ -61,6 +63,9 @@ router.beforeEach((to, from, next) => {
       query: { redirect: to.fullPath },
     });
   else next();
+});
+router.afterEach(() => {
+  nProgress.done();
 });
 
 export { router, routes };
