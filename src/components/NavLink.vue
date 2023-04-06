@@ -1,14 +1,10 @@
 <template>
   <nav>
-    <template v-for="(link, index) in links" :key="index">
-      <template v-if="index < links.length - 1">
-        <router-link :to="link.path">{{ link.name }}</router-link
-        >|
-      </template>
-      <template v-else>
-        <router-link :to="link.path">{{ link.name }}</router-link>
-      </template>
-    </template>
+    <b-nav tabs>
+      <b-nav-item v-for="(link, index) in links" :key="index" :to="link.path">{{
+        link.name
+      }}</b-nav-item>
+    </b-nav>
   </nav>
   <router-view />
 </template>
@@ -16,6 +12,8 @@
 import { routes } from "../router";
 export default {
   data() {
+    routes.splice(-1, 1);
+    console.log(routes);
     return {
       links: routes,
     };

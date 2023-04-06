@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/not",
+    path: "/:catchAll(.*)",
     name: "notfound",
     component: NotFoundView,
     meta: { requiresAuth: false },
