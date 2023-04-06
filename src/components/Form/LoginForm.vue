@@ -39,6 +39,7 @@
         <b-button type="reset" class="m-2" variant="danger">Reset</b-button>
       </div>
     </b-form>
+    <login-by-google />
     <div>
       Your account: {{ email }} <br />
       Your password: {{ password }}
@@ -52,13 +53,16 @@ import { mapState, mapActions } from "pinia";
 import { useAuthStore } from "@/store/authStore";
 import { useUserStore } from "@/store/userStore";
 import UserRepository from "@/helpers/axios/UserRepository";
-
+import LoginByGoogle from "../LoginByGoogle.vue";
 export default defineComponent({
   data() {
     return {
       email: "",
       password: "",
     };
+  },
+  components: {
+    LoginByGoogle,
   },
   methods: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
