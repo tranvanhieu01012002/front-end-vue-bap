@@ -1,19 +1,22 @@
 <template>
-  <button class="btn btn-primary">Login by Google</button>
-  <GoogleLogin :callback="callback" prompt auto-login />
-  <button @click="logout" class="btn btn-success">logout</button>
+  <button class="btn btn-primary" @click="login">Login Using Google</button>
 </template>
 <script setup lang="ts">
-import { googleLogout } from "vue3-google-login";
+import { googleTokenLogin } from "vue3-google-login";
+import UserRepository from "@/helpers/axios/UserRepository";
+import { useRouter } from "vue-router";
 
-const callback = (response: any) => {
-  // This callback will be triggered when the user selects or login to
-  // his Google account from the popup
-  console.log("Handle the response", response);
-};
+const router = useRouter();
 
-const logout = (): void => {
-  googleLogout();
-  alert("logout");
+const login = async () => {
+  try {
+    const { access_token } = await googleTokenLogin();
+    const userRepository = new UserRepository();
+    const response = await userRepository.loginByGoogle(access_token);
+    localStorage.setItem("token", response.data.token);
+    return router.push({ path: "/" });
+  } catch (error) {
+    console.log("oh err", error);
+  }
 };
 </script>

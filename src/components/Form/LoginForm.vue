@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <b-form @submit="(e) => onSubmit(e)" @reset="() => onReset()">
-      <div class="row">
+  <div>
+    <div class="d-flex justify-content-center">
+      <b-form class="row" @submit="(e) => onSubmit(e)" @reset="() => onReset()">
         <b-form-group
           class="col-6"
           id="input-group-1"
@@ -17,8 +17,6 @@
             required
           ></b-form-input>
         </b-form-group>
-      </div>
-      <div class="row">
         <b-form-group
           class="col-6"
           id="input-group-2"
@@ -33,13 +31,17 @@
             required
           ></b-form-input>
         </b-form-group>
-      </div>
-      <div>
-        <b-button type="submit" class="m-2" variant="primary">Submit</b-button>
-        <b-button type="reset" class="m-2" variant="danger">Reset</b-button>
-      </div>
-    </b-form>
-    <login-by-google />
+        <div class="d-flex justify-content-between">
+          <login-by-google class="m-2 col-3" />
+          <b-button type="submit" class="m-2 col-3" variant="success"
+            >Submit</b-button
+          >
+          <b-button type="reset" class="m-2 col-3" variant="danger"
+            >Reset</b-button
+          >
+        </div>
+      </b-form>
+    </div>
     <div>
       Your account: {{ email }} <br />
       Your password: {{ password }}
