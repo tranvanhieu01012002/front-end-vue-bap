@@ -5,6 +5,7 @@ import UserView from "../views/UserView.vue";
 import AboutView from "../views/AboutView.vue";
 import DetailUserView from "../views/DetailUserView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import RoomView from "../views/RoomView.vue";
 import Auth from "@/helpers/auth";
 import nProgress from "nprogress";
 const routes: Array<RouteRecordRaw> = [
@@ -50,6 +51,15 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
+    path: "/rooms/:id",
+    name: "room",
+    component: RoomView,
+    meta: {
+      requiresAuth: true,
+    },
+    props: true,
+  },
+  {
     path: "/:catchAll(.*)",
     name: "notfound",
     component: NotFoundView,
@@ -63,7 +73,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("chuan bi move ne");
   nProgress.start();
   const auth = new Auth();
   auth.isLogin;
