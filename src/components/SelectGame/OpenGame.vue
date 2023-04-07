@@ -8,13 +8,11 @@
     </div>
   </div>
   <DefaultModal @hidden-modal="toggleModal" :is-opened-modal="modalShow">
-    <GameIDForm />
   </DefaultModal>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import DefaultModal from "../Modal/DefaultModal.vue";
-import GameIDForm from "../Form/GameIDForm.vue";
 
 export default defineComponent({
   data() {
@@ -25,7 +23,6 @@ export default defineComponent({
   },
   components: {
     DefaultModal,
-    GameIDForm,
   },
   methods: {
     toggleModal: function (model: boolean) {

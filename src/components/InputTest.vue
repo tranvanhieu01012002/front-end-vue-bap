@@ -6,7 +6,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, HTMLAttributes } from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
   emits: {
     sendMsg: (msg: string) => {
