@@ -11,6 +11,35 @@ import vue3GoogleLogin from "vue3-google-login";
 
 const pinia = createPinia();
 
+import Echo from "laravel-echo";
+
+// window.Pusher = require("pusher-js");
+
+// window.Echo = new Echo({
+//   broadcaster: "pusher",
+//   key: process.env.VUE_APP_WEBSOCKET_KEY,
+//   wsHost: process.env.VUE_APP_WEBSOCKET_SERVER,
+//   wsPort: 6001,
+//   forceTLS: false,
+//   disableStats: true,
+//   cluster: "eu",
+// });
+
+const token = localStorage.getItem("token");
+console.log(token);
+window.Echo = new Echo({
+  auth: {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  },
+  broadcaster: "socket.io",
+  host: window.location.hostname + ":6001",
+  forceTLS: false,
+  disableStats: true,
+  cluster: "eu",
+});
+
 createApp(App)
   .use(BootstrapVue3)
   .use(vue3GoogleLogin, {

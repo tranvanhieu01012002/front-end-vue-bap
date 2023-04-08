@@ -82,7 +82,6 @@ export default defineComponent({
         return this.$router.push({ path: "/" });
       } catch (error) {
         console.log(error);
-        alert("sai r cu ");
       }
     },
     onReset: function () {

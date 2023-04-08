@@ -19,7 +19,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
-      image: Math.floor(Math.random() * 9) + 1,
+      image: Math.floor(Math.random() * 8) + 1,
     };
   },
 });
