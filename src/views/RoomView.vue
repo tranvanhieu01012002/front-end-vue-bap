@@ -17,7 +17,7 @@ import UserInfoVue from "../components/User/UserInfoVue.vue";
 export default defineComponent({
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

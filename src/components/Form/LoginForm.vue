@@ -32,7 +32,7 @@
           ></b-form-input>
         </b-form-group>
         <div class="d-flex justify-content-between">
-          <login-by-google class="m-2 col-3" />
+          <login-by-google type="button" class="m-2 col-3" />
           <b-button type="submit" class="m-2 col-3" variant="success"
             >Submit</b-button
           >
@@ -69,6 +69,7 @@ export default defineComponent({
   methods: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSubmit: async function (event: any) {
+      console.log("vai goi o day luon a");
       event.preventDefault();
       const formPost = new UserRepository("auth/login");
       const dataPost = {

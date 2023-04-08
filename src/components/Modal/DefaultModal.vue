@@ -15,6 +15,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import RoomRepository from "@/helpers/axios/RoomRepository";
+import { AxiosError } from "axios";
 export default defineComponent({
   props: {
     isOpenedModal: {
@@ -48,9 +50,30 @@ export default defineComponent({
       }
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    submit: function (e: any) {
-      if (!this.checkForm()) e.preventDefault();
-      else this.error = "";
+    submit: async function (e: any) {
+      if (this.checkForm()) {
+        this.error = "";
+        await this.getRoom();
+      } else {
+        e.preventDefault();
+      }
+    },
+
+    getRoom: async function () {
+      const roomRepo = new RoomRepository();
+      try {
+        const { data } = await roomRepo.openRoom(parseInt(this.room));
+        console.log(data);
+        this.$router.push({
+          name: "room",
+          params: {
+            id: data.data,
+          },
+        });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        this.$swal(`oh ${error.response.data.data}`);
+      }
     },
   },
 });

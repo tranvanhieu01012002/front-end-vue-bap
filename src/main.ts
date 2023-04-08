@@ -8,10 +8,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import "nprogress/nprogress.css";
 import vue3GoogleLogin from "vue3-google-login";
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
+// import Echo from "laravel-echo";
 const pinia = createPinia();
-
-import Echo from "laravel-echo";
 
 // window.Pusher = require("pusher-js");
 
@@ -25,26 +26,26 @@ import Echo from "laravel-echo";
 //   cluster: "eu",
 // });
 
-const token = localStorage.getItem("token");
-console.log(token);
-window.Echo = new Echo({
-  auth: {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  },
-  broadcaster: "socket.io",
-  host: window.location.hostname + ":6001",
-  forceTLS: false,
-  disableStats: true,
-  cluster: "eu",
-});
+// const token = localStorage.getItem("token");
+// window.Echo = new Echo({
+//   auth: {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   },
+//   broadcaster: "socket.io",
+//   host: window.location.hostname + ":6001",
+//   forceTLS: false,
+//   disableStats: true,
+//   cluster: "eu",
+// });
 
 createApp(App)
   .use(BootstrapVue3)
   .use(vue3GoogleLogin, {
     clientId: process.env.VUE_APP_GOOGLE_CLIENT || "ahihi do ngok",
   })
+  .use(VueSweetalert2)
   .use(store)
   .use(pinia)
   .use(router)

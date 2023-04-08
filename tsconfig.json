@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noImplicitThis": false,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -14,7 +15,8 @@
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./src/interfaces"],
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "vue-sweetalert2"
     ],
     "paths": {
       "@/*": [
