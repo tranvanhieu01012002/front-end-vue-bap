@@ -3,18 +3,22 @@
 <template>
   <div>
     <h1>Welcome to room: {{ id }}</h1>
-    users{{ users.length }}
+    <div class="alert alert-primary" role="alert">
+      Current User:
+      <spam class="btn btn-success">{{ users.length }}</spam>
+    </div>
+    <CycleLoader />
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
-    <button class="btn btn-success" v-on:click="warn">add new</button>
   </div>
 </template>
 <script lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
+import Echo from "laravel-echo";
 import { defineComponent } from "vue";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
-import Echo from "laravel-echo";
+import CycleLoader from "@/components/Loader/CycleLoader.vue";
 export default defineComponent({
   props: {
     id: {
@@ -40,18 +44,14 @@ export default defineComponent({
   },
   data() {
     return {
-      users: [{ name: "hieu dz", email: "hieu@gmail.com" }] as UserInfo[],
+      users: [] as UserInfo[],
     };
   },
   components: {
     UserInfoVue,
+    CycleLoader,
   },
-  methods: {
-    warn() {
-      this.users.push({ name: "hieu dz", email: "hieu@gmail.com", id: "111" });
-    },
-  },
-  created() {
+  mounted() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // window.Echo.private("room.1").listen("SendMessage", (e: any) => {
     //   // https://viblo.asia/p/lam-the-nao-de-su-dung-laravel-voi-socketio-Ljy5VWVoKra
@@ -59,13 +59,17 @@ export default defineComponent({
     //   console.log("call dc r ne");
     // });
     window.Echo.join(`room.1`)
-      .here((users: any) => {
-        console.log(users);
+      .here((users: UserInfo[]) => {
+        this.users = users;
       })
-      .joining((user: any) => {
+      .joining((user: UserInfo) => {
+        this.users.push(user);
         console.log(user, "joining...");
       })
-      .leaving((user: any) => {
+      .leaving((user: UserInfo) => {
+        this.users = this.users.filter(
+          (userInRoom) => !(userInRoom.id === user.id)
+        );
         console.log(user, "leaving");
       })
       .error((error: any) => {
