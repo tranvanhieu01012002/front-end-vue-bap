@@ -9,9 +9,6 @@
           </li>
         </ul>
       </div>
-      <button v-on:click="btnCheck" type="button" class="btn btn-success">
-        hello
-      </button>
       <b-form-input id="name-input" v-model="room"></b-form-input>
     </b-form-group>
   </b-modal>
@@ -40,9 +37,6 @@ export default defineComponent({
     },
   },
   methods: {
-    btnCheck() {
-      console.log(2);
-    },
     hiddenModal: function () {
       this.$emit("hiddenModal", !this.isOpenedModal);
     },

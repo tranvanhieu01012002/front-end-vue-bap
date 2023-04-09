@@ -69,7 +69,6 @@ export default defineComponent({
   methods: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSubmit: async function (event: any) {
-      console.log("vai goi o day luon a");
       event.preventDefault();
       const formPost = new UserRepository("auth/login");
       const dataPost = {

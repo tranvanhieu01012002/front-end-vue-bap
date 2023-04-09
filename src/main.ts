@@ -8,7 +8,7 @@ import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import "nprogress/nprogress.css";
 import vue3GoogleLogin from "vue3-google-login";
 
-import Echo from "laravel-echo";
+// import Echo from "laravel-echo";
 const pinia = createPinia();
 
 // window.Pusher = require("pusher-js");
@@ -22,20 +22,21 @@ const pinia = createPinia();
 //   disableStats: true,
 //   cluster: "eu",
 // });
+// import Echo from "laravel-echo";
 
-const token = localStorage.getItem("token");
-window.Echo = new Echo({
-  auth: {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  },
-  broadcaster: "socket.io",
-  host: window.location.hostname + ":6001",
-  forceTLS: false,
-  disableStats: true,
-  cluster: "eu",
-});
+// const token = localStorage.getItem("token");
+// window.Echo = new Echo({
+//   auth: {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   },
+//   broadcaster: "socket.io",
+//   host: window.location.hostname + ":6001",
+//   forceTLS: false,
+//   disableStats: true,
+//   cluster: "eu",
+// });
 
 createApp(App)
   .use(BootstrapVue3)

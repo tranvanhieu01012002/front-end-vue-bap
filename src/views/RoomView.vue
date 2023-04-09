@@ -14,12 +14,29 @@
 import UserInfo from "@/interfaces/UserInfo";
 import { defineComponent } from "vue";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
+import Echo from "laravel-echo";
 export default defineComponent({
   props: {
     id: {
       type: String,
       required: true,
     },
+  },
+  beforeCreate() {
+    console.log("start Echo");
+    const token = localStorage.getItem("token");
+    window.Echo = new Echo({
+      auth: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+      broadcaster: "socket.io",
+      host: window.location.hostname + ":6001",
+      forceTLS: false,
+      disableStats: true,
+      cluster: "eu",
+    });
   },
   data() {
     return {
@@ -49,7 +66,7 @@ export default defineComponent({
         console.log(user, "joining...");
       })
       .leaving((user: any) => {
-        console.log(user.name, "leaving");
+        console.log(user, "leaving");
       })
       .error((error: any) => {
         console.error(error);
