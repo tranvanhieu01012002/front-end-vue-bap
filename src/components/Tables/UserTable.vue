@@ -7,7 +7,7 @@
       hover
       :items="users"
       :fields="fields"
-      @row-clicked="(item, index, event) => onRowClicked(item, index)"
+      @row-clicked="(item, index, event) => onRowClicked(item)"
     ></b-table>
     <b-pagination
       v-model="currentPage"
@@ -61,12 +61,13 @@ export default defineComponent({
         this.perPage = data.per_page;
         this.rows = data.total;
         this.$router.push({ query: { page } });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.log(error.response.status);
         this.$router.push({ path: "/login" });
       }
     },
-    onRowClicked(item: UserInfo, index: number): void {
+    onRowClicked(item: UserInfo): void {
       this.$router.push({ name: "user detail", params: { id: item.id } });
     },
   },

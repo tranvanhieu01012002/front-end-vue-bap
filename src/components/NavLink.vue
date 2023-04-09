@@ -13,7 +13,6 @@ import { routes } from "../router";
 export default {
   data() {
     routes.splice(-3, 3);
-    console.log(routes);
     return {
       links: routes,
     };

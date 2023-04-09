@@ -18,7 +18,6 @@ export default defineComponent({
     OpenGame,
   },
   mounted() {
-    console.log(2);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // window.Echo.channel("channel").listen("SendMessage", (e: any) => {
     //   // https://viblo.asia/p/lam-the-nao-de-su-dung-laravel-voi-socketio-Ljy5VWVoKra

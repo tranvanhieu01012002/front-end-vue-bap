@@ -22,12 +22,26 @@ export default defineComponent({
       image: Math.floor(Math.random() * 8) + 1,
     };
   },
+  methods: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    warn: function (message: string, event: any) {
+      console.log(22);
+      // now we have access to the native event
+      if (event) {
+        event.preventDefault();
+      }
+      alert(message);
+    },
+  },
 });
 </script>
 <style scoped>
 .profile-nav,
 .profile-info {
   margin-top: 30px;
+  animation-name: example;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
 }
 
 .profile-nav .user-heading {
@@ -101,5 +115,16 @@ export default defineComponent({
   font-size: 16px;
   padding-right: 10px;
   color: #bcb3aa;
+}
+
+@keyframes example {
+  from {
+    top: 500px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
 }
 </style>

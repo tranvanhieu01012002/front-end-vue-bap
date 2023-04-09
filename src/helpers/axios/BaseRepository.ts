@@ -7,7 +7,6 @@ export default class BaseRepository {
     process.env.VUE_APP_BASE_URL || "http://localhost:8000";
   constructor(resource = "") {
     this.resource = resource;
-    console.log("khoi tao instant ne");
   }
 
   async get(): Promise<AxiosResponse> {

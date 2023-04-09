@@ -9,6 +9,9 @@
           </li>
         </ul>
       </div>
+      <button v-on:click="btnCheck" type="button" class="btn btn-success">
+        hello
+      </button>
       <b-form-input id="name-input" v-model="room"></b-form-input>
     </b-form-group>
   </b-modal>
@@ -16,7 +19,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import RoomRepository from "@/helpers/axios/RoomRepository";
-import { AxiosError } from "axios";
 export default defineComponent({
   props: {
     isOpenedModal: {
@@ -38,6 +40,9 @@ export default defineComponent({
     },
   },
   methods: {
+    btnCheck() {
+      console.log(2);
+    },
     hiddenModal: function () {
       this.$emit("hiddenModal", !this.isOpenedModal);
     },
@@ -51,6 +56,7 @@ export default defineComponent({
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     submit: async function (e: any) {
+      console.log(222);
       if (this.checkForm()) {
         this.error = "";
         await this.getRoom();
@@ -72,7 +78,8 @@ export default defineComponent({
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        this.$swal(`oh ${error.response.data.data}`);
+        // this.$swal(`oh ${error.response.data.data}`);
+        alert(`oh ${error.response.data.data}`);
       }
     },
   },

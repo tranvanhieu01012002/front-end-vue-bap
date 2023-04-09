@@ -24,7 +24,6 @@ export default defineComponent({
       const user = new UserRepository();
       const { data } = await user.profile();
       this.updateUser(data);
-      console.log("call api...");
     },
   },
   created() {
