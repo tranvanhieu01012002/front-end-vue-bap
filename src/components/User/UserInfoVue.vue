@@ -8,30 +8,26 @@
             alt=""
           />
         </a>
-        <h1>Camila Smith</h1>
-        <p>deydey@theEmail.com</p>
+        <h1>{{ user.name }}</h1>
+        <p>{{ user.email }}</p>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import type UserInfo from "@/interfaces/UserInfo";
+import { defineComponent, PropType } from "vue";
 export default defineComponent({
+  props: {
+    user: {
+      type: Object as PropType<UserInfo>,
+      required: true,
+    },
+  },
   data() {
     return {
       image: Math.floor(Math.random() * 8) + 1,
     };
-  },
-  methods: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    warn: function (message: string, event: any) {
-      console.log(22);
-      // now we have access to the native event
-      if (event) {
-        event.preventDefault();
-      }
-      alert(message);
-    },
   },
 });
 </script>
