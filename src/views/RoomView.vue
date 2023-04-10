@@ -10,15 +10,15 @@
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
+    <button v-show="roomOwner" class="btn btn-warning">start</button>
   </div>
 </template>
 <script lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
 import Echo from "laravel-echo";
 import { defineComponent } from "vue";
-import { mapActions } from "pinia";
-import { useQuestionStore } from "@/store/questionStore";
-// import { laravelEcho } from "@/mixins";
+import { mapActions, mapState } from "pinia";
+import { useQuestionStore, useUserStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
 export default defineComponent({
@@ -28,10 +28,12 @@ export default defineComponent({
       required: true,
     },
   },
-  // mixins: [laravelEcho],
   components: {
     UserInfoVue,
     CycleLoader,
+  },
+  computed: {
+    ...mapState(useUserStore, ["roomOwner"]),
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
@@ -63,7 +65,7 @@ export default defineComponent({
     //   this.users.push({ name: "hieu dz", email: "hieu@gmail.com", id: "111" });
     //   console.log("call dc r ne");
     // });
-    window.Echo.join(`room.1`)
+    window.Echo.join(`room.${this.id}`)
       .here((users: UserInfo[]) => {
         this.users = users;
       })

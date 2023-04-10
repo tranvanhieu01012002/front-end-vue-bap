@@ -6,4 +6,8 @@ export default class RoomRepository extends BaseRepository {
     this.setResource(`rooms/${room}`);
     return await this.get();
   }
+  async createRoom(): Promise<AxiosResponse> {
+    this.setResource(`rooms/create`);
+    return await this.get();
+  }
 }

@@ -2,8 +2,13 @@
   <div class="col-md-6 offset-md-3 mt-5 text-center">
     <div class="card">
       <div class="card-header">Start game</div>
-      <div class="card-body">
-        <b-button @click="toggleModal(!modalShow)">Play game</b-button>
+      <div class="card-body d-flex flex-column">
+        <b-button class="m-2" @click="toggleModal(!modalShow)"
+          >Play game</b-button
+        >
+        <button @click="createRoom" class="btn btn-success m-2">
+          Make new room
+        </button>
       </div>
     </div>
   </div>
@@ -12,8 +17,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import RoomService from "@/services/roomService";
 import DefaultModal from "../Modal/DefaultModal.vue";
-
+import { mapActions } from "pinia";
+import { useUserStore } from "@/store/userStore";
 export default defineComponent({
   data() {
     return {
@@ -28,6 +35,11 @@ export default defineComponent({
     toggleModal: function (model: boolean) {
       this.modalShow = model;
     },
+    createRoom: async function () {
+      this.setRoomOwner();
+      await new RoomService().createRoom();
+    },
+    ...mapActions(useUserStore, ["setRoomOwner"]),
   },
 });
 </script>

@@ -75,7 +75,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   nProgress.start();
   const auth = new Auth();
-  auth.isLogin;
   if (to.meta.requiresAuth && !auth.isLogin)
     return next({
       path: "/login",

@@ -5,6 +5,7 @@ export const useUserStore = defineStore("userStore", {
   state: () => {
     return {
       user: {} as UserInfo,
+      roomOwner: false,
     };
   },
   getters: {
@@ -15,6 +16,9 @@ export const useUserStore = defineStore("userStore", {
   actions: {
     updateUser(user: UserInfo) {
       this.user = user;
+    },
+    setRoomOwner() {
+      this.roomOwner = true;
     },
   },
 });
