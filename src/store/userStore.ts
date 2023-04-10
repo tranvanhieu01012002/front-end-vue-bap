@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type UserInfo from "@/interfaces/UserInfo";
 
-export const useUserStore = defineStore("UserStore", {
+export const useUserStore = defineStore("userStore", {
   state: () => {
     return {
       user: {} as UserInfo,
