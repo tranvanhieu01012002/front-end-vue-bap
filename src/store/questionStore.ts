@@ -1,17 +1,19 @@
 import { defineStore } from "pinia";
 import listAnswers from "./listAnswers";
-import AnswerInterface from "@/interfaces/AnswerInterface";
+import QuestionRepository from "@/helpers/axios/QuestionRepository";
+import Question from "@/interfaces/Question";
 
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
-      isAnswered: false,
-      answers: listAnswers,
       totalTime: 10, //s
       timeBar: 100, //%
       step: 0.1,
       timeEachStep: 100, //ms
       choseAnswer: -1,
+      isAnswered: false,
+      answers: listAnswers,
+      questions: [] as Question[],
     };
   },
   getters: {},
@@ -19,8 +21,11 @@ export const useQuestionStore = defineStore("questionStore", {
     updateIsAnswered(): void {
       this.isAnswered = !this.isAnswered;
     },
-    updateAnswers(answers: Array<AnswerInterface>): void {
-      this.answers = answers;
+    async getQuestion(): Promise<void> {
+      const questionRepo = new QuestionRepository();
+      const { data } = await questionRepo.getQuestion(1);
+      console.log(data);
+      this.questions = data.data;
     },
   },
 });

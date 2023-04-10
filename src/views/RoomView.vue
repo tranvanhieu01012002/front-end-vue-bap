@@ -1,5 +1,4 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
-<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <template>
   <div>
     <h1>Welcome to room: {{ id }}</h1>
@@ -17,6 +16,9 @@
 import UserInfo from "@/interfaces/UserInfo";
 import Echo from "laravel-echo";
 import { defineComponent } from "vue";
+import { mapActions } from "pinia";
+import { useQuestionStore } from "@/store/questionStore";
+// import { laravelEcho } from "@/mixins";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
 export default defineComponent({
@@ -25,6 +27,19 @@ export default defineComponent({
       type: String,
       required: true,
     },
+  },
+  // mixins: [laravelEcho],
+  components: {
+    UserInfoVue,
+    CycleLoader,
+  },
+  methods: {
+    ...mapActions(useQuestionStore, ["getQuestion"]),
+  },
+  data() {
+    return {
+      users: [] as UserInfo[],
+    };
   },
   beforeCreate() {
     console.log("start Echo");
@@ -42,17 +57,7 @@ export default defineComponent({
       cluster: "eu",
     });
   },
-  data() {
-    return {
-      users: [] as UserInfo[],
-    };
-  },
-  components: {
-    UserInfoVue,
-    CycleLoader,
-  },
   mounted() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // window.Echo.private("room.1").listen("SendMessage", (e: any) => {
     //   // https://viblo.asia/p/lam-the-nao-de-su-dung-laravel-voi-socketio-Ljy5VWVoKra
     //   this.users.push({ name: "hieu dz", email: "hieu@gmail.com", id: "111" });
@@ -75,6 +80,7 @@ export default defineComponent({
       .error((error: any) => {
         console.error(error);
       });
+    this.getQuestion();
   },
 });
 </script>
