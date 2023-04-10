@@ -17,7 +17,7 @@
     "pinia": "^2.0.33",
     "vue": "^3.2.36",
     "vue-router": "^4.0.3",
-    "vue3-google-login": "^2.0.15"  
+    "vue3-google-login": "^2.0.15"
   },
   "devDependencies": {
     "@types/nprogress": "^0.2.0",
