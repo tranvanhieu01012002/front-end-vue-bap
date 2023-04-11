@@ -1,5 +1,4 @@
 import RoomRepository from "@/helpers/axios/RoomRepository";
-import { AxiosResponse } from "axios";
 import { router } from "@/router";
 
 export default class RoomService {

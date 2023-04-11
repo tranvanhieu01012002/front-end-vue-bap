@@ -14,6 +14,8 @@ export const useQuestionStore = defineStore("questionStore", {
       isAnswered: false,
       answers: listAnswers,
       questions: [] as Question[],
+      currentQuestion: {} as Question,
+      currentQuestionId: 0,
     };
   },
   getters: {},
@@ -26,6 +28,11 @@ export const useQuestionStore = defineStore("questionStore", {
       const { data } = await questionRepo.getQuestion(1);
       console.log(data);
       this.questions = data.data;
+    },
+    nextQuestion(): void {
+      console.log("next dc as");
+      this.currentQuestionId++;
+      this.currentQuestion = this.questions[this.currentQuestionId - 1];
     },
   },
 });
