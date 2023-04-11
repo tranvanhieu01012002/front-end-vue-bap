@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageQuestion />
+    <PageQuestion :question-id="questionId" />
   </div>
 </template>
 <script lang="ts">
@@ -19,9 +19,6 @@ export default defineComponent({
   },
   components: {
     PageQuestion,
-  },
-  mounted() {
-    console.log(this.id, this.questionId);
   },
 });
 </script>

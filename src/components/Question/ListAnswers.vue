@@ -11,14 +11,15 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { PropType, defineComponent } from "vue";
 import AnswerComponent from "./AnswerComponent.vue";
-import listAnswers from "@/store/listAnswers";
+import AnswerInterface from "@/interfaces/AnswerInterface";
 export default defineComponent({
-  data() {
-    return {
-      answers: listAnswers,
-    };
+  props: {
+    answers: {
+      type: Object as PropType<Array<AnswerInterface>>,
+      required: true,
+    },
   },
   components: {
     AnswerComponent,

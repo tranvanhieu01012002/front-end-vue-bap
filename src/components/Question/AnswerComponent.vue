@@ -7,7 +7,7 @@
   >
     <div class="btn btn-success">{{ answer.character }}</div>
     <p class="question-text">
-      {{ answer.content !== "" ? "this is demo answers" : "" }}
+      {{ answer.content }}
     </p>
   </button>
 </template>

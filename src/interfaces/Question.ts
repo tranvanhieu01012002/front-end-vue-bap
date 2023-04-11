@@ -4,6 +4,6 @@ interface Question {
   id: string;
   content?: string;
   image?: string;
-  answer: AnswerInterface[];
+  answers: Array<AnswerInterface>;
 }
 export default Question;

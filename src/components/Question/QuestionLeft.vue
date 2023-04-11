@@ -1,22 +1,23 @@
 <template>
   <div class="col-5">
     <div>Question view</div>
-    <img
-      src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=768,574"
-      class="rounded mx-auto d-block"
-      alt="..."
-    />
+    <img :src="question.image" class="rounded mx-auto d-block" alt="..." />
     <div class="question-text">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam autem
-      fugit, aperiam, ipsum veniam reprehenderit quasi rerum minima distinctio
-      deserunt explicabo cumque! Dolorum accusantium odio cumque commodi
-      doloremque facere facilis!
+      {{ question.content }}
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({});
+import Question from "@/interfaces/Question";
+import { PropType, defineComponent } from "vue";
+export default defineComponent({
+  props: {
+    question: {
+      type: Object as PropType<Question>,
+      required: true,
+    },
+  },
+});
 </script>
 <style scoped>
 .col-5 {

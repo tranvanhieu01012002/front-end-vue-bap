@@ -7,20 +7,11 @@
 import { defineComponent } from "vue";
 import { mapState } from "pinia";
 import { useUserStore } from "@/store/";
-import { QuestionService } from "@/services";
+import { nextQuestionMixin } from "@/mixins";
 export default defineComponent({
-  data: function () {
-    return {
-      questionService: new QuestionService(),
-    };
-  },
+  mixins: [nextQuestionMixin],
   computed: {
     ...mapState(useUserStore, ["roomOwner"]),
-  },
-  methods: {
-    nexQuestion() {
-      this.questionService.nextQuestion();
-    },
   },
 });
 </script>
