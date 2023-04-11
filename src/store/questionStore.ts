@@ -39,7 +39,6 @@ export const useQuestionStore = defineStore("questionStore", {
       this.questions = data.data;
     },
     nextQuestion(): void {
-      console.log("next dc as");
       this.currentQuestionId++;
     },
   },

@@ -22,6 +22,7 @@ import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
 import { LaravelEchoService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
+import { nextQuestionMixin } from "@/mixins";
 export default defineComponent({
   props: {
     id: {
@@ -29,6 +30,7 @@ export default defineComponent({
       required: true,
     },
   },
+  mixins: [nextQuestionMixin],
   components: {
     UserInfoVue,
     CycleLoader,
@@ -46,15 +48,16 @@ export default defineComponent({
       laravelEcho: new LaravelEchoService(),
     };
   },
+  created() {
+    this.laravelEcho.init();
+  },
   mounted() {
     // window.Echo.private("room.1").listen("SendMessage", (e: any) => {
     //   // https://viblo.asia/p/lam-the-nao-de-su-dung-laravel-voi-socketio-Ljy5VWVoKra
     //   this.users.push({ name: "hieu dz", email: "hieu@gmail.com", id: "111" });
     //   console.log("call dc r ne");
     // });
-    this.laravelEcho
-      .getEcho()
-      .join(`room.${this.id}`)
+    window.Echo.join(`room.${this.id}`)
       .here((users: UserInfo[]) => {
         this.users = users;
       })
@@ -68,10 +71,12 @@ export default defineComponent({
         );
         console.log(user, "leaving");
       })
-      .error((error: any) => {
-        console.error(error);
+      .listen("RoomEvent", (e: any) => {
+        // this.nexQuestion();
+        console.log(e);
       });
     this.getQuestion();
+    console.log(window.Echo.socketId());
   },
 });
 </script>

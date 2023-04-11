@@ -9,12 +9,12 @@ export default class BaseRepository {
     this.resource = resource;
   }
 
-  async get(): Promise<AxiosResponse> {
-    return await http.get(this.setUpURL());
+  async get(config?: object): Promise<AxiosResponse> {
+    return await http.get(this.setUpURL(), config);
   }
 
-  async post(object: object): Promise<AxiosResponse> {
-    return await http.post(this.setUpURL(), object);
+  async post(object?: object, config?: object): Promise<AxiosResponse> {
+    return await http.post(this.setUpURL(), object, config);
   }
 
   protected setUpURL(): string {
