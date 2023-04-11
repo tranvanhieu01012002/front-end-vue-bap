@@ -10,13 +10,7 @@
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
-    <button
-      v-show="roomOwner"
-      v-on:click="questionService.nextQuestion()"
-      class="btn btn-warning"
-    >
-      start
-    </button>
+    <NextQuestionButton>Start</NextQuestionButton>
   </div>
 </template>
 <script lang="ts">
@@ -26,7 +20,8 @@ import { mapActions, mapState } from "pinia";
 import { useQuestionStore, useUserStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
-import { QuestionService, LaravelEchoService } from "@/services";
+import { LaravelEchoService } from "@/services";
+import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 export default defineComponent({
   props: {
     id: {
@@ -37,6 +32,7 @@ export default defineComponent({
   components: {
     UserInfoVue,
     CycleLoader,
+    NextQuestionButton,
   },
   computed: {
     ...mapState(useUserStore, ["roomOwner"]),
@@ -47,7 +43,6 @@ export default defineComponent({
   data() {
     return {
       users: [] as UserInfo[],
-      questionService: new QuestionService(),
       laravelEcho: new LaravelEchoService(),
     };
   },

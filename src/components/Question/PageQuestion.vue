@@ -17,6 +17,7 @@
   <div v-show="isAnswered">
     <CycleLoader />
   </div>
+  <NextQuestionButton>Next Question</NextQuestionButton>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -25,6 +26,7 @@ import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
 import CycleLoader from "../Loader/CycleLoader.vue";
+import NextQuestionButton from "../Button/NextQuestionButton.vue";
 export default defineComponent({
   name: "PageQuestion",
   data() {
@@ -37,6 +39,7 @@ export default defineComponent({
     QuestionLeft,
     ListAnswers,
     CycleLoader,
+    NextQuestionButton,
   },
   mounted() {
     this.timer = setInterval(() => {
