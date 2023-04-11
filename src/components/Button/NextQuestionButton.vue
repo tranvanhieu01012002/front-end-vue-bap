@@ -1,5 +1,5 @@
 <template>
-  <button v-show="roomOwner" v-on:click="nexQuestion" class="btn btn-warning">
+  <button v-show="ownerRoom" v-on:click="nexQuestion" class="btn btn-warning">
     <slot></slot>
   </button>
 </template>
@@ -11,7 +11,7 @@ import { nextQuestionMixin } from "@/mixins";
 export default defineComponent({
   mixins: [nextQuestionMixin],
   computed: {
-    ...mapState(useUserStore, ["roomOwner"]),
+    ...mapState(useUserStore, ["ownerRoom"]),
   },
 });
 </script>

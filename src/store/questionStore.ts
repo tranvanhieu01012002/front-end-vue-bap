@@ -7,10 +7,6 @@ import AnswerInterface from "@/interfaces/AnswerInterface";
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
-      totalTime: 60, //s
-      timeBar: 100, //%
-      step: 0.1,
-      timeEachStep: 100, //ms
       choseAnswer: -1,
       isAnswered: false,
       answers: listAnswers,

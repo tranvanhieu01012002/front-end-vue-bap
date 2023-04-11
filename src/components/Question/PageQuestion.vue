@@ -49,13 +49,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapWritableState(useQuestionStore, [
-      "isAnswered",
-      "step",
-      "timeBar",
-      "timeEachStep",
-      "totalTime",
-    ]),
+    ...mapWritableState(useQuestionStore, ["isAnswered"]),
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",
@@ -64,14 +58,13 @@ export default defineComponent({
   data() {
     return {
       timer: 0,
-      start: 60,
     };
   },
   mounted() {
     this.timer = setInterval(() => {
-      this.start -= this.step;
-      this.timeBar = (this.start * 100) / this.totalTime;
-      if (this.start <= 0 || this.timeBar <= 1) {
+      this.startTime -= this.step;
+      this.timeBar = (this.startTime * 100) / this.totalTime;
+      if (this.startTime <= 0 || this.timeBar <= 1) {
         clearInterval(this.timer);
         this.nexQuestion();
         console.log("oh, het time r cu");

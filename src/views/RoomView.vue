@@ -37,7 +37,7 @@ export default defineComponent({
     NextQuestionButton,
   },
   computed: {
-    ...mapState(useUserStore, ["roomOwner"]),
+    ...mapState(useUserStore, ["ownerRoom", "ownerRoomId"]),
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
@@ -53,7 +53,10 @@ export default defineComponent({
   mounted() {
     window.Echo.join(`room.${this.id}`)
       .here((users: UserInfo[]) => {
-        this.users = users;
+        if (this.ownerRoom) {
+          this.users = [];
+        } else
+          this.users = users.filter((user) => user.id !== this.ownerRoomId);
       })
       .joining((user: UserInfo) => {
         this.users.push(user);
@@ -65,8 +68,8 @@ export default defineComponent({
         );
         console.log(user, "leaving");
       })
-      .listen("RoomEvent", (e: any) => {
-        // this.nexQuestion();
+      .listen("RoomEvent", (e: unknown) => {
+        this.nexQuestion();
         console.log(e);
       });
     this.getQuestion();

@@ -14,8 +14,9 @@
   </b-modal>
 </template>
 <script lang="ts">
+import { RoomService } from "@/services";
 import { defineComponent } from "vue";
-import RoomRepository from "@/helpers/axios/RoomRepository";
+
 export default defineComponent({
   props: {
     isOpenedModal: {
@@ -50,30 +51,12 @@ export default defineComponent({
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     submit: async function (e: any) {
-      console.log(222);
       if (this.checkForm()) {
         this.error = "";
-        await this.getRoom();
+        const roomService = new RoomService();
+        await roomService.openRoom(this.room);
       } else {
         e.preventDefault();
-      }
-    },
-
-    getRoom: async function () {
-      const roomRepo = new RoomRepository();
-      try {
-        const { data } = await roomRepo.openRoom(parseInt(this.room));
-        console.log(data);
-        this.$router.push({
-          name: "room",
-          params: {
-            id: data.data,
-          },
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        // this.$swal(`oh ${error.response.data.data}`);
-        alert(`oh ${error.response.data.data}`);
       }
     },
   },

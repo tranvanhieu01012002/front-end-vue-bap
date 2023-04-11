@@ -36,7 +36,6 @@ export default defineComponent({
       this.modalShow = model;
     },
     createRoom: async function () {
-      this.setRoomOwner();
       await new RoomService().createRoom();
     },
     ...mapActions(useUserStore, ["setRoomOwner"]),

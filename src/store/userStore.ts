@@ -5,7 +5,8 @@ export const useUserStore = defineStore("userStore", {
   state: () => {
     return {
       user: {} as UserInfo,
-      roomOwner: false,
+      ownerRoom: sessionStorage.getItem("is_owner"),
+      ownerRoomId: "",
     };
   },
   getters: {
@@ -17,8 +18,10 @@ export const useUserStore = defineStore("userStore", {
     updateUser(user: UserInfo) {
       this.user = user;
     },
-    setRoomOwner() {
-      this.roomOwner = true;
+    setRoomOwner(ownerRoomId: string) {
+      this.ownerRoom = "true";
+      sessionStorage.setItem("is_owner", "true");
+      this.ownerRoomId = ownerRoomId;
     },
   },
 });
