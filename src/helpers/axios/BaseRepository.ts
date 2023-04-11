@@ -28,4 +28,14 @@ export default class BaseRepository {
   async getAtPage(page: number): Promise<AxiosResponse> {
     return await http.get(`${this.setUpURL()}?page=${page}`);
   }
+
+  public getConfigSocketId(): object {
+    const token = localStorage.getItem("token");
+    return {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+        "X-Socket-ID": window.Echo.socketId(),
+      },
+    };
+  }
 }

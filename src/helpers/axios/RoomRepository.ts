@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import BaseRepository from "./BaseRepository";
 
 export default class RoomRepository extends BaseRepository {
@@ -8,6 +8,13 @@ export default class RoomRepository extends BaseRepository {
   }
   async createRoom(): Promise<AxiosResponse> {
     this.setResource(`rooms/create`);
-    return await this.get();
+    const token = localStorage.getItem("token");
+    console.log(this.getConfigSocketId());
+    return await axios.get(this.setUpURL(), {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+        "X-Socket-ID": window.Echo.socketId(),
+      },
+    });
   }
 }

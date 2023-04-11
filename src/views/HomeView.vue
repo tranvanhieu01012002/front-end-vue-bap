@@ -10,6 +10,7 @@
 import { defineComponent } from "vue";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 import OpenGame from "@/components/SelectGame/OpenGame.vue";
+import { LaravelEchoService } from "@/services";
 
 export default defineComponent({
   name: "HomeView",
@@ -17,12 +18,8 @@ export default defineComponent({
     HelloWorld,
     OpenGame,
   },
-  mounted() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // window.Echo.channel("channel").listen("SendMessage", (e: any) => {
-    //   // https://viblo.asia/p/lam-the-nao-de-su-dung-laravel-voi-socketio-Ljy5VWVoKra
-    //   console.log(e);
-    // });
+  created() {
+    LaravelEchoService.init();
   },
 });
 </script>

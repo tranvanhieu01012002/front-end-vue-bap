@@ -8,15 +8,7 @@ export default class QuestionRepository extends BaseRepository {
   }
   async nextQuestion(roomId: any): Promise<AxiosResponse> {
     this.setResource(`rooms/${roomId}/next-question`);
-    const token = localStorage.getItem("token");
-    return await this.post(
-      {},
-      {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-          "X-Socket-ID": window.Echo.socketId(),
-        },
-      }
-    );
+    console.log(this.getConfigSocketId());
+    return axios.post(this.setUpURL(), {}, this.getConfigSocketId());
   }
 }

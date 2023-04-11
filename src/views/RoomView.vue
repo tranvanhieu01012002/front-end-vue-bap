@@ -45,18 +45,12 @@ export default defineComponent({
   data() {
     return {
       users: [] as UserInfo[],
-      laravelEcho: new LaravelEchoService(),
     };
   },
   created() {
-    this.laravelEcho.init();
+    LaravelEchoService.init();
   },
   mounted() {
-    // window.Echo.private("room.1").listen("SendMessage", (e: any) => {
-    //   // https://viblo.asia/p/lam-the-nao-de-su-dung-laravel-voi-socketio-Ljy5VWVoKra
-    //   this.users.push({ name: "hieu dz", email: "hieu@gmail.com", id: "111" });
-    //   console.log("call dc r ne");
-    // });
     window.Echo.join(`room.${this.id}`)
       .here((users: UserInfo[]) => {
         this.users = users;
@@ -76,7 +70,6 @@ export default defineComponent({
         console.log(e);
       });
     this.getQuestion();
-    console.log(window.Echo.socketId());
   },
 });
 </script>
