@@ -10,7 +10,7 @@
 import { defineComponent } from "vue";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 import OpenGame from "@/components/SelectGame/OpenGame.vue";
-import { LaravelEchoService } from "@/services";
+import { LaravelEchoService, RoomOwnerService } from "@/services";
 
 export default defineComponent({
   name: "HomeView",
@@ -20,6 +20,7 @@ export default defineComponent({
   },
   created() {
     LaravelEchoService.init();
+    RoomOwnerService.removeRoomOwner();
   },
 });
 </script>

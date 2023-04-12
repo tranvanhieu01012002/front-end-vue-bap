@@ -16,13 +16,14 @@
 <script lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
 import { defineComponent } from "vue";
-import { mapActions, mapState } from "pinia";
-import { useQuestionStore, useUserStore } from "@/store/";
+import { mapActions } from "pinia";
+import { useQuestionStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
-import { LaravelEchoService } from "@/services";
+import { LaravelEchoService, RoomOwnerService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 import { nextQuestionMixin } from "@/mixins";
+
 export default defineComponent({
   props: {
     id: {
@@ -35,9 +36,6 @@ export default defineComponent({
     UserInfoVue,
     CycleLoader,
     NextQuestionButton,
-  },
-  computed: {
-    ...mapState(useUserStore, ["ownerRoom", "ownerRoomId"]),
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
@@ -53,10 +51,9 @@ export default defineComponent({
   mounted() {
     window.Echo.join(`room.${this.id}`)
       .here((users: UserInfo[]) => {
-        if (this.ownerRoom) {
+        if (RoomOwnerService.checkRoomOwner()) {
           this.users = [];
-        } else
-          this.users = users.filter((user) => user.id !== this.ownerRoomId);
+        } else this.users = users;
       })
       .joining((user: UserInfo) => {
         this.users.push(user);

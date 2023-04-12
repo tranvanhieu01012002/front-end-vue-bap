@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import QuestionRepository from "@/helpers/axios/QuestionRepository";
 import { router } from "@/router";
-import { useQuestionStore, useUserStore } from "@/store";
+import { useQuestionStore } from "@/store";
+import RoomOwnerService from "./roomOwnerService";
 
 export default class QuestionService {
   private question;
@@ -14,9 +15,8 @@ export default class QuestionService {
 
   async nextQuestion() {
     const { id } = router.currentRoute.value.params;
-    const owner = useUserStore();
     this.question.nextQuestion();
-    if (owner.ownerRoom) {
+    if (RoomOwnerService.checkRoomOwner()) {
       const { data } = await this.questionRepository.nextQuestion(id);
       console.log(data);
     }

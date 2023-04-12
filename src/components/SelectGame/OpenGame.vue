@@ -19,8 +19,6 @@
 import { defineComponent } from "vue";
 import RoomService from "@/services/roomService";
 import DefaultModal from "../Modal/DefaultModal.vue";
-import { mapActions } from "pinia";
-import { useUserStore } from "@/store/userStore";
 export default defineComponent({
   data() {
     return {
@@ -38,7 +36,6 @@ export default defineComponent({
     createRoom: async function () {
       await new RoomService().createRoom();
     },
-    ...mapActions(useUserStore, ["setRoomOwner"]),
   },
 });
 </script>

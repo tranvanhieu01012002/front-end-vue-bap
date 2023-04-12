@@ -19,7 +19,4 @@ export default class LaravelEchoService {
       });
     }
   }
-  getEcho() {
-    return window.Echo;
-  }
 }
