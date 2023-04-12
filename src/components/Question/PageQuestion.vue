@@ -1,6 +1,6 @@
 <template>
   <div>question views</div>
-  <div v-show="!isAnswered">
+  <div v-show="handleShowQuestion">
     <div class="m-2">
       <BProgress
         show-progress
@@ -13,11 +13,14 @@
       <QuestionLeft :question="getContentQuestion" />
       <ListAnswers :answers="getListCurrentAnswers" />
     </div>
+    <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>
   <div v-show="isAnswered">
     <CycleLoader />
   </div>
-  <NextQuestionButton>Next Question</NextQuestionButton>
+  <div v-show="isResult">
+    <RankPage />
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -28,6 +31,7 @@ import ListAnswers from "./ListAnswers.vue";
 import CycleLoader from "../Loader/CycleLoader.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
 import { nextQuestionMixin } from "@/mixins";
+import RankPage from "../Ranking/RankPage.vue";
 export default defineComponent({
   name: "PageQuestion",
   props: {
@@ -42,6 +46,7 @@ export default defineComponent({
     ListAnswers,
     CycleLoader,
     NextQuestionButton,
+    RankPage,
   },
   watch: {
     isAnswered(newValue: boolean) {
@@ -49,11 +54,21 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["isAnswered"]),
+    ...mapWritableState(useQuestionStore, ["isAnswered", "isResult"]),
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",
     ]),
+    handleShowQuestion(): boolean {
+      return !this.isAnswered && !this.isResult;
+    },
+  },
+  methods: {
+    showResult(): void {
+      console.log("cho nay ban API la dc r ne");
+      this.isResult = !this.isResult;
+      clearInterval(this.timer);
+    },
   },
   data() {
     return {

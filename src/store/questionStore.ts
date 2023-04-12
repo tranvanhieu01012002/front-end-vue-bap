@@ -17,6 +17,7 @@ export const useQuestionStore = defineStore("questionStore", {
       isCorrect: false,
       timeBar: 100,
       questionService: new QuestionService(),
+      isResult: false,
     };
   },
   getters: {
@@ -50,7 +51,9 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     nextQuestion(): void {
+      console.log("next r ma ta");
       this.currentQuestionId++;
+      this.isResult = false;
       this.questionService.nextQuestion(this.currentQuestionId);
     },
   },

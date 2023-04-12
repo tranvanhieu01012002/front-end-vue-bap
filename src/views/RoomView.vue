@@ -10,7 +10,7 @@
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
-    <NextQuestionButton>Start</NextQuestionButton>
+    <NextQuestionButton @next="nextQuestion">Start</NextQuestionButton>
   </div>
 </template>
 <script lang="ts">
