@@ -18,9 +18,12 @@ export default defineComponent({
     HelloWorld,
     OpenGame,
   },
+  data: () => ({
+    roomOwnerService: new RoomOwnerService(),
+  }),
   created() {
     LaravelEchoService.init();
-    RoomOwnerService.removeRoomOwner();
+    this.roomOwnerService.removeRoomOwner();
   },
 });
 </script>

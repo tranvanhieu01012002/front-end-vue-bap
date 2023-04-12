@@ -9,7 +9,6 @@ export default class RoomRepository extends BaseRepository {
   async createRoom(): Promise<AxiosResponse> {
     this.setResource(`rooms/create`);
     const token = localStorage.getItem("token");
-    console.log(this.getConfigSocketId());
     return await axios.get(this.setUpURL(), {
       headers: {
         Authorization: token ? `Bearer ${token}` : "",

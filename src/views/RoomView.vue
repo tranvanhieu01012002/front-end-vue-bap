@@ -16,8 +16,8 @@
 <script lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
 import { defineComponent } from "vue";
-import { mapActions } from "pinia";
-import { useQuestionStore } from "@/store/";
+import { mapActions, mapState } from "pinia";
+import { useQuestionStore, useUserStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
 import { LaravelEchoService, RoomOwnerService } from "@/services";
@@ -40,9 +40,13 @@ export default defineComponent({
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
   },
+  computed: {
+    ...mapState(useUserStore, ["roomOwnerId"]),
+  },
   data() {
     return {
       users: [] as UserInfo[],
+      roomOwnerService: new RoomOwnerService(),
     };
   },
   created() {
@@ -51,9 +55,13 @@ export default defineComponent({
   mounted() {
     window.Echo.join(`room.${this.id}`)
       .here((users: UserInfo[]) => {
-        if (RoomOwnerService.checkRoomOwner()) {
-          this.users = [];
-        } else this.users = users;
+        // if (this.roomOwnerService.checkRoomOwner()) {
+        //   this.users = [];
+        // } else {
+        //   console.log(this.roomOwnerId);
+        //   this.users = users;
+        // }
+        this.users = users.filter((user) => user.id !== this.roomOwnerId);
       })
       .joining((user: UserInfo) => {
         this.users.push(user);

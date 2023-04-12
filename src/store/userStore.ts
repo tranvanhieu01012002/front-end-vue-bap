@@ -5,6 +5,7 @@ export const useUserStore = defineStore("userStore", {
   state: () => {
     return {
       user: {} as UserInfo,
+      roomOwnerId: "",
     };
   },
   getters: {

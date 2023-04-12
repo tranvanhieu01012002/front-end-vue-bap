@@ -5,14 +5,16 @@ import RoomOwnerService from "./roomOwnerService";
 
 export default class RoomService {
   private roomRepository: RoomRepository;
-
+  private roomOwnerService;
   constructor() {
     this.roomRepository = new RoomRepository();
+    this.roomOwnerService = new RoomOwnerService();
   }
 
   async createRoom(): Promise<void> {
     const { data } = await this.roomRepository.createRoom();
-    RoomOwnerService.setRoomOwner();
+    console.log(data);
+    this.roomOwnerService.setRoomOwner(data.user_id);
     router.push({
       name: "room",
       params: {
@@ -25,8 +27,9 @@ export default class RoomService {
     try {
       const { data } = await this.roomRepository.openRoom(parseInt(roomId));
       if (data.is_owner) {
-        RoomOwnerService.setRoomOwner();
-        console.log(data.user_id);
+        this.roomOwnerService.setRoomOwner(data.user_id);
+      } else {
+        this.roomOwnerService.setRoomOwnerId(data.user_id);
       }
       router.push({
         name: "room",

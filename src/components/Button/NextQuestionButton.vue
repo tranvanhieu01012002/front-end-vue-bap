@@ -11,7 +11,7 @@ export default defineComponent({
   mixins: [nextQuestionMixin],
   data() {
     return {
-      isOwner: RoomOwnerService.checkRoomOwner(),
+      isOwner: new RoomOwnerService().checkRoomOwner(),
     };
   },
 });
