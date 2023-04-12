@@ -14,8 +14,9 @@
 <script lang="ts">
 import { PropType, defineComponent } from "vue";
 import { mapActions } from "pinia";
-import { useQuestionStore } from "@/store/questionStore";
+import { useQuestionStore } from "@/store";
 import type AnswerInterface from "@/interfaces/AnswerInterface";
+import { RoomOwnerService } from "@/services";
 export default defineComponent({
   props: {
     answer: {
@@ -23,9 +24,16 @@ export default defineComponent({
       required: true,
     },
   },
+  data() {
+    return {
+      roomOwner: new RoomOwnerService(),
+    };
+  },
   methods: {
     chooseAnswer: function () {
-      this.updateIsAnswered();
+      if (!this.roomOwner.checkRoomOwner()) {
+        this.updateIsAnswered();
+      }
     },
     ...mapActions(useQuestionStore, ["updateIsAnswered"]),
   },

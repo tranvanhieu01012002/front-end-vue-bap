@@ -64,7 +64,9 @@ export default defineComponent({
         this.users = users.filter((user) => user.id !== this.roomOwnerId);
       })
       .joining((user: UserInfo) => {
-        this.users.push(user);
+        if (user.id !== this.roomOwnerId) {
+          this.users.push(user);
+        }
         console.log(user, "joining...");
       })
       .leaving((user: UserInfo) => {
@@ -78,6 +80,9 @@ export default defineComponent({
         console.log(e);
       });
     this.getQuestion();
+  },
+  beforeUnmount() {
+    this.roomOwnerService.removeRoomOwner();
   },
 });
 </script>
