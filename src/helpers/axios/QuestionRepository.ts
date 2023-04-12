@@ -22,6 +22,7 @@ export default class QuestionRepository extends BaseRepository {
       this.setUpURL(),
       {
         is_correct: isCorrect,
+        score,
       },
       this.getConfigSocketId()
     );

@@ -41,6 +41,7 @@ export const useQuestionStore = defineStore("questionStore", {
     answerQuestion(isCorrect: boolean): void {
       const { id } = router.currentRoute.value.params;
       this.isCorrect = isCorrect;
+      this.isAnswered = true;
       this.questionService.answerQuestion(id, this.timeBar, isCorrect);
     },
 
