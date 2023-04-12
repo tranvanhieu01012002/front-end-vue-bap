@@ -1,7 +1,7 @@
 <template>
   <div>ranking page</div>
   <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <b-table striped hover :items="showListUser" :fields="fields"></b-table>
     <NextQuestionButton @next="nextQuestion">Next Question</NextQuestionButton>
   </div>
 </template>
@@ -16,34 +16,36 @@ export default defineComponent({
   mixins: [nextQuestionMixin],
   data() {
     return {
-      fields: ["ranking", "name", "score"],
+      fields: ["ranking", "user_name", "score"],
       items: [
         {
-          ranking: 1,
-          name: "Dickerson",
-          score: 100,
           _rowVariant: "danger",
         },
         {
-          ranking: 2,
-          name: "Dickerson",
-          score: 100,
           _rowVariant: "warning",
         },
         {
-          ranking: 3,
-          name: "Dickerson",
-          score: 100,
-          _rowVariant: "success",
-        },
-        {
-          ranking: 4,
-          name: "Dickerson",
-          score: 100,
           _rowVariant: "success",
         },
       ],
     };
+  },
+  computed: {
+    showListUser() {
+      const list = this.resultData;
+      return list.map((user, index) => {
+        if (this.items[index]) {
+          console.log(this.items[index]);
+          return {
+            ...user,
+            ranking: index + 1,
+            _rowVariant: this.items[index]._rowVariant,
+          };
+        } else {
+          return { ...user, ranking: index + 1 };
+        }
+      });
+    },
   },
 });
 </script>

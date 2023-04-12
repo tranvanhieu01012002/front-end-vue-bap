@@ -14,6 +14,6 @@ export default defineComponent({
     ...mapActions(useQuestionStore, ["nextQuestion"]),
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["timeBar"]),
+    ...mapWritableState(useQuestionStore, ["timeBar", "resultData"]),
   },
 });
