@@ -33,18 +33,21 @@ export default defineComponent({
   computed: {
     showListUser() {
       const list = this.resultData;
-      return list.map((user, index) => {
-        if (this.items[index]) {
-          console.log(this.items[index]);
-          return {
-            ...user,
-            ranking: index + 1,
-            _rowVariant: this.items[index]._rowVariant,
-          };
-        } else {
-          return { ...user, ranking: index + 1 };
-        }
-      });
+      if (list instanceof Array) {
+        return list.map((user, index) => {
+          console.log("user in map", user);
+          if (this.items[index]) {
+            return {
+              ...user,
+              ranking: index + 1,
+              _rowVariant: this.items[index]._rowVariant,
+            };
+          } else {
+            return { ...user, ranking: index + 1 };
+          }
+        });
+      }
+      return list;
     },
   },
 });

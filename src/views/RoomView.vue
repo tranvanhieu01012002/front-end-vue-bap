@@ -23,6 +23,7 @@ import CycleLoader from "@/components/Loader/CycleLoader.vue";
 import { LaravelEchoService, RoomOwnerService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 import { nextQuestionMixin } from "@/mixins";
+import UserRank from "@/interfaces/UserRank";
 
 export default defineComponent({
   props: {
@@ -38,7 +39,7 @@ export default defineComponent({
     NextQuestionButton,
   },
   methods: {
-    ...mapActions(useQuestionStore, ["getQuestion"]),
+    ...mapActions(useQuestionStore, ["getQuestion", "receiveShowData"]),
   },
   computed: {
     ...mapState(useUserStore, ["roomOwnerId"]),
@@ -78,6 +79,10 @@ export default defineComponent({
       .listen("RoomEvent", (e: unknown) => {
         this.nextQuestion();
         console.log(e);
+      })
+      .listen("ShowResult", (e: any) => {
+        console.log("show result", e);
+        this.receiveShowData(e[0]);
       });
     this.getQuestion();
   },

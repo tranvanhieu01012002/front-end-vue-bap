@@ -53,7 +53,7 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     nextQuestion(): void {
-      console.log("next r ma ta");
+      this.isAnswered = false;
       this.currentQuestionId++;
       this.isResult = false;
       this.questionService.nextQuestion(this.currentQuestionId);
@@ -62,6 +62,13 @@ export const useQuestionStore = defineStore("questionStore", {
     async viewResultStore(): Promise<void> {
       const { id } = router.currentRoute.value.params;
       this.resultData = await this.questionService.viewResult(id);
+    },
+
+    receiveShowData(result: Array<UserRank>): void {
+      console.log("Tracking store", result);
+      this.isResult = true;
+      // damng fix here
+      this.resultData = [{ ...result }];
     },
   },
 });
