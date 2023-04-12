@@ -40,4 +40,9 @@ export default class QuestionService {
     );
     console.log(data);
   }
+
+  async viewResult(roomId: unknown): Promise<any> {
+    const { data } = await this.questionRepository.viewResult(roomId);
+    return data.data;
+  }
 }

@@ -27,4 +27,9 @@ export default class QuestionRepository extends BaseRepository {
       this.getConfigSocketId()
     );
   }
+
+  async viewResult(roomId: unknown): Promise<AxiosResponse> {
+    this.setResource(`rooms/${roomId}/questions/view-result`);
+    return await axios.get(this.setUpURL(), this.getConfigSocketId());
+  }
 }

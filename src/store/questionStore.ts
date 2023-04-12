@@ -4,6 +4,7 @@ import Question from "@/interfaces/Question";
 import AnswerInterface from "@/interfaces/AnswerInterface";
 import { QuestionService } from "@/services";
 import { router } from "@/router";
+import UserRank from "@/interfaces/UserRank";
 
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
@@ -18,6 +19,7 @@ export const useQuestionStore = defineStore("questionStore", {
       timeBar: 100,
       questionService: new QuestionService(),
       isResult: false,
+      resultData: [] as UserRank[],
     };
   },
   getters: {
@@ -55,6 +57,11 @@ export const useQuestionStore = defineStore("questionStore", {
       this.currentQuestionId++;
       this.isResult = false;
       this.questionService.nextQuestion(this.currentQuestionId);
+    },
+
+    async viewResultStore(): Promise<void> {
+      const { id } = router.currentRoute.value.params;
+      this.resultData = await this.questionService.viewResult(id);
     },
   },
 });

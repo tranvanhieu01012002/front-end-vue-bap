@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState, mapWritableState } from "pinia";
+import { mapState, mapWritableState, mapActions } from "pinia";
 import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
@@ -64,11 +64,12 @@ export default defineComponent({
     },
   },
   methods: {
-    showResult(): void {
-      console.log("cho nay ban API la dc r ne");
+    async showResult(): Promise<void> {
+      await this.viewResultStore();
       this.isResult = !this.isResult;
       clearInterval(this.timer);
     },
+    ...mapActions(useQuestionStore, ["viewResultStore"]),
   },
   data() {
     return {
