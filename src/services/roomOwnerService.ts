@@ -23,6 +23,7 @@ export default class RoomOwnerService {
   getRoomOwnerId(): string {
     return this.userStore.roomOwnerId;
   }
+
   setRoomOwnerId(roomOwnerId: string) {
     this.userStore.roomOwnerId = roomOwnerId;
   }

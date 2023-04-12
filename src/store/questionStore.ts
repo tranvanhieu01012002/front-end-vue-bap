@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import listAnswers from "./listAnswers";
-import QuestionRepository from "@/helpers/axios/QuestionRepository";
 import Question from "@/interfaces/Question";
 import AnswerInterface from "@/interfaces/AnswerInterface";
+import { QuestionService } from "@/services";
+import { router } from "@/router";
 
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
@@ -13,6 +14,9 @@ export const useQuestionStore = defineStore("questionStore", {
       questions: [] as Question[],
       currentQuestion: {} as Question,
       currentQuestionId: 0,
+      isCorrect: false,
+      timeBar: 100,
+      questionService: new QuestionService(),
     };
   },
   getters: {
@@ -21,7 +25,11 @@ export const useQuestionStore = defineStore("questionStore", {
     },
     getListCurrentAnswers(): Array<AnswerInterface> {
       return this.questions[this.currentQuestionId - 1].answers.map(
-        (answerItem, index) => ({ ...answerItem, ...this.answers[index] })
+        (answerItem, index) => ({
+          ...answerItem,
+          ...this.answers[index],
+          isCorrect: answerItem.is_correct,
+        })
       );
     },
   },
@@ -29,13 +37,20 @@ export const useQuestionStore = defineStore("questionStore", {
     updateIsAnswered(): void {
       this.isAnswered = !this.isAnswered;
     },
-    async getQuestion(): Promise<void> {
-      const questionRepo = new QuestionRepository();
-      const { data } = await questionRepo.getQuestion(1);
-      this.questions = data.data;
+
+    answerQuestion(isCorrect: boolean): void {
+      const { id } = router.currentRoute.value.params;
+      this.isCorrect = isCorrect;
+      this.questionService.answerQuestion(id, this.timeBar, isCorrect);
     },
+
+    async getQuestion(): Promise<void> {
+      this.questions = await this.questionService.getQuestion();
+    },
+
     nextQuestion(): void {
       this.currentQuestionId++;
+      this.questionService.nextQuestion(this.currentQuestionId);
     },
   },
 });

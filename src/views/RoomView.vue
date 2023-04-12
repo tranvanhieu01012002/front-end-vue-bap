@@ -76,13 +76,13 @@ export default defineComponent({
         console.log(user, "leaving");
       })
       .listen("RoomEvent", (e: unknown) => {
-        this.nexQuestion();
+        this.nextQuestion();
         console.log(e);
       });
     this.getQuestion();
   },
-  beforeUnmount() {
-    this.roomOwnerService.removeRoomOwner();
-  },
+  // beforeUnmount() {
+  //   this.roomOwnerService.removeRoomOwner();
+  // },
 });
 </script>

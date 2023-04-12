@@ -31,11 +31,14 @@ export default defineComponent({
   },
   methods: {
     chooseAnswer: function () {
-      if (!this.roomOwner.checkRoomOwner()) {
-        this.updateIsAnswered();
-      }
+      // if (!this.roomOwner.checkRoomOwner()) {
+      //   this.updateIsAnswered();
+      //   console.log(this.answer.isCorrect);
+      // }
+      // this.updateIsAnswered();
+      this.answerQuestion(this.answer.isCorrect ?? false);
     },
-    ...mapActions(useQuestionStore, ["updateIsAnswered"]),
+    ...mapActions(useQuestionStore, ["updateIsAnswered", "answerQuestion"]),
   },
 });
 </script>

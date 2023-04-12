@@ -1,5 +1,5 @@
 <template>
-  <button v-show="isOwner" v-on:click="nexQuestion" class="btn btn-warning">
+  <button v-show="isOwner" v-on:click="nextQuestion" class="btn btn-warning">
     <slot></slot>
   </button>
 </template>

@@ -1,9 +1,9 @@
 import { defineComponent } from "vue";
-import { QuestionService } from "@/services";
+import { mapActions } from "pinia";
+import { useQuestionStore } from "@/store";
 export default defineComponent({
   data: function () {
     return {
-      questionService: new QuestionService(),
       totalTime: 60, //s
       startTime: 60,
       timeBar: 100, //%
@@ -12,12 +12,6 @@ export default defineComponent({
     };
   },
   methods: {
-    nexQuestion() {
-      this.questionService.nextQuestion();
-      this.resetTime();
-    },
-    resetTime() {
-      (this.timeBar = 100), (this.startTime = 60);
-    },
+    ...mapActions(useQuestionStore, ["nextQuestion"]),
   },
 });

@@ -6,9 +6,24 @@ export default class QuestionRepository extends BaseRepository {
     this.setResource(`rooms/${roomId}/questions`);
     return await this.get();
   }
-  async nextQuestion(roomId: any): Promise<AxiosResponse> {
+
+  async nextQuestion(roomId: unknown): Promise<AxiosResponse> {
     this.setResource(`rooms/${roomId}/next-question`);
-    console.log(this.getConfigSocketId());
     return axios.post(this.setUpURL(), {}, this.getConfigSocketId());
+  }
+
+  async pushAnswer(
+    roomId: unknown,
+    score: number,
+    isCorrect: boolean
+  ): Promise<AxiosResponse> {
+    this.setResource(`rooms/${roomId}/questions/answers`);
+    return await axios.post(
+      this.setUpURL(),
+      {
+        is_correct: isCorrect,
+      },
+      this.getConfigSocketId()
+    );
   }
 }

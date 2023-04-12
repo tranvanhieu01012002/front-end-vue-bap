@@ -2,12 +2,12 @@
   <div>question views</div>
   <div v-show="!isAnswered">
     <div class="m-2">
-      <b-progress
+      <BProgress
         show-progress
         height="2rem"
         :value="timeBar"
         animated
-      ></b-progress>
+      ></BProgress>
     </div>
     <div class="row d-flex justify-content-between">
       <QuestionLeft :question="getContentQuestion" />
@@ -66,7 +66,7 @@ export default defineComponent({
       this.timeBar = (this.startTime * 100) / this.totalTime;
       if (this.startTime <= 0 || this.timeBar <= 1) {
         clearInterval(this.timer);
-        this.nexQuestion();
+        this.nextQuestion();
         console.log("oh, het time r cu");
         this.isAnswered = true;
       }
