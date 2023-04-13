@@ -62,6 +62,7 @@ export default defineComponent({
         //   console.log(this.roomOwnerId);
         //   this.users = users;
         // }
+        console.log("full user before filter", users);
         this.users = users.filter((user) => user.id !== this.roomOwnerId);
       })
       .joining((user: UserInfo) => {
