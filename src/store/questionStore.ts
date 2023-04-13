@@ -68,7 +68,7 @@ export const useQuestionStore = defineStore("questionStore", {
       console.log("Tracking store", result);
       this.isResult = true;
       // damng fix here
-      this.resultData = [{ ...result }];
+      this.resultData = result;
     },
   },
 });

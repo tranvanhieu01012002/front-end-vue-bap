@@ -23,7 +23,7 @@ import CycleLoader from "@/components/Loader/CycleLoader.vue";
 import { LaravelEchoService, RoomOwnerService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 import { nextQuestionMixin } from "@/mixins";
-import UserRank from "@/interfaces/UserRank";
+import { ResponseResult } from "@/interfaces";
 
 export default defineComponent({
   props: {
@@ -80,9 +80,9 @@ export default defineComponent({
         this.nextQuestion();
         console.log(e);
       })
-      .listen("ShowResult", (e: any) => {
+      .listen("ShowResult", (e: ResponseResult) => {
         console.log("show result", e);
-        this.receiveShowData(e[0]);
+        this.receiveShowData(e.data);
       });
     this.getQuestion();
   },
