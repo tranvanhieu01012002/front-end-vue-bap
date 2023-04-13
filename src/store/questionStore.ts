@@ -27,13 +27,16 @@ export const useQuestionStore = defineStore("questionStore", {
       return this.questions[this.currentQuestionId - 1];
     },
     getListCurrentAnswers(): Array<AnswerInterface> {
-      return this.questions[this.currentQuestionId - 1].answers.map(
-        (answerItem, index) => ({
-          ...answerItem,
-          ...this.answers[index],
-          isCorrect: answerItem.is_correct,
-        })
-      );
+      if (this.currentQuestionId - 1 < this.questions.length) {
+        return this.questions[this.currentQuestionId - 1].answers.map(
+          (answerItem, index) => ({
+            ...answerItem,
+            ...this.answers[index],
+            isCorrect: answerItem.is_correct,
+          })
+        );
+      }
+      return [];
     },
   },
   actions: {
@@ -56,8 +59,11 @@ export const useQuestionStore = defineStore("questionStore", {
       this.isAnswered = false;
       this.currentQuestionId++;
       this.isResult = false;
-      if (this.currentQuestionId - 1 <= this.questions.length) {
+      if (this.currentQuestionId - 1 < this.questions.length) {
         await this.questionService.nextQuestion(this.currentQuestionId);
+      } else {
+        console.log(2);
+        router.push({ path: "/" });
       }
       this.isAnswered = false;
     },

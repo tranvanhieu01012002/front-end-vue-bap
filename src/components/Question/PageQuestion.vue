@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState, mapWritableState, mapActions } from "pinia";
+import { mapState, mapWritableState } from "pinia";
 import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
@@ -48,15 +48,6 @@ export default defineComponent({
     NextQuestionButton,
     RankPage,
   },
-  watch: {
-    // isAnswered(newValue: boolean) {
-    //   this.isAnswered = newValue;
-    // },
-    // isResult() {
-    //   clearInterval(this.timer);
-    //   return true;
-    // },
-  },
   computed: {
     ...mapWritableState(useQuestionStore, ["isAnswered", "isResult"]),
     ...mapState(useQuestionStore, [
@@ -67,31 +58,8 @@ export default defineComponent({
       return !this.isAnswered && !this.isResult;
     },
   },
-  methods: {
-    async showResult(): Promise<void> {
-      await this.viewResultStore();
-      this.isResult = !this.isResult;
-    },
-    ...mapActions(useQuestionStore, ["viewResultStore"]),
-  },
-  data() {
-    return {
-      timer: 0,
-    };
-  },
   mounted() {
-    this.timer = setInterval(async () => {
-      this.startTime -= this.step;
-      this.timeBar = (this.startTime * 100) / this.totalTime;
-      if (this.startTime <= 0 || this.timeBar <= 1) {
-        clearInterval(this.timer);
-        if (this.isRoomOwner) {
-          await this.showResult();
-        } else {
-          this.isAnswered = true;
-        }
-      }
-    }, this.timeEachStep);
+    this.timer = setInterval(this.progressBar, this.timeEachStep);
   },
 });
 </script>
