@@ -11,7 +11,7 @@ export default class QuestionService {
     this.questionRepository = new QuestionRepository();
   }
 
-  async nextQuestion(currentQuestionId: number) {
+  async nextQuestion(currentQuestionId: number): Promise<void> {
     const { id } = router.currentRoute.value.params;
     if (new RoomOwnerService().checkRoomOwner()) {
       const { data } = await this.questionRepository.nextQuestion(id);

@@ -16,7 +16,7 @@ import { PropType, defineComponent } from "vue";
 import { mapActions } from "pinia";
 import { useQuestionStore } from "@/store";
 import type AnswerInterface from "@/interfaces/AnswerInterface";
-import { RoomOwnerService } from "@/services";
+import { isRoomOwnerMixin } from "@/mixins";
 export default defineComponent({
   props: {
     answer: {
@@ -24,19 +24,12 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
-    return {
-      roomOwner: new RoomOwnerService(),
-    };
-  },
+  mixins: [isRoomOwnerMixin],
   methods: {
     chooseAnswer: function () {
-      // if (!this.roomOwner.checkRoomOwner()) {
-      //   this.updateIsAnswered();
-      //   console.log(this.answer.isCorrect);
-      // }
-      // this.updateIsAnswered();
-      this.answerQuestion(this.answer.isCorrect ?? false);
+      if (!this.isRoomOwner) {
+        this.answerQuestion(this.answer.isCorrect ?? false);
+      }
     },
     ...mapActions(useQuestionStore, ["updateIsAnswered", "answerQuestion"]),
   },

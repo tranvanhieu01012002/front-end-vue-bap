@@ -30,7 +30,7 @@ import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
 import CycleLoader from "../Loader/CycleLoader.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
-import { nextQuestionMixin } from "@/mixins";
+import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import RankPage from "../Ranking/RankPage.vue";
 export default defineComponent({
   name: "PageQuestion",
@@ -40,7 +40,7 @@ export default defineComponent({
       required: true,
     },
   },
-  mixins: [nextQuestionMixin],
+  mixins: [nextQuestionMixin, isRoomOwnerMixin],
   components: {
     QuestionLeft,
     ListAnswers,
@@ -49,9 +49,13 @@ export default defineComponent({
     RankPage,
   },
   watch: {
-    isAnswered(newValue: boolean) {
-      this.isAnswered = newValue;
-    },
+    // isAnswered(newValue: boolean) {
+    //   this.isAnswered = newValue;
+    // },
+    // isResult() {
+    //   clearInterval(this.timer);
+    //   return true;
+    // },
   },
   computed: {
     ...mapWritableState(useQuestionStore, ["isAnswered", "isResult"]),
@@ -67,7 +71,6 @@ export default defineComponent({
     async showResult(): Promise<void> {
       await this.viewResultStore();
       this.isResult = !this.isResult;
-      clearInterval(this.timer);
     },
     ...mapActions(useQuestionStore, ["viewResultStore"]),
   },
@@ -77,14 +80,16 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.timer = setInterval(() => {
+    this.timer = setInterval(async () => {
       this.startTime -= this.step;
       this.timeBar = (this.startTime * 100) / this.totalTime;
       if (this.startTime <= 0 || this.timeBar <= 1) {
         clearInterval(this.timer);
-        this.nextQuestion();
-        console.log("oh, het time r cu");
-        this.isAnswered = true;
+        if (this.isRoomOwner) {
+          await this.showResult();
+        } else {
+          this.isAnswered = true;
+        }
       }
     }, this.timeEachStep);
   },

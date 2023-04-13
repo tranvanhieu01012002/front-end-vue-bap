@@ -1,4 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <template>
   <div>
     <h1>Welcome to room: {{ id }}</h1>
@@ -20,11 +19,11 @@ import { mapActions, mapState } from "pinia";
 import { useQuestionStore, useUserStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
-import { LaravelEchoService, RoomOwnerService } from "@/services";
+import { LaravelEchoService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 import { nextQuestionMixin } from "@/mixins";
 import { ResponseResult } from "@/interfaces";
-
+import { isRoomOwnerMixin } from "@/mixins";
 export default defineComponent({
   props: {
     id: {
@@ -32,7 +31,7 @@ export default defineComponent({
       required: true,
     },
   },
-  mixins: [nextQuestionMixin],
+  mixins: [nextQuestionMixin, isRoomOwnerMixin],
   components: {
     UserInfoVue,
     CycleLoader,
@@ -47,7 +46,6 @@ export default defineComponent({
   data() {
     return {
       users: [] as UserInfo[],
-      roomOwnerService: new RoomOwnerService(),
     };
   },
   created() {

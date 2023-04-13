@@ -52,11 +52,14 @@ export const useQuestionStore = defineStore("questionStore", {
       this.questions = await this.questionService.getQuestion();
     },
 
-    nextQuestion(): void {
+    async nextQuestion(): Promise<void> {
       this.isAnswered = false;
       this.currentQuestionId++;
       this.isResult = false;
-      this.questionService.nextQuestion(this.currentQuestionId);
+      if (this.currentQuestionId - 1 <= this.questions.length) {
+        await this.questionService.nextQuestion(this.currentQuestionId);
+      }
+      this.isAnswered = false;
     },
 
     async viewResultStore(): Promise<void> {
@@ -67,7 +70,6 @@ export const useQuestionStore = defineStore("questionStore", {
     receiveShowData(result: Array<UserRank>): void {
       console.log("Tracking store", result);
       this.isResult = true;
-      // damng fix here
       this.resultData = result;
     },
   },

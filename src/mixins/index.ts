@@ -1,2 +1,3 @@
 import nextQuestionMixin from "./nextQuestionMixin";
-export { nextQuestionMixin };
+import isRoomOwnerMixin from "./isRoomOwnerMixin";
+export { nextQuestionMixin, isRoomOwnerMixin };
