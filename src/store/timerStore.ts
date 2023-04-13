@@ -20,15 +20,13 @@ export const useTimerStore = defineStore("timerStore", {
       this.timeBar = (this.startTime * 100) / this.totalTime;
       if (this.startTime <= 0 || this.timeBar <= 1) {
         this.clearTimeBar();
-        // const question = useQuestionStore();
+        const question = useQuestionStore();
         if (this.isRoomOwner) {
           console.log("bi goi o day");
-          // question.
+          question.viewResultStore();
+        } else {
+          question.isAnswered = true;
         }
-        //  else {
-        //   this.isAnswered = true;
-        // }
-        console.log("bi goi o day");
       }
     },
     startTimeBar() {

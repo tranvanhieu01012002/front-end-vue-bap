@@ -76,12 +76,12 @@ export default defineComponent({
         console.log(user, "leaving");
       })
       .listen("RoomEvent", (e: unknown) => {
-        this.nextQuestion();
+        this.nextQuestionMixin();
         console.log(e);
       })
       .listen("ShowResult", (e: ResponseResult) => {
         console.log("show result", e);
-        this.receiveShowData(e.data);
+        this.receiveShowDataMixin(e.data);
       });
     this.getQuestion();
   },

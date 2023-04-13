@@ -70,6 +70,7 @@ export const useQuestionStore = defineStore("questionStore", {
     async viewResultStore(): Promise<void> {
       const { id } = router.currentRoute.value.params;
       this.resultData = await this.questionService.viewResult(id);
+      this.isResult = !this.isResult;
     },
 
     receiveShowData(result: Array<UserRank>): void {

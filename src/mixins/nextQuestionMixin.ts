@@ -2,6 +2,7 @@ import { defineComponent } from "vue";
 import { mapActions, mapState, mapWritableState } from "pinia";
 import { useQuestionStore, useTimerStore } from "@/store";
 import isRoomOwnerMixin from "./isRoomOwnerMixin";
+import { UserRank } from "@/interfaces";
 export default defineComponent({
   mixins: [isRoomOwnerMixin],
   methods: {
@@ -14,7 +15,6 @@ export default defineComponent({
     async showResult(): Promise<void> {
       await this.viewResultStore();
       this.clearTimeBar();
-      this.isResult = !this.isResult;
     },
 
     nextQuestionMixin() {
@@ -22,13 +22,17 @@ export default defineComponent({
       this.startTimeBar();
       this.nextQuestion();
     },
+
+    receiveShowDataMixin(result: Array<UserRank>) {
+      this.clearTimeBar();
+      this.receiveShowData(result);
+    },
   },
   computed: {
     ...mapWritableState(useQuestionStore, [
       "resultData",
       "isCorrect",
       "isAnswered",
-      "isResult",
     ]),
     ...mapState(useTimerStore, ["timer"]),
   },
