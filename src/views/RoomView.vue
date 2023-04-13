@@ -9,7 +9,7 @@
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
-    <NextQuestionButton @next="nextQuestion">Start</NextQuestionButton>
+    <NextQuestionButton @next="nextQuestionMixin">Start</NextQuestionButton>
   </div>
 </template>
 <script lang="ts">

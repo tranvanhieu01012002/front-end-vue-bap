@@ -3,7 +3,9 @@
   <div>
     <b-table striped hover :items="showListUser" :fields="fields"></b-table>
     <QuestionResult :correct="isCorrect" />
-    <NextQuestionButton @next="nextQuestion">Next Question</NextQuestionButton>
+    <NextQuestionButton @next="nextQuestionMixin"
+      >Next Question</NextQuestionButton
+    >
   </div>
 </template>
 <script lang="ts">

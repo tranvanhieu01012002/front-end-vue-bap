@@ -31,7 +31,7 @@ export default defineComponent({
         this.answerQuestion(this.answer.isCorrect ?? false);
       }
     },
-    ...mapActions(useQuestionStore, ["updateIsAnswered", "answerQuestion"]),
+    ...mapActions(useQuestionStore, ["answerQuestion"]),
   },
 });
 </script>

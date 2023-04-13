@@ -2,12 +2,7 @@
   <div>question views</div>
   <div v-show="handleShowQuestion">
     <div class="m-2">
-      <BProgress
-        show-progress
-        height="2rem"
-        :value="timeBar"
-        animated
-      ></BProgress>
+      <ProgressBar />
     </div>
     <div class="row d-flex justify-content-between">
       <QuestionLeft :question="getContentQuestion" />
@@ -32,6 +27,7 @@ import CycleLoader from "../Loader/CycleLoader.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import RankPage from "../Ranking/RankPage.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default defineComponent({
   name: "PageQuestion",
   props: {
@@ -47,6 +43,7 @@ export default defineComponent({
     CycleLoader,
     NextQuestionButton,
     RankPage,
+    ProgressBar,
   },
   computed: {
     ...mapWritableState(useQuestionStore, ["isAnswered", "isResult"]),
@@ -57,9 +54,6 @@ export default defineComponent({
     handleShowQuestion(): boolean {
       return !this.isAnswered && !this.isResult;
     },
-  },
-  mounted() {
-    this.timer = setInterval(this.progressBar, this.timeEachStep);
   },
 });
 </script>

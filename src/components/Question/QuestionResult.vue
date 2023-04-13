@@ -6,7 +6,6 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { RoomOwnerService } from "@/services";
 import isRoomOwnerMixin from "@/mixins/isRoomOwnerMixin";
 export default defineComponent({
   props: {

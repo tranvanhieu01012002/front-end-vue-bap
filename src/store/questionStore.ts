@@ -9,14 +9,12 @@ import UserRank from "@/interfaces/UserRank";
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
-      choseAnswer: -1,
       isAnswered: false,
       answers: listAnswers,
       questions: [] as Question[],
       currentQuestion: {} as Question,
       currentQuestionId: 0,
       isCorrect: false,
-      timeBar: 100,
       questionService: new QuestionService(),
       isResult: false,
       resultData: [] as UserRank[],
@@ -48,7 +46,7 @@ export const useQuestionStore = defineStore("questionStore", {
       const { id } = router.currentRoute.value.params;
       this.isCorrect = isCorrect;
       this.isAnswered = true;
-      this.questionService.answerQuestion(id, this.timeBar, isCorrect);
+      this.questionService.answerQuestion(id, 30, isCorrect);
     },
 
     async getQuestion(): Promise<void> {
@@ -62,7 +60,8 @@ export const useQuestionStore = defineStore("questionStore", {
       if (this.currentQuestionId - 1 < this.questions.length) {
         await this.questionService.nextQuestion(this.currentQuestionId);
       } else {
-        console.log(2);
+        this.isAnswered = false;
+        this.isResult = false;
         router.push({ path: "/" });
       }
       this.isAnswered = false;
