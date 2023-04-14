@@ -25,7 +25,7 @@ export const useTimerStore = defineStore("timerStore", {
           console.log("bi goi o day");
           question.viewResultStore();
         } else {
-          question.isAnswered = true;
+          question.answerQuestion(false);
         }
       }
     },

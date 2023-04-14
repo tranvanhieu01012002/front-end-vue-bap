@@ -10,7 +10,6 @@ import { ParamFunction } from "@/interfaces";
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
-      isAnswered: false,
       isCorrect: false,
       isDoneGame: false,
       answers: listAnswers,

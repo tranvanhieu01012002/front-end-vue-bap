@@ -1,6 +1,6 @@
 <template>
   <div>question views</div>
-  <div v-show="handleShowQuestion">
+  <div>
     <div class="m-2">
       <ProgressBar />
     </div>
@@ -12,9 +12,6 @@
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>
-  <div v-show="isAnswered">
-    <CycleLoader />
-  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -22,7 +19,6 @@ import { mapState, mapWritableState } from "pinia";
 import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
-import CycleLoader from "../Loader/CycleLoader.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import ProgressBar from "./ProgressBar.vue";
@@ -38,19 +34,15 @@ export default defineComponent({
   components: {
     QuestionLeft,
     ListAnswers,
-    CycleLoader,
     NextQuestionButton,
     ProgressBar,
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["isAnswered", "isDoneGame"]),
+    ...mapWritableState(useQuestionStore, ["isDoneGame"]),
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",
     ]),
-    handleShowQuestion(): boolean {
-      return !this.isAnswered;
-    },
   },
 });
 </script>
