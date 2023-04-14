@@ -6,7 +6,11 @@ import { UserRank } from "@/interfaces";
 export default defineComponent({
   mixins: [isRoomOwnerMixin],
   methods: {
-    ...mapActions(useQuestionStore, ["nextQuestion", "viewResultStore"]),
+    ...mapActions(useQuestionStore, [
+      "nextQuestion",
+      "viewResultStore",
+      "receiveNextQuestion",
+    ]),
     ...mapActions(useTimerStore, [
       "startTimeBar",
       "resetTimeBar",
@@ -17,7 +21,7 @@ export default defineComponent({
       this.clearTimeBar();
     },
 
-    nextQuestionMixin() {
+    nextQuestionMixinFn() {
       this.resetTimeBar();
       this.startTimeBar();
       this.nextQuestion();
@@ -26,6 +30,12 @@ export default defineComponent({
     receiveShowDataMixin(result: Array<UserRank>) {
       this.clearTimeBar();
       this.receiveShowData(result);
+    },
+
+    receiveNextQuestionMixin() {
+      this.resetTimeBar();
+      this.startTimeBar();
+      this.receiveNextQuestion();
     },
   },
   computed: {

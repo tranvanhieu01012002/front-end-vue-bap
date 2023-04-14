@@ -9,7 +9,7 @@
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
-    <NextQuestionButton @next="nextQuestionMixin">Start</NextQuestionButton>
+    <NextQuestionButton @next="nextQuestionMixinFn">Start</NextQuestionButton>
   </div>
 </template>
 <script lang="ts">
@@ -76,7 +76,7 @@ export default defineComponent({
         console.log(user, "leaving");
       })
       .listen("RoomEvent", (e: unknown) => {
-        this.nextQuestionMixin();
+        this.receiveNextQuestionMixin();
         console.log(e);
       })
       .listen("ShowResult", (e: ResponseResult) => {

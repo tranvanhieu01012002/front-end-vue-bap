@@ -6,6 +6,7 @@ import { QuestionService } from "@/services";
 import { router } from "@/router";
 import UserRank from "@/interfaces/UserRank";
 import { useTimerStore } from "./timerStore";
+import { ParamFunction } from "@/interfaces";
 
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
@@ -56,14 +57,33 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     async nextQuestion(): Promise<void> {
-      this.currentQuestionId++;
-      this.isResult = false;
+      const roomId = this.setupBeforeNextQuestion();
+      this.isAnswered = false;
       if (this.currentQuestionId - 1 < this.questions.length) {
-        await this.questionService.nextQuestion(this.currentQuestionId);
+        await this.questionService.nextQuestion(roomId, this.currentQuestionId);
       } else {
         this.handleDoneGame();
       }
+    },
+
+    nextQuestionBase(fn: ParamFunction): void {
+      const roomId = this.setupBeforeNextQuestion();
+      if (this.currentQuestionId - 1 < this.questions.length) {
+        fn(roomId, this.currentQuestionId);
+      } else {
+        this.handleDoneGame();
+      }
+    },
+
+    setupBeforeNextQuestion() {
+      this.currentQuestionId++;
+      this.isResult = false;
       this.isAnswered = false;
+      const { id } = router.currentRoute.value.params;
+      return id;
+    },
+    receiveNextQuestion() {
+      this.nextQuestionBase(this.questionService.nextQuestionRedirect);
     },
 
     async viewResultStore(): Promise<void> {

@@ -11,15 +11,25 @@ export default class QuestionService {
     this.questionRepository = new QuestionRepository();
   }
 
-  async nextQuestion(currentQuestionId: number): Promise<void> {
-    const { id } = router.currentRoute.value.params;
+  async nextQuestion(
+    roomId: string | string[],
+    currentQuestionId: number
+  ): Promise<void> {
     if (new RoomOwnerService().checkRoomOwner()) {
-      const { data } = await this.questionRepository.nextQuestion(id);
-      console.log(data);
+      await this.nextQuestionRoomOwner(roomId);
     }
+    this.nextQuestionRedirect(roomId, currentQuestionId);
+  }
+
+  async nextQuestionRoomOwner(roomId: unknown): Promise<void> {
+    const { data } = await this.questionRepository.nextQuestion(roomId);
+    console.log(data);
+  }
+
+  nextQuestionRedirect(roomId: string | string[], currentQuestionId: number) {
     router.push({
       name: "room-question",
-      params: { id, questionId: currentQuestionId },
+      params: { id: roomId, questionId: currentQuestionId },
     });
   }
 

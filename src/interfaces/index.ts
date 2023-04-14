@@ -5,6 +5,7 @@ import Question from "./Question";
 import ResponseResult from "./ResponseResult";
 import UserInfo from "./UserInfo";
 import UserRank from "./UserRank";
+import ParamFunction from "./ParamFunction";
 
 export {
   Account,
@@ -14,4 +15,5 @@ export {
   ResponseResult,
   UserInfo,
   UserRank,
+  ParamFunction,
 };
