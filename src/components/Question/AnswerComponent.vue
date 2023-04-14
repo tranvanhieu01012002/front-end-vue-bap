@@ -13,10 +13,8 @@
 </template>
 <script lang="ts">
 import { PropType, defineComponent } from "vue";
-import { mapActions } from "pinia";
-import { useQuestionStore } from "@/store";
 import type AnswerInterface from "@/interfaces/AnswerInterface";
-import { isRoomOwnerMixin } from "@/mixins";
+import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 export default defineComponent({
   props: {
     answer: {
@@ -24,14 +22,13 @@ export default defineComponent({
       required: true,
     },
   },
-  mixins: [isRoomOwnerMixin],
+  mixins: [isRoomOwnerMixin, nextQuestionMixin],
   methods: {
     chooseAnswer: function () {
       if (!this.isRoomOwner) {
-        this.answerQuestion(this.answer.isCorrect ?? false);
+        this.answerQuestionMixin(this.answer.isCorrect ?? false);
       }
     },
-    ...mapActions(useQuestionStore, ["answerQuestion"]),
   },
 });
 </script>

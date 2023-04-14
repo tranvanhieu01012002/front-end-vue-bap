@@ -10,6 +10,7 @@ export default defineComponent({
       "nextQuestion",
       "viewResultStore",
       "receiveNextQuestion",
+      "answerQuestion",
     ]),
     ...mapActions(useTimerStore, [
       "startTimeBar",
@@ -38,13 +39,14 @@ export default defineComponent({
       this.startTimeBar();
       this.receiveNextQuestion();
     },
+
+    answerQuestionMixin(isCorrect: boolean) {
+      this.clearTimeBar();
+      this.answerQuestion(isCorrect);
+    },
   },
   computed: {
-    ...mapWritableState(useQuestionStore, [
-      "resultData",
-      "isCorrect",
-      "isAnswered",
-    ]),
+    ...mapWritableState(useQuestionStore, ["resultData", "isCorrect"]),
     ...mapState(useTimerStore, ["timer"]),
   },
 });

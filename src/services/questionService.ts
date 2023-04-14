@@ -22,10 +22,30 @@ export default class QuestionService {
     console.log(data);
   }
 
-  nextQuestionRedirect(roomId: string | string[], currentQuestionId: number) {
+  nextQuestionRedirect(
+    roomId: string | string[],
+    questionId: string | string[]
+  ) {
     router.push({
       name: "room-question",
-      params: { id: roomId, questionId: currentQuestionId },
+      params: { id: roomId, questionId },
+    });
+  }
+
+  redirectRouteLoading(
+    roomId: string | string[],
+    questionId: string | string[]
+  ) {
+    return router.push({
+      name: "room-question-loading",
+      params: { roomId, questionId: questionId ?? "1" },
+    });
+  }
+
+  showResultRedirect(roomId: string | string[], questionId: string | string[]) {
+    return router.push({
+      name: "room-question-result",
+      params: { roomId, questionId: questionId ?? "1" },
     });
   }
 

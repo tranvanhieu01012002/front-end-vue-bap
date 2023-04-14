@@ -10,6 +10,7 @@ import QuestionView from "../views/QuestionView.vue";
 import Auth from "@/helpers/auth";
 import nProgress from "nprogress";
 import LoadingView from "../views/LoadingView.vue";
+import ResultView from "../views/ResultView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -75,6 +76,15 @@ const routes: Array<RouteRecordRaw> = [
     path: "/rooms/:id/:questionId/loading",
     name: "room-question-loading",
     component: LoadingView,
+    meta: {
+      requiresAuth: true,
+    },
+    props: true,
+  },
+  {
+    path: "/rooms/:id/:questionId/result",
+    name: "room-question-result",
+    component: ResultView,
     meta: {
       requiresAuth: true,
     },

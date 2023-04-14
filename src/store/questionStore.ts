@@ -7,12 +7,10 @@ import { router } from "@/router";
 import UserRank from "@/interfaces/UserRank";
 import { useTimerStore } from "./timerStore";
 import { ParamFunction } from "@/interfaces";
-
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
       isAnswered: false,
-      isResult: false,
       isCorrect: false,
       isDoneGame: false,
       answers: listAnswers,
@@ -41,27 +39,13 @@ export const useQuestionStore = defineStore("questionStore", {
     },
   },
   actions: {
-    updateIsAnswered(): void {
-      this.isAnswered = !this.isAnswered;
-    },
-
-    answerQuestion(isCorrect: boolean): void {
-      const { id } = router.currentRoute.value.params;
-      this.isCorrect = isCorrect;
-      this.isAnswered = true;
-      this.questionService.answerQuestion(id, 30, isCorrect);
-    },
-
     async getQuestion(): Promise<void> {
       this.questions = await this.questionService.getQuestion();
     },
 
     async nextQuestion(): Promise<void> {
       const { id, questionId } = router.currentRoute.value.params;
-      router.push({
-        name: "room-question-loading",
-        params: { id, questionId: questionId ?? "1" },
-      });
+      this.questionService.redirectRouteLoading(id, questionId ?? "1");
       const roomId = this.setupBeforeNextQuestion();
       if (this.currentQuestionId - 1 < this.questions.length) {
         await this.questionService.nextQuestion(roomId);
@@ -70,41 +54,47 @@ export const useQuestionStore = defineStore("questionStore", {
       }
     },
 
+    async viewResultStore(): Promise<void> {
+      const { id, questionId } = router.currentRoute.value.params;
+      this.resultData = await this.questionService.viewResult(id);
+      this.questionService.redirectRouteLoading(id, questionId ?? "1");
+    },
+
+    answerQuestion(isCorrect: boolean): void {
+      const { id, questionId } = router.currentRoute.value.params;
+      this.isCorrect = isCorrect;
+      this.questionService.redirectRouteLoading(id, questionId ?? "1");
+      this.questionService.answerQuestion(id, 30, isCorrect);
+    },
+
     nextQuestionBase(fn: ParamFunction): void {
       this.currentQuestionId++;
       const roomId = this.setupBeforeNextQuestion();
       if (this.currentQuestionId - 1 < this.questions.length) {
-        fn(roomId, this.currentQuestionId);
+        fn(roomId, this.currentQuestionId + " ");
       } else {
         this.handleDoneGame();
       }
     },
 
     setupBeforeNextQuestion() {
-      this.isResult = false;
-      this.isAnswered = false;
       const { id } = router.currentRoute.value.params;
       return id;
     },
+
     receiveNextQuestion() {
       this.nextQuestionBase(this.questionService.nextQuestionRedirect);
     },
 
-    async viewResultStore(): Promise<void> {
-      const { id } = router.currentRoute.value.params;
-      this.resultData = await this.questionService.viewResult(id);
-      this.isResult = !this.isResult;
-    },
-
     receiveShowData(result: Array<UserRank>): void {
+      const { id, questionId } = router.currentRoute.value.params;
       console.log("Tracking store", result);
-      this.isResult = true;
+      this.questionService.showResultRedirect(id, questionId);
       this.resultData = result;
     },
 
     handleDoneGame() {
       const timer = useTimerStore();
-      this.isResult = false;
       this.isDoneGame = true;
       timer.clearTimeBar();
       this.currentQuestionId = 0;

@@ -15,9 +15,6 @@
   <div v-show="isAnswered">
     <CycleLoader />
   </div>
-  <div v-show="isResult">
-    <RankPage />
-  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -28,7 +25,6 @@ import ListAnswers from "./ListAnswers.vue";
 import CycleLoader from "../Loader/CycleLoader.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
-import RankPage from "../Ranking/RankPage.vue";
 import ProgressBar from "./ProgressBar.vue";
 export default defineComponent({
   name: "PageQuestion",
@@ -44,21 +40,16 @@ export default defineComponent({
     ListAnswers,
     CycleLoader,
     NextQuestionButton,
-    RankPage,
     ProgressBar,
   },
   computed: {
-    ...mapWritableState(useQuestionStore, [
-      "isAnswered",
-      "isDoneGame",
-      "isResult",
-    ]),
+    ...mapWritableState(useQuestionStore, ["isAnswered", "isDoneGame"]),
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",
     ]),
     handleShowQuestion(): boolean {
-      return !this.isAnswered && !this.isResult;
+      return !this.isAnswered;
     },
   },
 });
