@@ -3,7 +3,7 @@
     <h1>Welcome to room: {{ id }}</h1>
     <div class="alert alert-primary" role="alert">
       Current User:
-      <spam class="btn btn-success">{{ users.length }}</spam>
+      <div class="btn btn-success">{{ users.length }}</div>
     </div>
     <CycleLoader />
     <div class="row">

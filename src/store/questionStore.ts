@@ -57,16 +57,21 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     async nextQuestion(): Promise<void> {
+      const { id, questionId } = router.currentRoute.value.params;
+      router.push({
+        name: "room-question-loading",
+        params: { id, questionId: questionId ?? "1" },
+      });
       const roomId = this.setupBeforeNextQuestion();
-      this.isAnswered = false;
       if (this.currentQuestionId - 1 < this.questions.length) {
-        await this.questionService.nextQuestion(roomId, this.currentQuestionId);
+        await this.questionService.nextQuestion(roomId);
       } else {
         this.handleDoneGame();
       }
     },
 
     nextQuestionBase(fn: ParamFunction): void {
+      this.currentQuestionId++;
       const roomId = this.setupBeforeNextQuestion();
       if (this.currentQuestionId - 1 < this.questions.length) {
         fn(roomId, this.currentQuestionId);
@@ -76,7 +81,6 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     setupBeforeNextQuestion() {
-      this.currentQuestionId++;
       this.isResult = false;
       this.isAnswered = false;
       const { id } = router.currentRoute.value.params;

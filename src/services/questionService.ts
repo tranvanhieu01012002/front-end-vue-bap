@@ -11,14 +11,10 @@ export default class QuestionService {
     this.questionRepository = new QuestionRepository();
   }
 
-  async nextQuestion(
-    roomId: string | string[],
-    currentQuestionId: number
-  ): Promise<void> {
+  async nextQuestion(roomId: string | string[]): Promise<void> {
     if (new RoomOwnerService().checkRoomOwner()) {
       await this.nextQuestionRoomOwner(roomId);
     }
-    this.nextQuestionRedirect(roomId, currentQuestionId);
   }
 
   async nextQuestionRoomOwner(roomId: unknown): Promise<void> {

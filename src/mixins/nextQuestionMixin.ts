@@ -23,7 +23,8 @@ export default defineComponent({
 
     nextQuestionMixinFn() {
       this.resetTimeBar();
-      this.startTimeBar();
+      console.log("he");
+      // this.startTimeBar();
       this.nextQuestion();
     },
 
