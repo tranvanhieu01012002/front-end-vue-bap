@@ -5,8 +5,10 @@
       <ProgressBar />
     </div>
     <div class="row d-flex justify-content-between">
-      <QuestionLeft :question="getContentQuestion" />
-      <ListAnswers :answers="getListCurrentAnswers" />
+      <template v-if="!isDoneGame">
+        <QuestionLeft :question="getContentQuestion" />
+        <ListAnswers :answers="getListCurrentAnswers" />
+      </template>
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>
@@ -46,7 +48,11 @@ export default defineComponent({
     ProgressBar,
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["isAnswered", "isResult"]),
+    ...mapWritableState(useQuestionStore, [
+      "isAnswered",
+      "isDoneGame",
+      "isResult",
+    ]),
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",

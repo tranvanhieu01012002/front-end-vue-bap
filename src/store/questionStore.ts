@@ -5,18 +5,20 @@ import AnswerInterface from "@/interfaces/AnswerInterface";
 import { QuestionService } from "@/services";
 import { router } from "@/router";
 import UserRank from "@/interfaces/UserRank";
+import { useTimerStore } from "./timerStore";
 
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
       isAnswered: false,
+      isResult: false,
+      isCorrect: false,
+      isDoneGame: false,
       answers: listAnswers,
       questions: [] as Question[],
       currentQuestion: {} as Question,
       currentQuestionId: 0,
-      isCorrect: false,
       questionService: new QuestionService(),
-      isResult: false,
       resultData: [] as UserRank[],
     };
   },
@@ -54,15 +56,12 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     async nextQuestion(): Promise<void> {
-      this.isAnswered = false;
       this.currentQuestionId++;
       this.isResult = false;
       if (this.currentQuestionId - 1 < this.questions.length) {
         await this.questionService.nextQuestion(this.currentQuestionId);
       } else {
-        this.isAnswered = false;
-        this.isResult = false;
-        router.push({ path: "/" });
+        this.handleDoneGame();
       }
       this.isAnswered = false;
     },
@@ -77,6 +76,17 @@ export const useQuestionStore = defineStore("questionStore", {
       console.log("Tracking store", result);
       this.isResult = true;
       this.resultData = result;
+    },
+
+    handleDoneGame() {
+      const timer = useTimerStore();
+      this.isResult = false;
+      this.isDoneGame = true;
+      timer.clearTimeBar();
+      this.currentQuestionId = 0;
+      this.questions = [];
+      this.resultData = [];
+      router.push({ path: "/" });
     },
   },
 });
