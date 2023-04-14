@@ -6,8 +6,10 @@
     </div>
     <div class="row d-flex justify-content-between">
       <template v-if="!isDoneGame">
-        <QuestionLeft :question="getContentQuestion" />
-        <ListAnswers :answers="getListCurrentAnswers" />
+        <!-- <QuestionLeft :question="getContentQuestion" />
+        <ListAnswers :answers="getListCurrentAnswers" /> -->
+        <QuestionLeft :question="question" />
+        <ListAnswers :answers="answers" />
       </template>
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
@@ -43,6 +45,44 @@ export default defineComponent({
       "getContentQuestion",
       "getListCurrentAnswers",
     ]),
+  },
+  // https://www.vecteezy.com/vector-art/6140087-design-of-quiz-in-gradient-color-question-and-answers-template-quiz-game-in-tv-show
+  data() {
+    return {
+      question: {
+        id: "22",
+        content: "Fasdfsdf",
+        image:
+          "https://1000logos.net/wp-content/uploads/2021/11/Docker-Logo-2013.png",
+        answers: [{ character: ":adsfdas", bgColor: "Fasdfdsf" }],
+      },
+      answers: [
+        {
+          character: "A",
+          bgColor: "alert alert-" + "primary",
+          content:
+            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
+        },
+        {
+          character: "B",
+          bgColor: "alert alert-" + "secondary",
+          content:
+            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
+        },
+        {
+          character: "C",
+          bgColor: "alert alert-" + "warning",
+          content:
+            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
+        },
+        {
+          character: "D",
+          bgColor: "alert alert-" + "dark",
+          content:
+            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
+        },
+      ],
+    };
   },
 });
 </script>

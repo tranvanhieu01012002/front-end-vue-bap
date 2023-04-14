@@ -27,9 +27,6 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.col-6 {
-  background-color: rgb(157, 0, 255);
-}
 .list-answer {
   height: 90%;
 }
