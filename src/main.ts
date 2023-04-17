@@ -7,20 +7,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import "nprogress/nprogress.css";
 import vue3GoogleLogin from "vue3-google-login";
-import { createApolloProvider } from "@vue/apollo-option";
-import { ApolloClient, InMemoryCache } from "@apollo/client/core";
 
 // import Echo from "laravel-echo";
 const pinia = createPinia();
-const cache = new InMemoryCache();
-
-const apolloClient = new ApolloClient({
-  cache,
-  uri: process.env.VUE_APP_GRAPHQL,
-});
-const apolloProvider = createApolloProvider({
-  defaultClient: apolloClient,
-});
 
 createApp(App)
   .use(BootstrapVue3)
@@ -29,5 +18,4 @@ createApp(App)
   })
   .use(pinia)
   .use(router)
-  .use(apolloProvider)
   .mount("#app");
