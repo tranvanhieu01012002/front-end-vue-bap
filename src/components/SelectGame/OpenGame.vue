@@ -7,7 +7,10 @@
           >Play game</b-button
         >
         <button @click="createRoom" class="btn btn-success m-2">
-          Make new room
+          Create new room
+        </button>
+        <button @click="createRoom" class="btn btn-warning m-2">
+          Create set questions
         </button>
       </div>
     </div>

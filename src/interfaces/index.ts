@@ -6,6 +6,7 @@ import ResponseResult from "./ResponseResult";
 import UserInfo from "./UserInfo";
 import UserRank from "./UserRank";
 import ParamFunction from "./ParamFunction";
+import SetQuestion from "./SetQuestionInterface";
 
 export {
   Account,
@@ -16,4 +17,5 @@ export {
   UserInfo,
   UserRank,
   ParamFunction,
+  SetQuestion,
 };
