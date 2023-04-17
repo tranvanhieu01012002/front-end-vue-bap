@@ -11,7 +11,7 @@ export default defineComponent({
   computed: {
     ...mapState(useQuestionStore, ["currentQuestionId", "questions"]),
     handleShowAllQuestions() {
-      return this.questions.length;
+      return 6;
     },
   },
 });
