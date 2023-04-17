@@ -1,7 +1,5 @@
 <template>
-  <h2>
-    Total questions: {{ currentQuestionId }}/ {{ handleShowAllQuestions }}
-  </h2>
+  <h2>Total questions: {{ currentQuestionId }}/ {{ questions.length }}</h2>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -10,9 +8,6 @@ import { useQuestionStore } from "@/store";
 export default defineComponent({
   computed: {
     ...mapState(useQuestionStore, ["currentQuestionId", "questions"]),
-    handleShowAllQuestions() {
-      return 6;
-    },
   },
 });
 </script>

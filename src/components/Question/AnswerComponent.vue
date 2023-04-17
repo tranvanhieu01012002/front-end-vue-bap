@@ -42,7 +42,7 @@ button {
   position: relative;
   background-clip: padding-box;
   border: 10px solid transparent;
-  background-color: #5b5463;
+  background-color: #fcf9fe;
   border: 10px solid #87838e;
 }
 .character {
@@ -50,6 +50,7 @@ button {
   background-color: #f93466;
   width: 30px;
   height: 50px;
+  padding: 10px 20px;
 }
 .answer:before {
   content: "";

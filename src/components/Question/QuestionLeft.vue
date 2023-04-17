@@ -1,7 +1,11 @@
 <template>
   <div class="col-5 left">
     <!-- <div>Question view</div> -->
-    <img :src="question.image" class="rounded mx-auto d-block" alt="..." />
+    <img
+      :src="question.image"
+      class="rounded mx-auto d-block img-thumbnail"
+      alt="..."
+    />
     <div class="question-text">
       {{ question.content }}
     </div>
@@ -26,8 +30,19 @@ export default defineComponent({
 }
 .question-text {
   background-color: rgb(197, 207, 8);
-  padding: 10px 10px;
+  border: 2px solid red;
+  padding: 10px;
+  border-radius: 25px;
   margin: 10px;
+}
+.question-text:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: -10px;
+  background-image: linear-gradient(to right top, #87838e, #5b5a5a);
+  border-radius: inherit;
 }
 .mx-auto {
   width: 400px;
@@ -38,7 +53,7 @@ export default defineComponent({
   position: relative;
   background-clip: padding-box;
   border: 10px solid transparent;
-  background-color: #191a28;
+  background-color: #919191;
   /* border-radius: 20px; */
   border-top-left-radius: 60px;
   border-bottom-right-radius: 60px;

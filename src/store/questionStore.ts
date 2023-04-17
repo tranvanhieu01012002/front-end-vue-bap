@@ -11,7 +11,6 @@ export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
       isCorrect: false,
-      isDoneGame: false,
       answers: listAnswers,
       questions: [] as Question[],
       currentQuestion: {} as Question,
@@ -63,7 +62,8 @@ export const useQuestionStore = defineStore("questionStore", {
       const { id, questionId } = router.currentRoute.value.params;
       this.isCorrect = isCorrect;
       this.questionService.redirectRouteLoading(id, questionId ?? "1");
-      this.questionService.answerQuestion(id, 30, isCorrect);
+      const timer = useTimerStore();
+      this.questionService.answerQuestion(id, timer.timeBar, isCorrect);
     },
 
     nextQuestionBase(fn: ParamFunction): void {
@@ -94,7 +94,6 @@ export const useQuestionStore = defineStore("questionStore", {
 
     handleDoneGame() {
       const timer = useTimerStore();
-      this.isDoneGame = true;
       timer.clearTimeBar();
       this.currentQuestionId = 0;
       this.questions = [];

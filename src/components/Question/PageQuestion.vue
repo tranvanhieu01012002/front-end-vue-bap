@@ -4,20 +4,18 @@
     <div class="m-2">
       <ProgressBar />
     </div>
-    <div class="row d-flex justify-content-between">
-      <template v-if="!isDoneGame">
-        <!-- <QuestionLeft :question="getContentQuestion" />
-        <ListAnswers :answers="getListCurrentAnswers" /> -->
-        <QuestionLeft :question="question" />
-        <ListAnswers :answers="answers" />
-      </template>
+    <div class="row">
+      <QuestionLeft class="col-6" :question="getContentQuestion" />
+      <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
+      <!-- <QuestionLeft :question="question" />
+        <ListAnswers :answers="answers" /> -->
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState, mapWritableState } from "pinia";
+import { mapState } from "pinia";
 import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
@@ -40,7 +38,6 @@ export default defineComponent({
     ProgressBar,
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["isDoneGame"]),
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",
