@@ -53,9 +53,9 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     async viewResultStore(): Promise<void> {
-      const { id, questionId } = router.currentRoute.value.params;
+      const { id } = router.currentRoute.value.params;
       this.resultData = await this.questionService.viewResult(id);
-      this.questionService.redirectRouteLoading(id, questionId ?? "1");
+      // this.questionService.redirectRouteLoading(id, questionId ?? "1");
     },
 
     answerQuestion(isCorrect: boolean): void {
@@ -70,7 +70,7 @@ export const useQuestionStore = defineStore("questionStore", {
       this.currentQuestionId++;
       const roomId = this.setupBeforeNextQuestion();
       if (this.currentQuestionId - 1 < this.questions.length) {
-        fn(roomId, this.currentQuestionId + " ");
+        fn(roomId, this.currentQuestionId + "");
       } else {
         this.handleDoneGame();
       }
