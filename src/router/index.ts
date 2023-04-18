@@ -12,6 +12,7 @@ import nProgress from "nprogress";
 import LoadingView from "../views/LoadingView.vue";
 import ResultView from "../views/ResultView.vue";
 import SetQuestionView from "../views/SetQuestionView.vue";
+import CreateQuestionView from "../views/CreateQuestionView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -68,6 +69,15 @@ const routes: Array<RouteRecordRaw> = [
     path: "/set-questions",
     name: "set-question",
     component: SetQuestionView,
+    meta: {
+      requiresAuth: true,
+    },
+    props: true,
+  },
+  {
+    path: "/set-questions/:setQuestionId/questions",
+    name: "list-questions",
+    component: CreateQuestionView,
     meta: {
       requiresAuth: true,
     },

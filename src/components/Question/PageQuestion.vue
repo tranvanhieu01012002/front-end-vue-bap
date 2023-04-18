@@ -5,10 +5,10 @@
       <ProgressBar />
     </div>
     <div class="row">
-      <QuestionLeft class="col-6" :question="getContentQuestion" />
-      <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
-      <!-- <QuestionLeft :question="question" />
-        <ListAnswers :answers="answers" /> -->
+      <!-- <QuestionLeft class="col-6" :question="getContentQuestion" />
+      <ListAnswers class="col-6" :answers="getListCurrentAnswers" /> -->
+      <QuestionLeft :question="question" />
+      <ListAnswers :answers="answers" />
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>

@@ -2,12 +2,19 @@
   <div class="col-6">
     <div class="card m-2 card-height">
       <div class="card-body">
-        <h5 class="card-title">Name: {{ setQuestion.name }}</h5>
+        <h5 contenteditable="true" class="card-title">
+          Name: {{ setQuestion.name }}
+        </h5>
         <div class="d-flex justify-content-between">
           <a href="#" class="btn btn-primary"
             >Total question: {{ setQuestion.questions_count }}</a
           >
-          <a href="#" class="btn btn-success">Update</a>
+          <button
+            @click="$emit('listQuestions', setQuestion.id)"
+            class="btn btn-success"
+          >
+            Show question
+          </button>
           <button
             @click="$emit('delete', setQuestion.id)"
             class="btn btn-warning"
@@ -30,7 +37,7 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["delete"],
+  emits: ["delete", "listQuestions"],
 });
 </script>
 <style scoped>

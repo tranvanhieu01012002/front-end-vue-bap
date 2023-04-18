@@ -9,8 +9,8 @@
         <button @click="createRoom" class="btn btn-success m-2">
           Create new room
         </button>
-        <button @click="createRoom" class="btn btn-warning m-2">
-          Create set questions
+        <button @click="openSetQuestion" class="btn btn-warning m-2">
+          Set questions
         </button>
       </div>
     </div>
@@ -22,6 +22,7 @@
 import { defineComponent } from "vue";
 import RoomService from "@/services/roomService";
 import DefaultModal from "../Modal/DefaultModal.vue";
+import { router } from "@/router";
 export default defineComponent({
   data() {
     return {
@@ -38,6 +39,9 @@ export default defineComponent({
     },
     createRoom: async function () {
       await new RoomService().createRoom();
+    },
+    openSetQuestion() {
+      return router.push({ name: "set-question" });
     },
   },
 });

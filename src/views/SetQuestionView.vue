@@ -14,6 +14,7 @@
   <div class="row">
     <template v-for="setQuestion in setQuestions" :key="setQuestion.id">
       <SetQuestionComponentVue
+        v-on:list-questions="openListQuestions"
         v-on:delete="deleteSetQuestion"
         :set-question="setQuestion"
       />
@@ -32,7 +33,7 @@ import { useModalStore } from "@/store";
 import { SetQuestion } from "@/interfaces";
 import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
 import { alertMixin } from "@/mixins";
-
+import { router } from "@/router";
 import SetQuestionComponentVue from "@/components/SetQuestion/SetQuestionComponent.vue";
 import BasicModal from "@/components/Modal/BasicModal.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
@@ -56,10 +57,18 @@ export default defineComponent({
       this.text = "";
     },
     async deleteSetQuestion(id: number) {
-      console.log(id);
       await this.setQuestionRepository.delete(id);
       this.setQuestions = this.setQuestions.filter((item) => item.id !== id);
       this.showAlert();
+    },
+    openListQuestions(id: number) {
+      console.log(id);
+      router.push({
+        name: "list-questions",
+        params: {
+          setQuestionId: id,
+        },
+      });
     },
   },
   watch: {
