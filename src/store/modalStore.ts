@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 export const useModalStore = defineStore("modalStore", {
-  state: () => ({ isOpen: false, name: "" }),
+  state: () => ({ isOpen: false, name: "", isOk: false, isCancel: false }),
   getters: {},
   actions: {
     openModal(name: string) {
@@ -12,6 +12,8 @@ export const useModalStore = defineStore("modalStore", {
     },
     closeModal() {
       this.isOpen = false;
+      // this.isCancel = false;
+      // this.isOk = false;
     },
   },
 });

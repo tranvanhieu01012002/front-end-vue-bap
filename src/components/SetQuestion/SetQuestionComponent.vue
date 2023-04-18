@@ -1,6 +1,6 @@
 <template>
   <div class="col-6">
-    <div class="card m-2">
+    <div class="card m-2 card-height">
       <div class="card-body">
         <h5 class="card-title">Name: {{ setQuestion.name }}</h5>
         <div class="d-flex justify-content-between">
@@ -8,7 +8,12 @@
             >Total question: {{ setQuestion.questions_count }}</a
           >
           <a href="#" class="btn btn-success">Update</a>
-          <a href="#" class="btn btn-warning">Delete</a>
+          <button
+            @click="$emit('delete', setQuestion.id)"
+            class="btn btn-warning"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
@@ -25,5 +30,11 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["delete"],
 });
 </script>
+<style scoped>
+.card-height {
+  height: 120px;
+}
+</style>

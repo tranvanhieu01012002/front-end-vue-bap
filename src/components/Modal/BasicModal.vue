@@ -9,11 +9,12 @@ import { mapActions, mapState, mapWritableState } from "pinia";
 import { useModalStore } from "@/store";
 export default defineComponent({
   computed: {
-    ...mapWritableState(useModalStore, ["isOpen"]),
+    ...mapWritableState(useModalStore, ["isOpen", "isOk"]),
     ...mapState(useModalStore, ["name"]),
   },
   methods: {
     onsubmit() {
+      this.isOk = true;
       this.closeModal();
     },
     ...mapActions(useModalStore, ["openModal", "closeModal"]),
