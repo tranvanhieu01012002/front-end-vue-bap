@@ -1,15 +1,21 @@
 <template>
   <div>create question view</div>
-  <PageQuestion question-id="5" />
+  <PageQuestion :question-id="questionId" />
   <ListFormQuestionVue />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import PageQuestion from "@/components/Question/PageQuestion.vue";
 import ListFormQuestionVue from "@/components/FormQuestion/ListFormQuestion.vue";
+import { mapActions } from "pinia";
+import { useQuestionStore } from "@/store";
 export default defineComponent({
   props: {
     setQuestionId: {
+      type: String,
+      required: true,
+    },
+    questionId: {
       type: String,
       required: true,
     },
@@ -18,8 +24,11 @@ export default defineComponent({
     PageQuestion,
     ListFormQuestionVue,
   },
+  methods: {
+    ...mapActions(useQuestionStore, ["getQuestion"]),
+  },
   mounted() {
-    console.log(this.setQuestionId);
+    this.getQuestion();
   },
 });
 </script>

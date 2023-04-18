@@ -75,7 +75,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/set-questions/:setQuestionId/questions",
+    path: "/set-questions/:setQuestionId/questions/:questionId",
     name: "list-questions",
     component: CreateQuestionView,
     meta: {

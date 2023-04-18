@@ -1,7 +1,11 @@
 <template>
   <div>list here</div>
   <div class="d-flex list">
-    <FormQuestion v-for="n in formQuestions" :key="n" />
+    <FormQuestion
+      :question="question"
+      v-for="question in questions"
+      :key="question.id"
+    />
     <div class="col-3">
       <button @click="addNewQuestion" class="btn btn-success">add new</button>
     </div>
@@ -9,6 +13,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState } from "pinia";
+import { useQuestionStore } from "@/store";
 import FormQuestion from "./FormQuestion.vue";
 export default defineComponent({
   components: {
@@ -18,6 +24,9 @@ export default defineComponent({
     addNewQuestion() {
       this.formQuestions++;
     },
+  },
+  computed: {
+    ...mapState(useQuestionStore, ["questions"]),
   },
   data() {
     return {
