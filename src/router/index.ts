@@ -11,6 +11,7 @@ import Auth from "@/helpers/auth";
 import nProgress from "nprogress";
 import LoadingView from "../views/LoadingView.vue";
 import ResultView from "../views/ResultView.vue";
+import SetQuestionView from "../views/SetQuestionView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -58,6 +59,15 @@ const routes: Array<RouteRecordRaw> = [
     path: "/rooms/:id",
     name: "room",
     component: RoomView,
+    meta: {
+      requiresAuth: true,
+    },
+    props: true,
+  },
+  {
+    path: "/set-questions",
+    name: "set-question",
+    component: SetQuestionView,
     meta: {
       requiresAuth: true,
     },

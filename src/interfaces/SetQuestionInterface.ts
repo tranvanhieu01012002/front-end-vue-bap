@@ -1,6 +1,6 @@
 export default interface SetQuestion {
   id: number;
   name: string;
-  total_question: number;
+  questions_count: number;
   user_id: string;
 }
