@@ -1,6 +1,11 @@
 <template>
   <div class="col-3">
     <div @click="openQuestion" :class="cssStyle">
+      <div class="d-flex justify-content-end">
+        <button :onclick="removeQuestionMethod" class="btn btn-primary">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       create question view
       <div>{{ question?.content }}</div>
     </div>
@@ -10,7 +15,7 @@
 import { Question } from "@/interfaces";
 import { router } from "@/router";
 import { PropType, defineComponent } from "vue";
-import { mapWritableState } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useQuestionStore } from "@/store";
 export default defineComponent({
   props: {
@@ -34,6 +39,7 @@ export default defineComponent({
     ...mapWritableState(useQuestionStore, ["currentQuestionId"]),
   },
   methods: {
+    ...mapActions(useQuestionStore, ["removeQuestion"]),
     openQuestion() {
       const setQuestionId = this.setQuestionRouterId;
       const questionId = this.question.id;
@@ -42,6 +48,9 @@ export default defineComponent({
         name: "list-questions",
         params: { setQuestionId, questionId },
       });
+    },
+    removeQuestionMethod() {
+      this.removeQuestion(this.question.id);
     },
   },
   created() {

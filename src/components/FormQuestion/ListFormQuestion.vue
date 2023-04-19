@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useQuestionStore } from "@/store";
 import FormQuestion from "./FormQuestion.vue";
 
@@ -22,9 +22,7 @@ export default defineComponent({
     FormQuestion,
   },
   methods: {
-    addNewQuestion(): void {
-      this.formQuestions++;
-    },
+    ...mapActions(useQuestionStore, ["addNewQuestion"]),
   },
   computed: {
     ...mapState(useQuestionStore, ["questions"]),

@@ -100,5 +100,16 @@ export const useQuestionStore = defineStore("questionStore", {
       this.resultData = [];
       router.push({ path: "/" });
     },
+
+    addNewQuestion() {
+      this.questions.push({
+        id: `${Date.now()}`,
+        answers: [],
+      });
+    },
+
+    removeQuestion(id: string) {
+      this.questions = this.questions.filter((question) => question.id !== id);
+    },
   },
 });
