@@ -7,7 +7,7 @@
 import { defineComponent } from "vue";
 import PageQuestion from "@/components/Question/PageQuestion.vue";
 import ListFormQuestionVue from "@/components/FormQuestion/ListFormQuestion.vue";
-import { mapActions, mapWritableState } from "pinia";
+import { mapActions } from "pinia";
 import { useQuestionStore } from "@/store";
 export default defineComponent({
   props: {
@@ -24,9 +24,6 @@ export default defineComponent({
     PageQuestion,
     ListFormQuestionVue,
   },
-  computed: {
-    ...mapWritableState(useQuestionStore, ["currentQuestionIndex"]),
-  },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
   },
@@ -38,7 +35,6 @@ export default defineComponent({
   async created() {
     await this.getQuestion();
     this.isLoaded = true;
-    this.currentQuestionIndex = parseInt(this.questionId);
   },
 });
 </script>

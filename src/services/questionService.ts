@@ -38,14 +38,14 @@ export default class QuestionService {
   ) {
     return router.push({
       name: "room-question-loading",
-      params: { roomId, questionId: questionId ?? "1" },
+      params: { roomId, questionId },
     });
   }
 
   showResultRedirect(roomId: string | string[], questionId: string | string[]) {
     return router.push({
       name: "room-question-result",
-      params: { roomId, questionId: questionId ?? "1" },
+      params: { roomId, questionId },
     });
   }
 

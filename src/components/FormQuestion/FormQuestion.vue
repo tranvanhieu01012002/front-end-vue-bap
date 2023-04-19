@@ -20,7 +20,7 @@
 import { Question } from "@/interfaces";
 import { router } from "@/router";
 import { PropType, defineComponent } from "vue";
-import { mapActions, mapWritableState } from "pinia";
+import { mapActions } from "pinia";
 import { useQuestionStore } from "@/store";
 export default defineComponent({
   props: {
@@ -40,15 +40,11 @@ export default defineComponent({
           : "bg btn btn-warning",
     };
   },
-  computed: {
-    ...mapWritableState(useQuestionStore, ["currentQuestionIndex"]),
-  },
   methods: {
     ...mapActions(useQuestionStore, ["removeQuestion"]),
     openQuestion() {
       const setQuestionId = this.setQuestionRouterId;
       const questionId = this.question.id;
-      this.currentQuestionIndex = parseInt(questionId);
       return router.push({
         name: "list-questions",
         params: { setQuestionId, questionId },
