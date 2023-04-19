@@ -6,7 +6,7 @@
     role="alert"
   >
     <div class="character">{{ answer.character }}</div>
-    <p class="question-text">
+    <p :class="handleShowAnswer">
       {{ answer.content }}
     </p>
   </button>
@@ -15,6 +15,7 @@
 import { PropType, defineComponent } from "vue";
 import type AnswerInterface from "@/interfaces/AnswerInterface";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
+import { EnableEditQuestion } from "@/services";
 export default defineComponent({
   props: {
     answer: {
@@ -29,6 +30,23 @@ export default defineComponent({
         this.answerQuestionMixin(this.answer.isCorrect ?? false);
       }
     },
+    handleIsCorrect(): string {
+      return this.answer.is_correct ? "btn btn-success" : " btn btn-warning ";
+    },
+  },
+  computed: {
+    handleShowAnswer(): string {
+      if (this.editable.status) {
+        return this.handleIsCorrect();
+      } else {
+        return "question-text";
+      }
+    },
+  },
+  data() {
+    return {
+      editable: new EnableEditQuestion(),
+    };
   },
 });
 </script>
@@ -49,7 +67,7 @@ button {
   border-bottom-left-radius: 25px;
   background-color: #f93466;
   width: 30px;
-  height: 50px;
+  height: 70px;
   padding: 10px 20px;
 }
 .answer:before {
@@ -67,5 +85,8 @@ button {
 }
 .question-text {
   margin: 8px 10px;
+}
+.btn {
+  height: 70px;
 }
 </style>
