@@ -1,13 +1,18 @@
 <template>
   <div class="col-3">
-    <div @click="openQuestion" :class="cssStyle">
+    <div class="card-question">
       <div class="d-flex justify-content-end">
-        <button :onclick="removeQuestionMethod" class="btn btn-primary">
+        <button
+          :onclick="removeQuestionMethod"
+          class="btn btn-primary btn-remove"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      create question view
-      <div>{{ question?.content }}</div>
+      <div @click="openQuestion" :class="cssStyle">
+        create question view
+        <div class="t-padding">{{ question?.content }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,14 +41,14 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["currentQuestionId"]),
+    ...mapWritableState(useQuestionStore, ["currentQuestionIndex"]),
   },
   methods: {
     ...mapActions(useQuestionStore, ["removeQuestion"]),
     openQuestion() {
       const setQuestionId = this.setQuestionRouterId;
       const questionId = this.question.id;
-      this.currentQuestionId = parseInt(questionId);
+      this.currentQuestionIndex = parseInt(questionId);
       return router.push({
         name: "list-questions",
         params: { setQuestionId, questionId },
@@ -71,5 +76,16 @@ export default defineComponent({
 .bg {
   white-space: initial;
   height: 200px;
+}
+.card-question {
+  position: relative;
+}
+.btn-remove {
+  position: absolute;
+  top: 2px;
+  z-index: 1;
+}
+.t-padding {
+  padding-top: 10px;
 }
 </style>

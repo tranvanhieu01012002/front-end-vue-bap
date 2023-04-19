@@ -25,7 +25,7 @@ export default defineComponent({
     ListFormQuestionVue,
   },
   computed: {
-    ...mapWritableState(useQuestionStore, ["currentQuestionId"]),
+    ...mapWritableState(useQuestionStore, ["currentQuestionIndex"]),
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
@@ -38,7 +38,7 @@ export default defineComponent({
   async created() {
     await this.getQuestion();
     this.isLoaded = true;
-    this.currentQuestionId = parseInt(this.questionId);
+    this.currentQuestionIndex = parseInt(this.questionId);
   },
 });
 </script>

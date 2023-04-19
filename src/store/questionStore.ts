@@ -14,18 +14,18 @@ export const useQuestionStore = defineStore("questionStore", {
       answers: listAnswers,
       questions: [] as Question[],
       currentQuestion: {} as Question,
-      currentQuestionId: 0,
+      currentQuestionIndex: 0,
       questionService: new QuestionService(),
       resultData: [] as UserRank[],
     };
   },
   getters: {
     getContentQuestion(): Question {
-      return this.questions[this.currentQuestionId - 1];
+      return this.questions[this.currentQuestionIndex - 1];
     },
     getListCurrentAnswers(): Array<AnswerInterface> {
-      if (this.currentQuestionId - 1 < this.questions.length) {
-        return this.questions[this.currentQuestionId - 1].answers.map(
+      if (this.currentQuestionIndex - 1 < this.questions.length) {
+        return this.questions[this.currentQuestionIndex - 1].answers.map(
           (answerItem, index) => ({
             ...answerItem,
             ...this.answers[index],
@@ -45,7 +45,7 @@ export const useQuestionStore = defineStore("questionStore", {
       const { id, questionId } = router.currentRoute.value.params;
       this.questionService.redirectRouteLoading(id, questionId ?? "1");
       const roomId = this.setupBeforeNextQuestion();
-      if (this.currentQuestionId - 1 < this.questions.length) {
+      if (this.currentQuestionIndex - 1 < this.questions.length) {
         await this.questionService.nextQuestion(roomId);
       } else {
         this.handleDoneGame();
@@ -67,10 +67,10 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     nextQuestionBase(fn: ParamFunction): void {
-      this.currentQuestionId++;
+      this.currentQuestionIndex++;
       const roomId = this.setupBeforeNextQuestion();
-      if (this.currentQuestionId - 1 < this.questions.length) {
-        fn(roomId, this.currentQuestionId + "");
+      if (this.currentQuestionIndex - 1 < this.questions.length) {
+        fn(roomId, this.currentQuestionIndex + "");
       } else {
         this.handleDoneGame();
       }
@@ -95,7 +95,7 @@ export const useQuestionStore = defineStore("questionStore", {
     handleDoneGame() {
       const timer = useTimerStore();
       timer.clearTimeBar();
-      this.currentQuestionId = 0;
+      this.currentQuestionIndex = 0;
       this.questions = [];
       this.resultData = [];
       router.push({ path: "/" });
