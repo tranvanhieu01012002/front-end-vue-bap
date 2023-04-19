@@ -4,7 +4,7 @@
     <div class="m-2">
       <ProgressBar />
     </div>
-    <div class="row">
+    <div class="row" v-if="getListCurrentAnswers.length !== 0">
       <QuestionLeft class="col-6" :question="getContentQuestion" />
       <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
       <!-- <QuestionLeft :question="question" />

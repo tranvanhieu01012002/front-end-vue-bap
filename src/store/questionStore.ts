@@ -28,11 +28,16 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     getListCurrentAnswers(): Array<AnswerInterface> {
-      return this.getContentQuestion.answers.map((answerItem, index) => ({
-        ...answerItem,
-        ...this.answers[index],
-        isCorrect: answerItem.is_correct,
-      }));
+      const contentQuestion = this.getContentQuestion;
+      if (contentQuestion) {
+        return this.getContentQuestion.answers.map((answerItem, index) => ({
+          ...answerItem,
+          ...this.answers[index],
+          isCorrect: answerItem.is_correct,
+        }));
+      } else {
+        return [];
+      }
     },
   },
   actions: {
@@ -98,12 +103,23 @@ export const useQuestionStore = defineStore("questionStore", {
     addNewQuestion() {
       this.questions.push({
         id: `${Date.now()}`,
-        answers: [],
+        answers: listAnswers,
       });
     },
 
     removeQuestion(id: string) {
       this.questions = this.questions.filter((question) => question.id !== id);
+      const { setQuestionId, questionId } = router.currentRoute.value.params;
+      let toQuestionId;
+      if (id == questionId) {
+        toQuestionId = this.questions[0].id;
+      } else {
+        toQuestionId = questionId;
+      }
+      router.push({
+        name: "list-questions",
+        params: { setQuestionId, questionId: toQuestionId },
+      });
     },
   },
 });
