@@ -5,10 +5,10 @@
       <ProgressBar />
     </div>
     <div class="row">
-      <!-- <QuestionLeft class="col-6" :question="getContentQuestion" />
-      <ListAnswers class="col-6" :answers="getListCurrentAnswers" /> -->
-      <QuestionLeft :question="question" />
-      <ListAnswers :answers="answers" />
+      <QuestionLeft class="col-6" :question="getContentQuestion" />
+      <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
+      <!-- <QuestionLeft :question="question" />
+      <ListAnswers :answers="answers" /> -->
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>
@@ -42,6 +42,9 @@ export default defineComponent({
       "getContentQuestion",
       "getListCurrentAnswers",
     ]),
+  },
+  created() {
+    console.log(1);
   },
   // https://www.vecteezy.com/vector-art/6140087-design-of-quiz-in-gradient-color-question-and-answers-template-quiz-game-in-tv-show
   data() {

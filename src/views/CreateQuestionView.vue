@@ -1,13 +1,13 @@
 <template>
   <div>create question view</div>
-  <PageQuestion :question-id="questionId" />
+  <PageQuestion v-if="isLoaded" :question-id="questionId" />
   <ListFormQuestionVue />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import PageQuestion from "@/components/Question/PageQuestion.vue";
 import ListFormQuestionVue from "@/components/FormQuestion/ListFormQuestion.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapWritableState } from "pinia";
 import { useQuestionStore } from "@/store";
 export default defineComponent({
   props: {
@@ -24,11 +24,21 @@ export default defineComponent({
     PageQuestion,
     ListFormQuestionVue,
   },
+  computed: {
+    ...mapWritableState(useQuestionStore, ["currentQuestionId"]),
+  },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
   },
-  mounted() {
-    this.getQuestion();
+  data() {
+    return {
+      isLoaded: false,
+    };
+  },
+  async created() {
+    await this.getQuestion();
+    this.isLoaded = true;
+    this.currentQuestionId = parseInt(this.questionId);
   },
 });
 </script>

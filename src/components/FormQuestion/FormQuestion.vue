@@ -10,6 +10,8 @@
 import { Question } from "@/interfaces";
 import { router } from "@/router";
 import { PropType, defineComponent } from "vue";
+import { mapWritableState } from "pinia";
+import { useQuestionStore } from "@/store";
 export default defineComponent({
   props: {
     question: {
@@ -28,12 +30,14 @@ export default defineComponent({
           : "bg btn btn-warning",
     };
   },
-
+  computed: {
+    ...mapWritableState(useQuestionStore, ["currentQuestionId"]),
+  },
   methods: {
     openQuestion() {
       const setQuestionId = this.setQuestionRouterId;
       const questionId = this.question.id;
-      console.log("Da click");
+      this.currentQuestionId = parseInt(questionId);
       return router.push({
         name: "list-questions",
         params: { setQuestionId, questionId },
