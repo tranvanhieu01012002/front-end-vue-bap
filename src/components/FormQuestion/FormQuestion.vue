@@ -1,6 +1,6 @@
 <template>
   <div class="col-3">
-    <div :class="handleActive">
+    <div @click="openQuestion" :class="cssStyle">
       create question view
       <div>{{ question?.content }}</div>
     </div>
@@ -17,22 +17,46 @@ export default defineComponent({
       required: true,
     },
   },
-  computed: {
-    handleActive() {
-      const { questionId } = router.currentRoute.value.params;
-      return questionId == this.question.id ? "bg active" : "bg";
+  data() {
+    return {
+      questionRouterId: router.currentRoute.value.params.questionId ?? "1",
+      setQuestionRouterId:
+        router.currentRoute.value.params.setQuestionId ?? "1",
+      cssStyle:
+        this.$route.params.questionId == this.question.id
+          ? "bg btn btn-success"
+          : "bg btn btn-warning",
+    };
+  },
+
+  methods: {
+    openQuestion() {
+      const setQuestionId = this.setQuestionRouterId;
+      const questionId = this.question.id;
+      console.log("Da click");
+      return router.push({
+        name: "list-questions",
+        params: { setQuestionId, questionId },
+      });
     },
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        if (this.$route.params.questionId == this.question.id) {
+          this.cssStyle = "bg btn btn-success";
+        } else {
+          this.cssStyle = "bg btn btn-warning";
+        }
+      }
+    );
   },
 });
 </script>
 <style scoped>
 .bg {
-  background: #f5e506;
   white-space: initial;
   height: 200px;
-}
-
-.active {
-  background-color: rgb(250, 20, 93);
 }
 </style>

@@ -7,6 +7,7 @@
     </b-nav>
   </nav>
   <router-view />
+  <!-- <router-view :key="$route.path" /> -->
 </template>
 <script lang="ts">
 import { routes } from "../router";

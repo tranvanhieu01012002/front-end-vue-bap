@@ -16,12 +16,13 @@ import { defineComponent } from "vue";
 import { mapState } from "pinia";
 import { useQuestionStore } from "@/store";
 import FormQuestion from "./FormQuestion.vue";
+
 export default defineComponent({
   components: {
     FormQuestion,
   },
   methods: {
-    addNewQuestion() {
+    addNewQuestion(): void {
       this.formQuestions++;
     },
   },
