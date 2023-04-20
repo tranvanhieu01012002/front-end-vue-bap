@@ -6,20 +6,35 @@
       class="rounded mx-auto d-block img-thumbnail"
       alt="..."
     />
-    <div :contenteditable="editable.status" class="question-text">
-      {{ question.content }}
-    </div>
+    <div
+      ref="index"
+      @keyup.enter="onStop"
+      @blur="onInput"
+      v-text="question.content"
+      :contenteditable="true"
+      class="question-text"
+    ></div>
   </div>
 </template>
 <script lang="ts">
 import Question from "@/interfaces/Question";
 import { PropType, defineComponent } from "vue";
 import { EnableEditQuestion } from "@/services";
+
 export default defineComponent({
   props: {
     question: {
       type: Object as PropType<Question>,
       required: true,
+    },
+  },
+  emits: ["updateQuestionContent"],
+  methods: {
+    onInput(e: Event) {
+      this.$emit("updateQuestionContent", (e.target as HTMLElement).innerText);
+    },
+    onStop() {
+      (this.$refs.index as HTMLElement).blur();
     },
   },
   data() {

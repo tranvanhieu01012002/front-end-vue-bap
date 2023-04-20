@@ -5,7 +5,11 @@
       <ProgressBar />
     </div>
     <div class="row" v-if="getListCurrentAnswers.length !== 0">
-      <QuestionLeft class="col-6" :question="getContentQuestion" />
+      <QuestionLeft
+        @update-question-content="updateQuestion"
+        class="col-6"
+        :question="getContentQuestion"
+      />
       <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
       <!-- <QuestionLeft :question="question" />
       <ListAnswers :answers="answers" /> -->
@@ -15,13 +19,14 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState } from "pinia";
+import { mapActions, mapState, mapWritableState } from "pinia";
 import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import ProgressBar from "./ProgressBar.vue";
+import { Question } from "@/interfaces";
 export default defineComponent({
   name: "PageQuestion",
   props: {
@@ -42,6 +47,16 @@ export default defineComponent({
       "getContentQuestion",
       "getListCurrentAnswers",
     ]),
+    ...mapWritableState(useQuestionStore, ["questions"]),
+  },
+  methods: {
+    ...mapActions(useQuestionStore, ["updateQuestions"]),
+    updateQuestion(text: string) {
+      console.log(text);
+      this.questions = this.questions.map((item) =>
+        item.id == this.questionId ? { ...item, content: text } : item
+      );
+    },
   },
   // https://www.vecteezy.com/vector-art/6140087-design-of-quiz-in-gradient-color-question-and-answers-template-quiz-game-in-tv-show
   data() {
