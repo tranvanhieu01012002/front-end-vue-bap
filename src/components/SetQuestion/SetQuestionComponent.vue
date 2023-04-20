@@ -16,6 +16,7 @@
             Show question
           </button>
           <button
+            v-if="!isChooseRoom"
             @click="$emit('delete', setQuestion.id)"
             class="btn btn-warning"
           >
@@ -34,6 +35,10 @@ export default defineComponent({
   props: {
     setQuestion: {
       type: Object as PropType<SetQuestion>,
+      required: true,
+    },
+    isChooseRoom: {
+      type: Boolean,
       required: true,
     },
   },

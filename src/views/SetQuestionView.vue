@@ -5,6 +5,7 @@
   <div class="d-flex justify-content-between">
     <h2>List set question</h2>
     <button
+      v-if="!isChooseRoom"
       @click="() => openModal('Add set question')"
       class="btn btn-primary"
     >
@@ -12,9 +13,15 @@
     </button>
   </div>
   <div class="row">
-    <template v-for="setQuestion in setQuestions" :key="setQuestion.id">
+    <template
+      v-for="setQuestion in handleShowSetQuestion"
+      :key="setQuestion.id"
+    >
       <SetQuestionComponentVue
-        v-on:list-questions="openListQuestions"
+        :is-choose-room="isChooseRoom"
+        v-on:list-questions="
+          () => (isChooseRoom ? createRoom() : openListQuestions)
+        "
         v-on:delete="deleteSetQuestion"
         :set-question="setQuestion"
       />
@@ -33,10 +40,12 @@ import { useModalStore } from "@/store";
 import { SetQuestion } from "@/interfaces";
 import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
 import { alertMixin } from "@/mixins";
+import RoomService from "@/services/roomService";
 import { router } from "@/router";
 import SetQuestionComponentVue from "@/components/SetQuestion/SetQuestionComponent.vue";
 import BasicModal from "@/components/Modal/BasicModal.vue";
 import BaseAlert from "@/components/BaseAlert.vue";
+
 export default defineComponent({
   mixins: [alertMixin],
   components: {
@@ -46,6 +55,11 @@ export default defineComponent({
   },
   computed: {
     ...mapWritableState(useModalStore, ["isOk"]),
+    handleShowSetQuestion(): Array<SetQuestion> {
+      return this.isChooseRoom
+        ? this.setQuestions.filter((question) => question.questions_count > 0)
+        : this.setQuestions;
+    },
   },
   methods: {
     ...mapActions(useModalStore, ["openModal"]),
@@ -67,8 +81,13 @@ export default defineComponent({
         name: "list-questions",
         params: {
           setQuestionId: id,
+          questionId: -1,
         },
       });
+    },
+    async createRoom() {
+      console.log("vo day be");
+      await new RoomService().createRoom();
     },
   },
   watch: {
@@ -85,6 +104,9 @@ export default defineComponent({
       setQuestions: [] as SetQuestion[],
       setQuestionRepository: new SetQuestionRepository("set-questions"),
       text: "",
+      isChooseRoom: this.$router.currentRoute.value.path.includes(
+        "rooms-set-questions"
+      ),
     };
   },
   async mounted() {

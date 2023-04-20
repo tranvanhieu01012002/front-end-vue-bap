@@ -7,8 +7,9 @@
 import { defineComponent } from "vue";
 import PageQuestion from "@/components/Question/PageQuestion.vue";
 import ListFormQuestionVue from "@/components/FormQuestion/ListFormQuestion.vue";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useQuestionStore } from "@/store";
+import { router } from "@/router";
 export default defineComponent({
   props: {
     setQuestionId: {
@@ -26,6 +27,20 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
+    redirectIfStart() {
+      if (parseInt(this.questionId) === -1) {
+        router.push({
+          name: "list-questions",
+          params: {
+            setQuestions: this.setQuestionId,
+            questionId: this.questions[0].id,
+          },
+        });
+      }
+    },
+  },
+  computed: {
+    ...mapState(useQuestionStore, ["questions"]),
   },
   data() {
     return {
@@ -33,7 +48,8 @@ export default defineComponent({
     };
   },
   async created() {
-    await this.getQuestion();
+    await this.getQuestion(parseInt(this.setQuestionId));
+    this.redirectIfStart();
     this.isLoaded = true;
   },
 });

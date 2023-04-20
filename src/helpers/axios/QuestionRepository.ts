@@ -2,8 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import BaseRepository from "./BaseRepository";
 
 export default class QuestionRepository extends BaseRepository {
-  async getQuestion(roomId: number): Promise<AxiosResponse> {
-    this.setResource(`rooms/${roomId}/questions`);
+  async getQuestion(setQuestion: number): Promise<AxiosResponse> {
+    this.setResource(`set-questions/${setQuestion}/questions`);
     return await this.get();
   }
 

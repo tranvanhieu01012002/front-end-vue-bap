@@ -7,7 +7,7 @@
     <div>
       <Draggable
         class="d-flex"
-        v-model="questions1"
+        v-model="questionsInComponent"
         group="people"
         item-key="id"
       >
@@ -36,8 +36,8 @@ export default defineComponent({
     ...mapActions(useQuestionStore, ["addNewQuestion", "updateQuestions"]),
   },
   computed: {
-    ...mapState(useQuestionStore, ["questions", "getQuestions"]),
-    questions1: {
+    ...mapState(useQuestionStore, ["questions"]),
+    questionsInComponent: {
       get(): Array<Question> {
         return this.questions;
       },

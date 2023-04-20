@@ -49,8 +49,8 @@ export default class QuestionService {
     });
   }
 
-  async getQuestion(): Promise<Array<Question>> {
-    const { data } = await this.questionRepository.getQuestion(1);
+  async getQuestion(setQuestionId: number): Promise<Array<Question>> {
+    const { data } = await this.questionRepository.getQuestion(setQuestionId);
     return data.data;
   }
 

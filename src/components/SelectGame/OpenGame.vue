@@ -20,7 +20,6 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import RoomService from "@/services/roomService";
 import DefaultModal from "../Modal/DefaultModal.vue";
 import { router } from "@/router";
 export default defineComponent({
@@ -38,7 +37,7 @@ export default defineComponent({
       this.modalShow = model;
     },
     createRoom: async function () {
-      await new RoomService().createRoom();
+      router.push({ name: "room-set-question" });
     },
     openSetQuestion() {
       return router.push({ name: "set-question" });

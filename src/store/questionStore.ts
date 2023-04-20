@@ -39,18 +39,14 @@ export const useQuestionStore = defineStore("questionStore", {
         return [];
       }
     },
-
-    getQuestions(): Array<Question> {
-      return this.questions;
-    },
   },
   actions: {
     updateQuestions(questions: Array<Question>) {
       this.questions = questions;
     },
 
-    async getQuestion(): Promise<void> {
-      this.questions = await this.questionService.getQuestion();
+    async getQuestion(setQuestionId: number): Promise<void> {
+      this.questions = await this.questionService.getQuestion(setQuestionId);
     },
 
     async nextQuestion(): Promise<void> {
@@ -78,6 +74,7 @@ export const useQuestionStore = defineStore("questionStore", {
       // if more length will be undefine
       const question = this.questions[this.currentQuestionIndex];
       if (question) {
+        console.log(this.currentQuestionIndex, "view question");
         fn(id, question.id);
       } else {
         this.handleDoneGame();

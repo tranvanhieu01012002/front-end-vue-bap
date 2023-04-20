@@ -83,7 +83,7 @@ export default defineComponent({
         console.log("show result", e);
         this.receiveShowDataMixin(e.data);
       });
-    this.getQuestion();
+    this.getQuestion(1);
   },
   // beforeUnmount() {
   //   this.roomOwnerService.removeRoomOwner();
