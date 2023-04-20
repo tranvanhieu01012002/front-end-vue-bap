@@ -19,9 +19,7 @@
     >
       <SetQuestionComponentVue
         :is-choose-room="isChooseRoom"
-        v-on:list-questions="
-          () => (isChooseRoom ? createRoom() : openListQuestions)
-        "
+        v-on:list-questions="openListQuestions"
         v-on:delete="deleteSetQuestion"
         :set-question="setQuestion"
       />
@@ -75,15 +73,18 @@ export default defineComponent({
       this.setQuestions = this.setQuestions.filter((item) => item.id !== id);
       this.showAlert();
     },
-    openListQuestions(id: number) {
-      console.log(id);
-      router.push({
-        name: "list-questions",
-        params: {
-          setQuestionId: id,
-          questionId: -1,
-        },
-      });
+    async openListQuestions(id: number) {
+      if (this.isChooseRoom) {
+        await this.createRoom();
+      } else {
+        router.push({
+          name: "list-questions",
+          params: {
+            setQuestionId: id,
+            questionId: -1,
+          },
+        });
+      }
     },
     async createRoom() {
       console.log("vo day be");
