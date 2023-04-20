@@ -6,7 +6,7 @@
       class="rounded mx-auto d-block img-thumbnail"
       alt="..."
     />
-    <div class="question-text">
+    <div :contenteditable="editable.status" class="question-text">
       {{ question.content }}
     </div>
   </div>
@@ -14,12 +14,18 @@
 <script lang="ts">
 import Question from "@/interfaces/Question";
 import { PropType, defineComponent } from "vue";
+import { EnableEditQuestion } from "@/services";
 export default defineComponent({
   props: {
     question: {
       type: Object as PropType<Question>,
       required: true,
     },
+  },
+  data() {
+    return {
+      editable: new EnableEditQuestion(),
+    };
   },
 });
 </script>

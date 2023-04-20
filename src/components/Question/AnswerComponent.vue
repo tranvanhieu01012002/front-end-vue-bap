@@ -6,7 +6,7 @@
     role="alert"
   >
     <div class="character">{{ answer.character }}</div>
-    <p :class="handleShowAnswer">
+    <p :contenteditable="editable.status" :class="handleShowAnswer">
       {{ answer.content }}
     </p>
   </button>
@@ -16,6 +16,7 @@ import { PropType, defineComponent } from "vue";
 import type AnswerInterface from "@/interfaces/AnswerInterface";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import { EnableEditQuestion } from "@/services";
+
 export default defineComponent({
   props: {
     answer: {

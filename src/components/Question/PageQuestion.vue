@@ -43,9 +43,6 @@ export default defineComponent({
       "getListCurrentAnswers",
     ]),
   },
-  created() {
-    console.log(1);
-  },
   // https://www.vecteezy.com/vector-art/6140087-design-of-quiz-in-gradient-color-question-and-answers-template-quiz-game-in-tv-show
   data() {
     return {
