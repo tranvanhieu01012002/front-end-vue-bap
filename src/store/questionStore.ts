@@ -39,8 +39,16 @@ export const useQuestionStore = defineStore("questionStore", {
         return [];
       }
     },
+
+    getQuestions(): Array<Question> {
+      return this.questions;
+    },
   },
   actions: {
+    updateQuestions(questions: Array<Question>) {
+      this.questions = questions;
+    },
+
     async getQuestion(): Promise<void> {
       this.questions = await this.questionService.getQuestion();
     },
