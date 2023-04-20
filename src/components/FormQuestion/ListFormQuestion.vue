@@ -1,5 +1,6 @@
 <template>
-  <div class="d-flex justify-content-end b-padding">
+  <div class="d-flex justify-content-between b-padding">
+    <QuestionBarVue />
     <button @click="addNewQuestion" class="btn btn-success">add new</button>
   </div>
   <div class="d-flex list">
@@ -22,12 +23,14 @@ import { defineComponent } from "vue";
 import { mapActions, mapState } from "pinia";
 import { useQuestionStore } from "@/store";
 import FormQuestion from "./FormQuestion.vue";
+import QuestionBarVue from "../Question/QuestionBar.vue";
 import Draggable from "vuedraggable";
 import { Question } from "@/interfaces";
 export default defineComponent({
   components: {
     FormQuestion,
     Draggable,
+    QuestionBarVue,
   },
   methods: {
     ...mapActions(useQuestionStore, ["addNewQuestion", "updateQuestions"]),
@@ -46,6 +49,7 @@ export default defineComponent({
   data() {
     return {
       formQuestions: 0,
+      load: false,
     };
   },
 });
