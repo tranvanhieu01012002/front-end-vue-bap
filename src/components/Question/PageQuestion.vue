@@ -26,7 +26,7 @@ import ListAnswers from "./ListAnswers.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
 import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import ProgressBar from "./ProgressBar.vue";
-import { Question } from "@/interfaces";
+
 export default defineComponent({
   name: "PageQuestion",
   props: {
@@ -46,15 +46,16 @@ export default defineComponent({
     ...mapState(useQuestionStore, [
       "getContentQuestion",
       "getListCurrentAnswers",
+      "questions",
     ]),
-    ...mapWritableState(useQuestionStore, ["questions"]),
   },
   methods: {
     ...mapActions(useQuestionStore, ["updateQuestions"]),
     updateQuestion(text: string) {
-      console.log(text);
-      this.questions = this.questions.map((item) =>
-        item.id == this.questionId ? { ...item, content: text } : item
+      this.updateQuestions(
+        this.questions.map((item) =>
+          item.id == this.questionId ? { ...item, content: text } : item
+        )
       );
     },
   },
