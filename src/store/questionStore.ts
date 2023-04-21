@@ -161,8 +161,8 @@ export const useQuestionStore = defineStore("questionStore", {
       }));
     },
 
-    saveQuestion() {
-      console.log(this.questions);
+    async saveQuestion() {
+      console.log(await this.questionService.updateQuestion(this.questions));
     },
   },
 });

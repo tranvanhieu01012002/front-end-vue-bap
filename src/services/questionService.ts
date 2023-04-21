@@ -71,4 +71,9 @@ export default class QuestionService {
     const { data } = await this.questionRepository.viewResult(roomId);
     return data.data;
   }
+
+  async updateQuestion(questions: Array<Question>) {
+    const { data } = await this.questionRepository.updateQuestion(questions);
+    return data;
+  }
 }

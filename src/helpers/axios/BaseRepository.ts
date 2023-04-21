@@ -21,6 +21,14 @@ export default class BaseRepository {
     return await http.delete(`${this.setUpURL()}/${id}`, config);
   }
 
+  async update(
+    id: string | number,
+    object: object,
+    config?: object
+  ): Promise<AxiosResponse> {
+    return await http.put(`${this.setUpURL()}/${id}`, object, config);
+  }
+
   protected setUpURL(): string {
     return `${this.baseURl}/${this.resource}`;
   }
