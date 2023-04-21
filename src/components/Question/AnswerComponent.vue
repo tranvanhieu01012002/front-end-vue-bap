@@ -62,6 +62,7 @@ export default defineComponent({
           ...this.answer,
           questionId: this.answer.question_id,
           is_correct: true,
+          isCorrect: true,
         });
       }
     },

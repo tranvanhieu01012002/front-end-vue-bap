@@ -142,6 +142,9 @@ export const useQuestionStore = defineStore("questionStore", {
                       is_correct: answer.is_correct
                         ? false
                         : answerInArray.is_correct,
+                      isCorrect: answer.is_correct
+                        ? false
+                        : answerInArray.is_correct,
                     }
               ),
             }
