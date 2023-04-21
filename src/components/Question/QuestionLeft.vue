@@ -2,7 +2,7 @@
   <div class="col-5 left">
     <!-- <div>Question view</div> -->
     <img
-      :src="question.image"
+      :src="question.image ?? defaultImg"
       class="rounded mx-auto d-block img-thumbnail"
       alt="..."
     />
@@ -39,6 +39,8 @@ export default defineComponent({
   data() {
     return {
       editable: new EnableEditQuestion(),
+      defaultImg:
+        "https://1000logos.net/wp-content/uploads/2021/11/Docker-Logo-2013.png",
     };
   },
 });

@@ -136,11 +136,13 @@ export const useQuestionStore = defineStore("questionStore", {
               ...item,
               answers: item.answers.map((answerInArray) =>
                 answerInArray.id == answer.id
-                  ? {
+                  ? answer
+                  : {
                       ...answerInArray,
-                      content: answer.content,
+                      is_correct: answer.is_correct
+                        ? false
+                        : answerInArray.is_correct,
                     }
-                  : answerInArray
               ),
             }
           : item
@@ -152,6 +154,7 @@ export const useQuestionStore = defineStore("questionStore", {
         ...answer,
         id: Date.now() + index,
         question_id,
+        is_correct: false,
       }));
     },
   },

@@ -5,7 +5,9 @@
     :class="answer.bgColor"
     role="alert"
   >
-    <div class="character">{{ answer.character }}</div>
+    <div @click="updateCorrectAnswer" class="character">
+      {{ answer.character }}
+    </div>
     <p
       ref="index"
       @keyup.enter="onStop"
@@ -53,6 +55,15 @@ export default defineComponent({
         content: (e.target as HTMLElement).innerText,
         questionId: this.answer.question_id,
       });
+    },
+    updateCorrectAnswer() {
+      if (this.editable.status) {
+        this.updateAnswer({
+          ...this.answer,
+          questionId: this.answer.question_id,
+          is_correct: true,
+        });
+      }
     },
   },
   computed: {
