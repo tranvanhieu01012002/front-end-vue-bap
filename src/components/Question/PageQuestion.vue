@@ -19,7 +19,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapState, mapWritableState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useQuestionStore } from "@/store/questionStore";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";

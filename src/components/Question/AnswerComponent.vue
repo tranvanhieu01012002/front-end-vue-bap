@@ -6,7 +6,13 @@
     role="alert"
   >
     <div class="character">{{ answer.character }}</div>
-    <p :contenteditable="editable.status" :class="handleShowAnswer">
+    <p
+      ref="index"
+      @keyup.enter="onStop"
+      @blur="onInput"
+      :contenteditable="editable.status"
+      :class="handleShowAnswer"
+    >
       {{ answer.content }}
     </p>
   </button>
@@ -14,8 +20,14 @@
 <script lang="ts">
 import { PropType, defineComponent } from "vue";
 import type AnswerInterface from "@/interfaces/AnswerInterface";
-import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
+import {
+  isRoomOwnerMixin,
+  nextQuestionMixin,
+  actionEditableHtmlMixin,
+} from "@/mixins";
 import { EnableEditQuestion } from "@/services";
+import { mapActions } from "pinia";
+import { useQuestionStore } from "@/store";
 
 export default defineComponent({
   props: {
@@ -24,15 +36,23 @@ export default defineComponent({
       required: true,
     },
   },
-  mixins: [isRoomOwnerMixin, nextQuestionMixin],
+  mixins: [isRoomOwnerMixin, nextQuestionMixin, actionEditableHtmlMixin],
   methods: {
+    ...mapActions(useQuestionStore, ["updateAnswer"]),
     chooseAnswer: function () {
-      if (!this.isRoomOwner) {
+      if (!this.isRoomOwner && !this.editable.status) {
         this.answerQuestionMixin(this.answer.isCorrect ?? false);
       }
     },
     handleIsCorrect(): string {
       return this.answer.is_correct ? "btn btn-success" : " btn btn-warning ";
+    },
+    onInput(e: Event) {
+      this.updateAnswer({
+        ...this.answer,
+        content: (e.target as HTMLElement).innerText,
+        questionId: this.answer.question_id,
+      });
     },
   },
   computed: {

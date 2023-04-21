@@ -7,6 +7,7 @@ import { router } from "@/router";
 import UserRank from "@/interfaces/UserRank";
 import { useTimerStore } from "./timerStore";
 import { ParamFunction } from "@/interfaces";
+
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
     return {
@@ -106,9 +107,10 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     addNewQuestion() {
+      const questionId = Date.now();
       this.questions.push({
-        id: `${Date.now()}`,
-        answers: listAnswers,
+        id: `${questionId}`,
+        answers: this.createListAnswerId(listAnswers, questionId),
       });
     },
 
@@ -125,6 +127,32 @@ export const useQuestionStore = defineStore("questionStore", {
         name: "list-questions",
         params: { setQuestionId, questionId: toQuestionId },
       });
+    },
+
+    updateAnswer(answer: AnswerInterface) {
+      this.questions = this.questions.map((item) =>
+        item.id == answer.questionId?.toString()
+          ? {
+              ...item,
+              answers: item.answers.map((answerInArray) =>
+                answerInArray.id == answer.id
+                  ? {
+                      ...answerInArray,
+                      content: answer.content,
+                    }
+                  : answerInArray
+              ),
+            }
+          : item
+      );
+    },
+
+    createListAnswerId(answers: Array<AnswerInterface>, question_id: number) {
+      return answers.map((answer, index) => ({
+        ...answer,
+        id: Date.now() + index,
+        question_id,
+      }));
     },
   },
 });

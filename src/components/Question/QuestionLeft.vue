@@ -20,6 +20,7 @@
 import Question from "@/interfaces/Question";
 import { PropType, defineComponent } from "vue";
 import { EnableEditQuestion } from "@/services";
+import { actionEditableHtmlMixin } from "@/mixins";
 
 export default defineComponent({
   props: {
@@ -28,13 +29,11 @@ export default defineComponent({
       required: true,
     },
   },
+  mixins: [actionEditableHtmlMixin],
   emits: ["updateQuestionContent"],
   methods: {
     onInput(e: Event) {
       this.$emit("updateQuestionContent", (e.target as HTMLElement).innerText);
-    },
-    onStop() {
-      (this.$refs.index as HTMLElement).blur();
     },
   },
   data() {
