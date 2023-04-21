@@ -1,8 +1,5 @@
 <template>
-  <div class="d-flex justify-content-between b-padding">
-    <QuestionBarVue />
-    <button @click="addNewQuestion" class="btn btn-success">add new</button>
-  </div>
+  <HeadListFormQuestion />
   <div class="d-flex list">
     <div>
       <Draggable
@@ -23,17 +20,17 @@ import { defineComponent } from "vue";
 import { mapActions, mapState } from "pinia";
 import { useQuestionStore } from "@/store";
 import FormQuestion from "./FormQuestion.vue";
-import QuestionBarVue from "../Question/QuestionBar.vue";
+import HeadListFormQuestion from "./HeadListFormQuestion.vue";
 import Draggable from "vuedraggable";
 import { Question } from "@/interfaces";
 export default defineComponent({
   components: {
     FormQuestion,
     Draggable,
-    QuestionBarVue,
+    HeadListFormQuestion,
   },
   methods: {
-    ...mapActions(useQuestionStore, ["addNewQuestion", "updateQuestions"]),
+    ...mapActions(useQuestionStore, ["updateQuestions"]),
   },
   computed: {
     ...mapState(useQuestionStore, ["questions"]),

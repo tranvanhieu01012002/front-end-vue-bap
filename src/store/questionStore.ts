@@ -160,5 +160,9 @@ export const useQuestionStore = defineStore("questionStore", {
         is_correct: false,
       }));
     },
+
+    saveQuestion() {
+      console.log(this.questions);
+    },
   },
 });
