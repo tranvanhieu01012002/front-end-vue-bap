@@ -50,9 +50,11 @@ export const useQuestionStore = defineStore("questionStore", {
       const dataResponse: Array<Question> =
         await this.questionService.getQuestion(setQuestionId);
       if (dataResponse.length === 0) {
+        this.questions = [];
         this.addNewQuestion();
       } else {
         this.questions = dataResponse;
+        this.currentQuestionIndex = -1;
       }
     },
 
