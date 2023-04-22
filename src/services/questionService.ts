@@ -72,8 +72,14 @@ export default class QuestionService {
     return data.data;
   }
 
-  async updateQuestion(questions: Array<Question>) {
-    const { data } = await this.questionRepository.updateQuestion(questions);
-    return data;
+  async updateQuestion(
+    questions: Array<Question>,
+    setQuestionId: string | string[]
+  ) {
+    const { data } = await this.questionRepository.updateQuestion(
+      questions,
+      setQuestionId
+    );
+    return data.data;
   }
 }

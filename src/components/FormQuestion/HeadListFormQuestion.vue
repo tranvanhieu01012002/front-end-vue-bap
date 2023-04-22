@@ -5,7 +5,14 @@
       <button @click="addNewQuestion" class="btn btn-success m-2">
         add new
       </button>
-      <button @click="saveQuestion" class="btn btn-primary m-2">Save</button>
+      <button
+        @click="
+          () => saveQuestion($router.currentRoute.value.params.setQuestionId)
+        "
+        class="btn btn-primary m-2"
+      >
+        Save
+      </button>
     </div>
   </div>
 </template>

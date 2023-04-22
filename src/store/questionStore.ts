@@ -161,8 +161,16 @@ export const useQuestionStore = defineStore("questionStore", {
       }));
     },
 
-    async saveQuestion() {
-      console.log(await this.questionService.updateQuestion(this.questions));
+    async saveQuestion(setQuestionId: string | string[]) {
+      const updatedQuestions = await this.questionService.updateQuestion(
+        this.questions,
+        setQuestionId
+      );
+      this.updateQuestions(updatedQuestions);
+      router.push({
+        name: "list-questions",
+        params: { setQuestionId, questionId: this.questions[0].id },
+      });
     },
   },
 });

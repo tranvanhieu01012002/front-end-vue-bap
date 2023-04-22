@@ -34,8 +34,12 @@ export default class QuestionRepository extends BaseRepository {
     return await axios.get(this.setUpURL(), this.getConfigSocketId());
   }
 
-  async updateQuestion(questions: Array<Question>) {
+  async updateQuestion(
+    questions: Array<Question>,
+    setQuestionId: string | string[]
+  ) {
+    const data = { questions, set_question_id: setQuestionId };
     this.setResource(`questions`);
-    return await this.update("", { questions: questions });
+    return await this.update("", data);
   }
 }
