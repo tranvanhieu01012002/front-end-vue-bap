@@ -47,7 +47,13 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     async getQuestion(setQuestionId: number): Promise<void> {
-      this.questions = await this.questionService.getQuestion(setQuestionId);
+      const dataResponse: Array<Question> =
+        await this.questionService.getQuestion(setQuestionId);
+      if (dataResponse.length === 0) {
+        this.addNewQuestion();
+      } else {
+        this.questions = dataResponse;
+      }
     },
 
     async nextQuestion(): Promise<void> {
