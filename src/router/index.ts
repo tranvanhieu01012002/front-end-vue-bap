@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/rooms/:id",
+    path: "/rooms/:id/set-questions/:setQuestionId",
     name: "room",
     component: RoomView,
     meta: {

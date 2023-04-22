@@ -75,7 +75,7 @@ export default defineComponent({
     },
     async openListQuestions(id: number) {
       if (this.isChooseRoom) {
-        await this.createRoom();
+        await this.createRoom(id);
       } else {
         router.push({
           name: "list-questions",
@@ -86,9 +86,9 @@ export default defineComponent({
         });
       }
     },
-    async createRoom() {
+    async createRoom(setQuestionId: number) {
       console.log("vo day be");
-      await new RoomService().createRoom();
+      await new RoomService().createRoom(setQuestionId);
     },
   },
   watch: {

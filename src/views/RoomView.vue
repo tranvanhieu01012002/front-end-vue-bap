@@ -30,6 +30,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    setQuestionId: {
+      type: String,
+      required: true,
+    },
   },
   mixins: [nextQuestionMixin, isRoomOwnerMixin],
   components: {
@@ -83,7 +87,7 @@ export default defineComponent({
         console.log("show result", e);
         this.receiveShowDataMixin(e.data);
       });
-    this.getQuestion(1);
+    this.getQuestion(+this.setQuestionId);
   },
   // beforeUnmount() {
   //   this.roomOwnerService.removeRoomOwner();

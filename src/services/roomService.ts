@@ -11,7 +11,7 @@ export default class RoomService {
     this.roomOwnerService = new RoomOwnerService();
   }
 
-  async createRoom(): Promise<void> {
+  async createRoom(setQuestionId: number): Promise<void> {
     const { data } = await this.roomRepository.createRoom();
     console.log(data);
     this.roomOwnerService.setRoomOwner(data.user_id);
@@ -19,6 +19,7 @@ export default class RoomService {
       name: "room",
       params: {
         id: data.room,
+        setQuestionId,
       },
     });
   }
