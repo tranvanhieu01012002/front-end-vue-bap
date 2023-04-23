@@ -3,6 +3,7 @@ import QuestionRepository from "@/helpers/axios/QuestionRepository";
 import { router } from "@/router";
 import RoomOwnerService from "./roomOwnerService";
 import Question from "@/interfaces/Question";
+import { AnswerInterface } from "@/interfaces";
 
 export default class QuestionService {
   private questionRepository: QuestionRepository;
@@ -82,4 +83,16 @@ export default class QuestionService {
     );
     return data.data;
   }
+
+  checkEmptyQuestion(questions: Array<Question>): number[] {
+    const emptyQuestionIds: number[] = [];
+    questions.map((item, index) => {
+      if (item.content == "" || item.content === undefined)
+        emptyQuestionIds.push(index);
+    });
+    return emptyQuestionIds;
+  }
+  // checkEmptyAnswer(answers: Array<AnswerInterface>) {
+
+  // }
 }

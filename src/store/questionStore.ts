@@ -7,6 +7,8 @@ import { router } from "@/router";
 import UserRank from "@/interfaces/UserRank";
 import { useTimerStore } from "./timerStore";
 import { ParamFunction } from "@/interfaces";
+import { useModalStore } from "./modalStore";
+import { printListNumber } from "@/helpers";
 
 export const useQuestionStore = defineStore("questionStore", {
   state: () => {
@@ -170,15 +172,27 @@ export const useQuestionStore = defineStore("questionStore", {
     },
 
     async saveQuestion(setQuestionId: string | string[]) {
-      const updatedQuestions = await this.questionService.updateQuestion(
-        this.questions,
-        setQuestionId
+      const emptyQuestions: number[] = this.questionService.checkEmptyQuestion(
+        this.questions
       );
-      this.updateQuestions(updatedQuestions);
-      router.push({
-        name: "list-questions",
-        params: { setQuestionId, questionId: this.questions[0].id },
-      });
+
+      if (emptyQuestions.length === 0) {
+        const updatedQuestions = await this.questionService.updateQuestion(
+          this.questions,
+          setQuestionId
+        );
+        this.updateQuestions(updatedQuestions);
+        router.push({
+          name: "list-questions",
+          params: { setQuestionId, questionId: this.questions[0].id },
+        });
+      } else {
+        const modal = useModalStore();
+        modal.openModal(
+          "content question are empty at question: " +
+            printListNumber(emptyQuestions)
+        );
+      }
     },
   },
 });

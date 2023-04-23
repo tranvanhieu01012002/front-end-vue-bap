@@ -2,6 +2,9 @@
   <div>create question view</div>
   <PageQuestion v-if="isLoaded" :question-id="questionId" />
   <ListFormQuestionVue />
+  <BasicModal>
+    <p>sai r cu</p>
+  </BasicModal>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -10,6 +13,7 @@ import ListFormQuestionVue from "@/components/FormQuestion/ListFormQuestion.vue"
 import { mapActions, mapState } from "pinia";
 import { useQuestionStore } from "@/store";
 import { router } from "@/router";
+import BasicModal from "@/components/Modal/BasicModal.vue";
 export default defineComponent({
   props: {
     setQuestionId: {
@@ -24,6 +28,7 @@ export default defineComponent({
   components: {
     PageQuestion,
     ListFormQuestionVue,
+    BasicModal,
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion"]),
