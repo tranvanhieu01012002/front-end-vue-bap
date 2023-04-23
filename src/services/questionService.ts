@@ -86,13 +86,27 @@ export default class QuestionService {
 
   checkEmptyQuestion(questions: Array<Question>): number[] {
     const emptyQuestionIds: number[] = [];
+    const emptyAnswerIds: number[] = [];
     questions.map((item, index) => {
-      if (item.content == "" || item.content === undefined)
+      if (this.conditionContentAnswerOrQuestion(item.content))
         emptyQuestionIds.push(index);
+      this.checkEmptyAnswer(item.answers, emptyAnswerIds);
     });
+    // return emptyAnswerIds;
     return emptyQuestionIds;
   }
-  // checkEmptyAnswer(answers: Array<AnswerInterface>) {
+  checkEmptyAnswer(
+    answers: Array<AnswerInterface>,
+    emptyAnswerIds: number[]
+  ): void {
+    answers.map((item) => {
+      if (this.conditionContentAnswerOrQuestion(item.content)) {
+        emptyAnswerIds.push(item.id ?? 0);
+      }
+    });
+  }
 
-  // }
+  conditionContentAnswerOrQuestion(content = ""): boolean {
+    return content === "" || content === undefined || content == "\n";
+  }
 }
