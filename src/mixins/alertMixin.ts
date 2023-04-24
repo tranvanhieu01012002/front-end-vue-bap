@@ -9,7 +9,7 @@ export default defineComponent({
   methods: {
     showAlert() {
       this.isAlert = true;
-      this.timerAlert = setTimeout(() => {
+      this.timerAlert = window.setTimeout(() => {
         this.isAlert = false;
       }, 3000);
     },

@@ -30,7 +30,7 @@ export const useTimerStore = defineStore("timerStore", {
       }
     },
     startTimeBar() {
-      this.timer = setInterval(this.progressBar, 1000);
+      this.timer = window.setInterval(this.progressBar, 1000);
     },
     clearTimeBar() {
       clearInterval(this.timer);
