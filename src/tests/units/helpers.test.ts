@@ -1,8 +1,8 @@
 import { test, expect, describe } from "vitest";
-import { printListNumber } from "../helpers";
+import { printListNumber } from "../../helpers";
 describe("import vue components", () => {
   test("normal imports as expected", async () => {
-    const result = await import("../components/SlotLearn.vue");
+    const result = await import("../../components/SlotLearn.vue");
     expect(result).toBeDefined();
   });
 });
