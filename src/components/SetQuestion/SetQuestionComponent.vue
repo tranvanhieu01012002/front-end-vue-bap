@@ -2,8 +2,15 @@
   <div class="col-6">
     <div class="card m-2 card-height">
       <div class="card-body">
-        <h5 contenteditable="true" class="card-title">
-          Name: {{ setQuestion.name }}
+        Name:
+        <h5
+          contenteditable="true"
+          @keyup.enter="onStop"
+          @blur="onInput"
+          ref="index"
+          class="card-title"
+        >
+          {{ setQuestion.name }}
         </h5>
         <div class="d-flex justify-content-between">
           <a href="#" class="btn btn-primary"
@@ -30,6 +37,7 @@
 <script lang="ts">
 import { SetQuestion } from "@/interfaces";
 import { PropType, defineComponent } from "vue";
+import { actionEditableHtmlMixin } from "@/mixins";
 
 export default defineComponent({
   props: {
@@ -42,7 +50,14 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["delete", "listQuestions"],
+  mixins: [actionEditableHtmlMixin],
+  emits: ["delete", "listQuestions", "updateName"],
+  methods: {
+    onInput(e: Event) {
+      const content = (e.target as HTMLElement).innerText;
+      this.$emit("updateName", this.setQuestion.id, content);
+    },
+  },
 });
 </script>
 <style scoped>
