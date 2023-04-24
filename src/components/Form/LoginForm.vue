@@ -85,14 +85,17 @@ export default defineComponent({
         const res = await formPost.login(dataPost);
         localStorage.setItem("token", res.data.token);
         this.setLogin(!this.statusLogin);
-        return this.$router.push({ path: "/" });
+        const { redirect } = this.$route.query;
+        const routeRedirect = redirect ? redirect.toString() : "/";
+        return this.$router.push(routeRedirect);
       } catch (error: unknown) {
+        console.log(error);
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 401) {
             this.resetFormAfterSubmit();
           }
         } else {
-          throw new Error("different error than axffffios");
+          throw new Error("different error than axios");
         }
       }
     },
