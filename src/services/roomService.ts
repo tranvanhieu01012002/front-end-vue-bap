@@ -12,7 +12,7 @@ export default class RoomService {
   }
 
   async createRoom(setQuestionId: number): Promise<void> {
-    const { data } = await this.roomRepository.createRoom();
+    const { data } = await this.roomRepository.createRoom(setQuestionId);
     console.log(data);
     this.roomOwnerService.setRoomOwner(data.user_id);
     router.push({
@@ -32,10 +32,12 @@ export default class RoomService {
       } else {
         this.roomOwnerService.setRoomOwnerId(data.user_id);
       }
+      console.log("ok vop day", data);
       router.push({
         name: "room",
         params: {
           id: data.data,
+          setQuestionId: data.set_question_id,
         },
       });
     } catch (error: unknown) {
