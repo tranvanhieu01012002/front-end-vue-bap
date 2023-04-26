@@ -1,7 +1,7 @@
 name: Lear github action
 on: 
-  push:
-    branches: ["master"]
+  # push:
+  #   branches: ["master"]
   pull_request:
     branches: ["master"]
   schedule:
