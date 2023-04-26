@@ -29,3 +29,4 @@ jobs:
         run: 
           redis-cli -v
           cat /etc/os-release
+# CI=true npm run test -- --coverage
