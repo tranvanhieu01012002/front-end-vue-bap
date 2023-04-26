@@ -21,12 +21,16 @@ http.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 401) {
-      console.log("401 r kia");
-      localStorage.removeItem("token");
-      router.push("/login");
+    switch (error.response.status) {
+      case 401:
+        console.log("401 r kia");
+        localStorage.removeItem("token");
+        return router.push("/login");
+      case 403:
+        return router.push({ name: "home" });
+      default:
+        return Promise.reject(error);
     }
-    return Promise.reject(error);
   }
 );
 export function sleep(ms = 2000): Promise<void> {
