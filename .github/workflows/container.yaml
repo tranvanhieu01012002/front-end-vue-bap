@@ -15,13 +15,15 @@ jobs:
           - "27017:27017"
     steps:
       - name: Post a user
-        run: "curl -X POST http://localhost:3001/api/user -H 'Content-Type: application/json'-d {\"username\":\"hello33\",\"address\":\"Da nang\"}"
+        run: "curl -X POST http://localhost:3001/api/user -H 'Content-Type: application/json' -d {\"username\":\"hello33\",\"address\":\"Da nang\"}"
       - name: Get Users
-        run: "curl -X GET http://localhost:3001/api/user"
+        run: "curl -X GET http://localhost:3001/api/users"
   redis-docker:
     runs-on: ubuntu-latest
     container: 
       image: redis
+      ports: 
+        - "6379:6379"
     steps:
       - name: Test redis install
         run: 
