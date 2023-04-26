@@ -15,7 +15,7 @@ jobs:
           - "27017:27017"
     steps:
       - name: Post a user
-        run: "curl -X POST http://localhost:3001/api/user -H 'Content-Type: application/json' -d {\"username\":\"hello33\",\"address\":\"Da nang\"}"
+        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{\"username\":\"hello33\",\"address\":\"Da nang\"}'' '
       - name: Get Users
         run: "curl -X GET http://localhost:3001/api/users"
   redis-docker:
@@ -27,5 +27,5 @@ jobs:
     steps:
       - name: Test redis install
         run: 
-          redis-cli ping
+          redis-cli -v
           cat /etc/os-release
