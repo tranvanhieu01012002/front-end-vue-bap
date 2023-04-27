@@ -10,10 +10,9 @@ jobs:
       - name: setup source
         uses: actions/checkout@v3
       - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-          role-session-name: GitHub-Action-Role
           aws-region: ${{ secrets.AWS_REGION }}
       - name: setup node
         uses: actions/setup-node@v2
