@@ -1,8 +1,10 @@
 version: 0.0
 os: linux
+
+file_exists_behavior: RETAIN
 files:
   - source: /
-    description: /var/www/game.g-learning.click
+    destination: /var/www/game.g-learning.click
 hooks:
   AfterInstall:
   - location: scripts/restart.sh
