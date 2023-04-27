@@ -6,6 +6,10 @@ on:
 jobs:
   test-and-build-source:
     runs-on: ubuntu-latest
+    # need to add permission
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: setup source
         uses: actions/checkout@v3
