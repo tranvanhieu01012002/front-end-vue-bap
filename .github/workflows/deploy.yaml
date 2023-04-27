@@ -48,6 +48,6 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
     - name: notify for codedeploy
       run: |
-        aws deploy create-deployment --aplication-name laravel-deploy --deployment-group-name laravel-codedeploy --s3-location bucket=codedeploy-vue3,bundleType=zip,key=project.zip
+        aws deploy create-deployment --application-name laravel-deploy --deployment-group-name laravel-codedeploy --s3-location bucket=codedeploy-vue3,bundleType=zip,key=project.zip
 
 
