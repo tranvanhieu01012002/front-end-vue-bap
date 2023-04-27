@@ -1,0 +1,50 @@
+name: Deploy FE
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  test-and-build-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup source
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+          role-session-name: GitHub-Action-Role
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: install dependences 
+        run: npm ci
+      - name: unit test
+        run: CI=true npm run test 
+      - name: build
+        run: npm run build
+      
+        # Copy to S3
+      - name: copy code to S3
+        run: |
+          zip -r project.zip ./dist
+          aws s3 cp project.zip s3://codedeploy-vue3/project.zip
+  deploy:
+    needs:  test-and-build-source
+    runs-on: ubuntu-latest
+    steps:
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    - name: notify for codedeploy
+      run: |
+        aws deploy create-develoyment\
+        --aplication-name laravel-deploy\
+        --deployment-group-name laravel-codedeploy
+        --s3-location bucket=codedeploy-vue3,bundleType=zip,key=project.zip
+
+
