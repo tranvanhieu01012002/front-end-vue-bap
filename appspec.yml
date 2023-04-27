@@ -1,7 +1,6 @@
 version: 0.0
 os: linux
 
-file_exists_behavior: RETAIN
 files:
   - source: /
     destination: /var/www/game.g-learning.click
