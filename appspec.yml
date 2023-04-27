@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: ./dist/
+  - source: /
     description: /var/www/game.g-learning.click
 hooks:
   AfterInstall:
