@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/rooms/:id/set-questions/:setQuestionId",
+    path: "/rooms/:id(\\d+)/set-questions/:setQuestionId(\\d+)",
     name: "room",
     component: RoomView,
     meta: {
@@ -83,7 +83,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/set-questions/:setQuestionId/questions/:questionId",
+    path: "/set-questions/:setQuestionId(\\d+)/questions/:questionId(\\d+)",
     name: "list-questions",
     component: CreateQuestionView,
     meta: {
@@ -92,7 +92,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/rooms/:id/:questionId",
+    path: "/rooms/:id(\\d+)/:questionId(\\d+)",
     name: "room-question",
     component: QuestionView,
     meta: {
@@ -101,7 +101,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/rooms/:id/:questionId/loading",
+    path: "/rooms/:id(\\d+)/:questionId(\\d+)/loading",
     name: "room-question-loading",
     component: LoadingView,
     meta: {
@@ -110,7 +110,7 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/rooms/:id/:questionId/result",
+    path: "/rooms/:id(\\d+)/:questionId(\\d+)/result",
     name: "room-question-result",
     component: ResultView,
     meta: {

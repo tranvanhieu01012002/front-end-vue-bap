@@ -22,6 +22,7 @@
         v-on:list-questions="openListQuestions"
         v-on:delete="deleteSetQuestion"
         :set-question="setQuestion"
+        v-on:update-name="updateName"
       />
     </template>
   </div>
@@ -89,6 +90,14 @@ export default defineComponent({
     async createRoom(setQuestionId: number) {
       console.log("vo day be");
       await new RoomService().createRoom(setQuestionId);
+    },
+
+    async updateName(setQuestionId: string, newName: string) {
+      const { data } = await this.setQuestionRepository.updateNameSetQuestion(
+        setQuestionId,
+        newName
+      );
+      this.setQuestions = data;
     },
   },
   watch: {

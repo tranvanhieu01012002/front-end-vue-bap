@@ -48,14 +48,20 @@
       {{ statusLogin }}
     </div>
   </div>
+  <BasicModal>
+    <p>oh wrong password or email</p>
+  </BasicModal>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapState, mapActions } from "pinia";
-import { useAuthStore } from "@/store/authStore";
-import { useUserStore } from "@/store/userStore";
+import { useModalStore, useUserStore, useAuthStore } from "@/store";
 import UserRepository from "@/helpers/axios/UserRepository";
 import LoginByGoogle from "../LoginByGoogle.vue";
+import axios from "axios";
+import BasicModal from "../Modal/BasicModal.vue";
+import nProgress from "nprogress";
+
 export default defineComponent({
   data() {
     return {
@@ -65,10 +71,10 @@ export default defineComponent({
   },
   components: {
     LoginByGoogle,
+    BasicModal,
   },
   methods: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onSubmit: async function (event: any) {
+    onSubmit: async function (event: Event) {
       event.preventDefault();
       const formPost = new UserRepository("auth/login");
       const dataPost = {
@@ -79,17 +85,32 @@ export default defineComponent({
         const res = await formPost.login(dataPost);
         localStorage.setItem("token", res.data.token);
         this.setLogin(!this.statusLogin);
-        return this.$router.push({ path: "/" });
-      } catch (error) {
+        const { redirect } = this.$route.query;
+        const routeRedirect = redirect ? redirect.toString() : "/";
+        return this.$router.push(routeRedirect);
+      } catch (error: unknown) {
         console.log(error);
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            this.resetFormAfterSubmit();
+          }
+        } else {
+          throw new Error("different error than axios");
+        }
       }
     },
     onReset: function () {
       this.email = "";
       this.password = "";
     },
+    resetFormAfterSubmit() {
+      this.onReset();
+      this.openModal("Login info");
+      nProgress.done();
+    },
     ...mapActions(useAuthStore, { setLogin: "setIsLogin" }),
     ...mapActions(useUserStore, { updateUser: "updateUser" }),
+    ...mapActions(useModalStore, ["openModal"]),
   },
   computed: {
     ...mapState(useAuthStore, { statusLogin: "isLogin" }),

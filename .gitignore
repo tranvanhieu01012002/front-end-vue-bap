@@ -23,5 +23,9 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# Coverage
+coverage
 
+
+# Laravel lock file
 laravel-echo-server.lock

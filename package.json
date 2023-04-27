@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "vitest"
+    "test": "vitest --dom",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
@@ -15,6 +16,7 @@
     "core-js": "^3.8.3",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "happy-dom": "^9.9.2",
     "laravel-echo": "^1.15.0",
     "laravel-echo-server": "^1.6.3",
     "nprogress": "^0.2.0",
@@ -28,6 +30,7 @@
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "@vitest/coverage-c8": "^0.30.1",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
@@ -35,10 +38,12 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vue/eslint-config-typescript": "^9.1.0",
+    "@vue/test-utils": "^2.3.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
+    "jsdom": "^21.1.1",
     "prettier": "^2.4.1",
     "typescript": "~4.5.5",
     "vitest": "^0.30.1"

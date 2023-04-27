@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /var/www/game.g-learning.click
+hooks:
+  AfterInstall:
+  - location: scripts/restart.sh
+    timeout: 300
+    runas: ubuntu
