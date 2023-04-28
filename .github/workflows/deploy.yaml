@@ -34,9 +34,11 @@ jobs:
         # Copy to S3
       - name: copy code to S3
         run: |
-          cp appspec.yml ./dist
-          cp -r scripts ./dist
-          zip -r project.zip ./dist 
+          mkdir deploy
+          cp appspec.yml ./deploy
+          cp -r ./scripts ./deploy
+          cp -r ./dist ./deploy
+          zip -r project.zip ./deploy 
           aws s3 cp project.zip s3://codedeploy-vue3/project.zip
   deploy:
     needs:  test-and-build-source
