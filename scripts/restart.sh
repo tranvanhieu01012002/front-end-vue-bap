@@ -1,4 +1,4 @@
 #! /bin/bash
 sudo systemctl restart nginx
-chmod -R 750 scripts
-chmod -R 750 appspec.yml
+chmod -R 755 scripts
+chmod -R 755 appspec.yml

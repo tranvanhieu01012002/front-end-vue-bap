@@ -34,8 +34,8 @@ jobs:
         # Copy to S3
       - name: copy code to S3
         run: |
-          cp appspec.yml ./dist/appspec.yml
-          cp -r scripts ./dist/scripts
+          cp appspec.yml ./dist
+          cp -r scripts ./dist
           zip -r project.zip ./dist 
           aws s3 cp project.zip s3://codedeploy-vue3/project.zip
   deploy:
