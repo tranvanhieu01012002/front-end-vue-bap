@@ -36,6 +36,7 @@ jobs:
         run: |
           mkdir deploy
           cp appspec.yml ./deploy
+          cp laravel-echo-server.json ./deploy
           cp -r ./scripts ./deploy
           cp -r ./dist ./deploy
           zip -r project.zip ./deploy 
