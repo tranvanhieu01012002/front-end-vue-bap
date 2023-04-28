@@ -29,7 +29,9 @@ jobs:
       - name: unit test
         run: CI=true npm run test 
       - name: build
-        run: npm run build
+        run: |
+          cp .env.ci .env
+          npm run build
       
         # Copy to S3
       - name: copy code to S3

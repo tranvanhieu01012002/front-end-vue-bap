@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="d-flex justify-content-center">
-      <b-form class="row" @submit="(e) => onSubmit(e)" @reset="() => onReset()">
+      <b-form
+        class="row"
+        @submit="(e: any) => onSubmit(e)"
+        @reset="() => onReset()"
+      >
         <b-form-group
           class="col-6"
           id="input-group-1"
