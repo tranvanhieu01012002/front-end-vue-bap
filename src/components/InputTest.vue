@@ -13,7 +13,6 @@ export default defineComponent({
       if (msg) {
         return true;
       } else {
-        console.log("dang loi kia");
         return false;
       }
     },
@@ -21,10 +20,8 @@ export default defineComponent({
   name: "InputTest",
   watch: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    message(newMessage: string, oldMessage: string): void {
-      if (newMessage.includes(":)")) {
-        console.log("mat cuoi cc a");
-      }
+    message(newMessage: string, oldMessage: string): boolean {
+      return true;
     },
   },
   data() {

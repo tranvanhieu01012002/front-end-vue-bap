@@ -89,7 +89,6 @@ export default defineComponent({
         const routeRedirect = redirect ? redirect.toString() : "/";
         return this.$router.push(routeRedirect);
       } catch (error: unknown) {
-        console.log(error);
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 401) {
             this.resetFormAfterSubmit();
