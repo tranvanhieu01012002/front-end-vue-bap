@@ -4,7 +4,7 @@ import http from ".";
 export default class BaseRepository {
   protected resource: string;
   protected baseURl: string =
-    process.env.VUE_APP_BASE_URL || "http://localhost:8000";
+    process.env.VUE_APP_BASE_URL || "http://back-end.g-learning.click";
   constructor(resource = "") {
     this.resource = resource;
   }
