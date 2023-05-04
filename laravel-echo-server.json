@@ -1,18 +1,15 @@
 {
-	"authHost": "http://back-end.g-learning.click",
+	"authHost": "https://back-end.g-learning.click",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
-			"appId": "d5cae06583cd1ef4",
-			"key": "36360c7508524e05c7a02dd85601e580"
+			"appId": "84dfd6b2b9ef4322",
+			"key": "ed9e5f10d893d82843eccc3ce6fd77cc"
 		}
 	],
 	"database": "redis",
 	"databaseConfig": {
-		"redis": {
-			"port": 6379,
-			"host": "52.76.158.63"
-		},
+		"redis": {},
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
 		}
