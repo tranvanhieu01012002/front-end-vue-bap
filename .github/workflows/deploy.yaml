@@ -29,7 +29,9 @@ jobs:
       - name: unit test
         run: CI=true npm run test 
       - name: build
+          # update env
         run: |
+          sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' .env.ci 
           cp .env.ci .env
           npm run build
       
