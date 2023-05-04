@@ -30,8 +30,10 @@ jobs:
         run: CI=true npm run test 
       - name: build
           # update env
+          # sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' .env.ci 
+          
         run: |
-          sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' .env.ci 
+          sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=http://back-end.g-learning.click/api/g' .env.ci
           cp .env.ci .env
           npm run build
       
