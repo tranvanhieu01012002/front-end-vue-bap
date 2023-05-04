@@ -33,7 +33,7 @@ jobs:
         run: |
           sed -i \
             -e 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' \
-            -e 's/VUE_APP_GOOGLE_CLIENT=${{secrets.VUE_APP_GOOGLE_CLIENT}}' .env.ci
+            -e 's/VUE_APP_GOOGLE_CLIENT=/VUE_APP_GOOGLE_CLIENT=${{secrets.VUE_APP_GOOGLE_CLIENT}}/g' .env.ci
           cp .env.ci .env
           npm run build
         # Copy to S3
