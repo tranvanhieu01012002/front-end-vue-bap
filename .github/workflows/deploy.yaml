@@ -31,10 +31,11 @@ jobs:
       - name: build
           # update env need to add "\/" example: "http:\/\/back-end.g-learning.click\/api"
         run: |
-          sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' .env.ci
+          sed -i \
+            -e 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' \
+            -e 's/VUE_APP_GOOGLE_CLIENT=${{secrets.VUE_APP_GOOGLE_CLIENT}}' .env.ci
           cp .env.ci .env
           npm run build
-      
         # Copy to S3
       - name: copy code to S3
         run: |
