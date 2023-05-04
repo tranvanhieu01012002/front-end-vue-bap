@@ -29,11 +29,9 @@ jobs:
       - name: unit test
         run: CI=true npm run test 
       - name: build
-          # update env
-          # sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' .env.ci 
-          
+          # update env need to add "\/" example: "http:\/\/back-end.g-learning.click\/api"
         run: |
-          sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=http://back-end.g-learning.click/api/g' .env.ci
+          sed -i 's/VUE_APP_BASE_URL=/VUE_APP_BASE_URL=${{secrets.VUE_APP_BASE_URL}}/g' .env.ci
           cp .env.ci .env
           npm run build
       
