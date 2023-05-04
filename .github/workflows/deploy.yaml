@@ -38,10 +38,10 @@ jobs:
           npm run build
         # Copy to S3
       - name: copy code to S3
+      # cp laravel-echo-server.json ./deploy
         run: |
           mkdir deploy
           cp appspec.yml ./deploy
-          cp laravel-echo-server.json ./deploy
           cp -r ./scripts ./deploy
           cp -r ./dist ./deploy
           zip -r project.zip ./deploy 
