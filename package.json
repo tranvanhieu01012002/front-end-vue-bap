@@ -10,13 +10,7 @@
     "format": "prettier --write .",
     "lint:staged": "lint-staged",
     "coverage": "vitest run --coverage",
-    "lint-staged": {
-      "*": [
-        "npm run lint",
-        "npm run format",
-        "git add ."
-      ]
-    }
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
@@ -58,5 +52,11 @@
     "prettier": "2.8.8",
     "typescript": "~4.5.5",
     "vitest": "^0.30.1"
+  },
+  "lint-staged": {
+    "*.{json,ts,vue}": [
+      "npm run format",
+      "git add ."
+    ]
   }
 }

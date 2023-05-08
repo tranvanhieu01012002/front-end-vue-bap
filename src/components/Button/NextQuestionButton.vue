@@ -4,7 +4,7 @@
     v-on:click="$emit('next')"
     class="btn btn-warning"
   >
-    <slot></slot>
+    <slot> </slot>
   </button>
 </template>
 <script lang="ts">
