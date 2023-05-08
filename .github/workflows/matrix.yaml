@@ -1,5 +1,5 @@
 name: Matrix
-on: 
+on:
   # push:
   #   branches: ["master"]
   pull_request:
@@ -9,13 +9,13 @@ jobs:
   node-version:
     strategy:
       matrix:
-        node_versions: [6,18,10]
+        node_versions: [6, 18, 10]
     runs-on: ubuntu-latest
     steps:
-    - name: Log currect nodde version
-      run: node -v
-    - uses: actions/setup-node@v3
-      with:
-        node-version: ${{matrix.node_versions}}
-    - name: Log node version after setup nodeV3
-      run: node -v
+      - name: Log currect nodde version
+        run: node -v
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node_versions}}
+      - name: Log node version after setup nodeV3
+        run: node -v
