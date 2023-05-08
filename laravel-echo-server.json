@@ -1,10 +1,10 @@
 {
-	"authHost": "https://back-end.g-learning.click",
+	"authHost": "http://localhost:8000",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
-			"appId": "84dfd6b2b9ef4322",
-			"key": "ed9e5f10d893d82843eccc3ce6fd77cc"
+			"appId": "e289c8de8f4a35dd",
+			"key": "1aa26f7fa7016bd9d95f5edc63e8aeb6"
 		}
 	],
 	"database": "redis",

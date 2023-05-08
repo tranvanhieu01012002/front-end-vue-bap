@@ -32,7 +32,6 @@ export default class RoomService {
       } else {
         this.roomOwnerService.setRoomOwnerId(data.user_id);
       }
-      console.log("ok vop day", data);
       router.push({
         name: "room",
         params: {

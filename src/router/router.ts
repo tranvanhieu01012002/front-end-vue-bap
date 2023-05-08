@@ -4,6 +4,7 @@ declare module "vue-router" {
   interface RouteMeta {
     isAdmin?: boolean;
     requiresAuth: boolean;
+    requiresOpenRoom?: boolean;
   }
 }
 export {};

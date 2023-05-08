@@ -13,6 +13,7 @@ import LoadingView from "../views/LoadingView.vue";
 import ResultView from "../views/ResultView.vue";
 import SetQuestionView from "../views/SetQuestionView.vue";
 import CreateQuestionView from "../views/CreateQuestionView.vue";
+import { useUserStore } from "@/store";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,6 +63,7 @@ const routes: Array<RouteRecordRaw> = [
     component: RoomView,
     meta: {
       requiresAuth: true,
+      requiresOpenRoom: true,
     },
     props: true,
   },
@@ -134,12 +136,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   nProgress.start();
   const auth = new Auth();
+  const roomOwner = useUserStore();
   if (to.meta.requiresAuth && !auth.isLogin)
     return next({
       path: "/login",
       query: { redirect: to.fullPath },
     });
-  else next();
+  else if (to.meta.requiresOpenRoom && roomOwner.roomOwnerId === "") {
+    return next({
+      path: "/",
+    });
+  } else next();
 });
 router.afterEach(() => {
   nProgress.done();
