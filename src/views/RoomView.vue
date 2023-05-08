@@ -9,8 +9,11 @@
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
-    <NextQuestionButton @next="nextQuestionMixinFn">Start</NextQuestionButton>
+    <NextQuestionButton @next="startGame">Start</NextQuestionButton>
   </div>
+  <BasicModal>
+    <p>oh can not start game without any users</p>
+  </BasicModal>
 </template>
 <script lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
@@ -19,11 +22,14 @@ import { mapActions, mapState } from "pinia";
 import { useQuestionStore, useUserStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
+import BasicModal from "@/components/Modal/BasicModal.vue";
 import { LaravelEchoService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 import { nextQuestionMixin } from "@/mixins";
 import { ResponseResult } from "@/interfaces";
 import { isRoomOwnerMixin } from "@/mixins";
+import { useModalStore } from "@/store/";
+
 export default defineComponent({
   props: {
     id: {
@@ -40,9 +46,18 @@ export default defineComponent({
     UserInfoVue,
     CycleLoader,
     NextQuestionButton,
+    BasicModal,
   },
   methods: {
     ...mapActions(useQuestionStore, ["getQuestion", "receiveShowData"]),
+    ...mapActions(useModalStore, ["openModal"]),
+    startGame: function () {
+      if (this.users.length > 0) {
+        this.nextQuestionMixinFn();
+      } else {
+        this.openModal("Open a room");
+      }
+    },
   },
   computed: {
     ...mapState(useUserStore, ["roomOwnerId"]),
