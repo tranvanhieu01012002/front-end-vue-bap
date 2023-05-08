@@ -59,20 +59,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapState, mapActions } from "pinia";
-import { useModalStore, useUserStore, useAuthStore } from "@/store";
+import { useUserStore, useAuthStore } from "@/store";
 import UserRepository from "@/helpers/axios/UserRepository";
 import LoginByGoogle from "../LoginByGoogle.vue";
 import axios from "axios";
 import BasicModal from "../Modal/BasicModal.vue";
 import nProgress from "nprogress";
+import { authInputMixin, modalMixin } from "@/mixins";
 
 export default defineComponent({
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
+  mixins: [authInputMixin, modalMixin],
   components: {
     LoginByGoogle,
     BasicModal,
@@ -113,7 +109,6 @@ export default defineComponent({
     },
     ...mapActions(useAuthStore, { setLogin: "setIsLogin" }),
     ...mapActions(useUserStore, { updateUser: "updateUser" }),
-    ...mapActions(useModalStore, ["openModal"]),
   },
   computed: {
     ...mapState(useAuthStore, { statusLogin: "isLogin" }),

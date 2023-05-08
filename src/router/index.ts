@@ -14,6 +14,7 @@ import ResultView from "../views/ResultView.vue";
 import SetQuestionView from "../views/SetQuestionView.vue";
 import CreateQuestionView from "../views/CreateQuestionView.vue";
 import { useUserStore } from "@/store";
+import RegisterView from "../views/RegisterView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -124,6 +125,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/:catchAll(.*)",
     name: "notfound",
     component: NotFoundView,
+    meta: { requiresAuth: false },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: RegisterView,
     meta: { requiresAuth: false },
   },
 ];
