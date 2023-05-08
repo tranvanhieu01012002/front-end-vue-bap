@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint",
     "test": "vitest --dom",
     "format": "prettier --write .",
+    "lint:staged": "lint-staged",
     "coverage": "vitest run --coverage",
     "lint-staged": {
       "*": [
