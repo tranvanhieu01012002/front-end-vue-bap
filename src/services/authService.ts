@@ -32,4 +32,17 @@ export default class AuthService {
       }
     }
   }
+
+  public async resendEmail(id: string): Promise<boolean> {
+    try {
+      const { data } = await this.userRepo.resendEmail(id);
+      return data.status;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return error.response?.data.status;
+      } else {
+        throw new Error("different error than axios");
+      }
+    }
+  }
 }

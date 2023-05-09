@@ -51,6 +51,9 @@
       Your password: {{ password }}
       {{ statusLogin }}
     </div>
+    <button class="btn btn-warning" @click="registerRedirect">
+      register now
+    </button>
   </div>
   <BasicModal>
     <p>oh wrong password or email</p>
@@ -106,6 +109,9 @@ export default defineComponent({
       this.onReset();
       this.openModal("Login info");
       nProgress.done();
+    },
+    registerRedirect() {
+      return this.$router.push({ name: "register" });
     },
     ...mapActions(useAuthStore, { setLogin: "setIsLogin" }),
     ...mapActions(useUserStore, { updateUser: "updateUser" }),

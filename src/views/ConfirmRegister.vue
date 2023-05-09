@@ -1,7 +1,9 @@
 <template>
   <div>Confirm</div>
   <div>We just send to you an email, please confirm it</div>
-  <button class="btn btn-warning">resend email</button>
+  <button :disabled="!allowSend" @click="resend" class="btn btn-warning">
+    resend email {{ allowSend ? "" : time }}
+  </button>
 </template>
 <script lang="ts">
 import { AuthService } from "@/services";
@@ -9,7 +11,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   data: function () {
     return {
-      verifyEmail: false,
+      authService: new AuthService(),
+      time: 60,
+      timer: 0,
+      allowSend: true,
     };
   },
   props: {
@@ -20,14 +25,25 @@ export default defineComponent({
   },
   methods: {
     async hasVerifiedEmail() {
-      const authService = new AuthService();
-      const response = await authService.hasVerifiedEmail(this.id);
+      const response = await this.authService.hasVerifiedEmail(this.id);
       if (response) {
         this.$router.push({ path: "/" });
       }
     },
+    async resend() {
+      await this.authService.resendEmail(this.id);
+      this.allowSend = false;
+      this.timer = window.setInterval(() => {
+        this.time--;
+        if (this.time == 0) {
+          clearInterval(this.timer);
+          this.time = 60;
+          this.allowSend = true;
+        }
+      }, 1000);
+    },
   },
-  async mounted() {
+  async created() {
     await this.hasVerifiedEmail();
   },
 });

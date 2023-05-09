@@ -23,6 +23,11 @@ class UserRepository extends BaseRepository {
     return await httpWithoutToken.get(`${this.setUpURL()}/${id}`);
   }
 
+  async resendEmail(id: string): Promise<AxiosResponse> {
+    this.setResource("resend");
+    return await httpWithoutToken.get(`${this.setUpURL()}/${id}`);
+  }
+
   async profile(): Promise<AxiosResponse> {
     this.setResource("profile");
     return await this.get();
