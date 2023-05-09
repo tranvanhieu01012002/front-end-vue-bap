@@ -2,62 +2,46 @@
   <div>Register view</div>
   <div>
     <div class="d-flex justify-content-center">
-      <b-form>
-        <b-form-group
-          class="row"
-          id="input-group-1"
-          label="Enter name:"
-          label-for="input-1"
-        >
+      <b-form @submit="onSubmit">
+        <b-form-group class="row" id="input-group-1" label-for="input-1">
+          <label>Enter name: <spam class="red-color">*</spam></label>
           <b-form-input
             id="input-1"
             v-model="name"
             type="text"
             placeholder="Enter name"
-            required
           ></b-form-input>
         </b-form-group>
         <b-form-group
           class="row"
-          id="input-group-1"
-          label="Email address:"
-          label-for="input-1"
+          id="input-group-2"
+          label-for="input-2"
           description="We'll never share your email with anyone else."
         >
+          <label>Email address: <spam class="red-color">*</spam></label>
           <b-form-input
-            id="input-1"
+            id="input-2"
             v-model="email"
             type="email"
             placeholder="Enter email"
-            required
           ></b-form-input>
         </b-form-group>
-        <b-form-group
-          class="row"
-          id="input-group-2"
-          label="Your password:"
-          label-for="input-2"
-        >
+        <b-form-group class="row" id="input-group-3" label-for="input-3">
+          <label>Your password:<spam class="red-color">*</spam></label>
           <b-form-input
             type="password"
-            id="input-2"
+            id="input-3"
             v-model="password"
             placeholder="Enter password"
-            required
           ></b-form-input>
         </b-form-group>
-        <b-form-group
-          class="row"
-          id="input-group-2"
-          label="Your confirm password:"
-          label-for="input-2"
-        >
+        <b-form-group class="row" id="input-group-4" label-for="input-4">
+          <label>Your confirm password:<spam class="red-color">*</spam></label>
           <b-form-input
             type="password"
-            id="input-2"
+            id="input-4"
             v-model="confirmPassword"
             placeholder="Enter confirm password"
-            required
           ></b-form-input>
         </b-form-group>
         <div class="d-flex justify-content-between">
@@ -72,17 +56,14 @@
       </b-form>
     </div>
   </div>
-  <BasicModal>
-    <p>opp some things when wrong</p>
-  </BasicModal>
+  <BasicModal> </BasicModal>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import BasicModal from "@/components/Modal/BasicModal.vue";
-
-import { authInputMixin } from "@/mixins";
+import { authInputMixin, modalMixin } from "@/mixins";
 export default defineComponent({
-  mixins: [authInputMixin],
+  mixins: [authInputMixin, modalMixin],
   data() {
     return {
       name: "",
@@ -93,18 +74,33 @@ export default defineComponent({
     BasicModal,
   },
   methods: {
-    onsubmit: function () {},
-    validateField(): boolean {
+    onSubmit: function () {
+      if (this.isErrorNullFields()) {
+        this.openModal("oh some fields are null");
+      } else if (this.isNotMatchPassword()) {
+        this.openModal("oh Not match password");
+      }
+    },
+    isErrorNullFields(): boolean {
       if (
-        this.email !== "" &&
-        this.password !== "" &&
-        this.name !== "" &&
-        this.confirmPassword !== "" &&
-        this.password === this.confirmPassword
+        this.email === "" &&
+        this.password === "" &&
+        this.name === "" &&
+        this.confirmPassword === ""
       ) {
         return true;
       } else return false;
     },
+    isNotMatchPassword(): boolean {
+      if (this.password === this.confirmPassword) {
+        return false;
+      } else return true;
+    },
   },
 });
 </script>
+<style scoped>
+.red-color {
+  color: #ea0e0e;
+}
+</style>
