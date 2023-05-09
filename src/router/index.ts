@@ -15,6 +15,7 @@ import SetQuestionView from "../views/SetQuestionView.vue";
 import CreateQuestionView from "../views/CreateQuestionView.vue";
 import { useUserStore } from "@/store";
 import RegisterView from "../views/RegisterView.vue";
+import ConfirmRegister from "../views/ConfirmRegister.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -119,6 +120,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
     },
+    props: true,
+  },
+  {
+    path: "/confirm/:id",
+    name: "confirm",
+    component: ConfirmRegister,
+    meta: { requiresAuth: false },
     props: true,
   },
   {

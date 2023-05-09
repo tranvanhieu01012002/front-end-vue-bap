@@ -62,6 +62,7 @@
 import { defineComponent } from "vue";
 import BasicModal from "@/components/Modal/BasicModal.vue";
 import { authInputMixin, modalMixin } from "@/mixins";
+import { AuthService } from "../services";
 export default defineComponent({
   mixins: [authInputMixin, modalMixin],
   data() {
@@ -79,9 +80,11 @@ export default defineComponent({
         this.openModal("oh some fields are null");
       } else if (this.isNotMatchPassword()) {
         this.openModal("oh Not match password");
+      } else {
+        this.register();
       }
     },
-    isErrorNullFields(): boolean {
+    isErrorNullFields: function (): boolean {
       if (
         this.email === "" &&
         this.password === "" &&
@@ -91,10 +94,25 @@ export default defineComponent({
         return true;
       } else return false;
     },
-    isNotMatchPassword(): boolean {
+    isNotMatchPassword: function (): boolean {
       if (this.password === this.confirmPassword) {
         return false;
       } else return true;
+    },
+    register: async function () {
+      const authService = new AuthService();
+      const response = await authService.register({
+        id: "",
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      });
+      if (response.status === "success") {
+        console.log(response.id);
+        this.$router.push({ name: "confirm", params: { id: response.id } });
+      } else {
+        this.openModal(response.message);
+      }
     },
   },
 });

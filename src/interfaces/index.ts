@@ -8,6 +8,7 @@ import UserRank from "./UserRank";
 import ParamFunction from "./ParamFunction";
 import SetQuestion from "./SetQuestionInterface";
 import Alert from "./Alert";
+import UserVerifyEmail from "./UserVerifyEmail";
 
 export {
   Account,
@@ -20,4 +21,5 @@ export {
   ParamFunction,
   SetQuestion,
   Alert,
+  UserVerifyEmail,
 };
