@@ -9,6 +9,7 @@ export default defineComponent({
     NavLink,
   },
 });
+// https://kahoot.com/home/mobile-app/
 </script>
 <style>
 @import "@/assets/css/variable.css";

@@ -2,3 +2,7 @@
   --primary-color: #25076b;
   --padding-top-main: 4vh;
 }
+
+.padding-t {
+  padding: var(--padding-top-main) 0px;
+}
