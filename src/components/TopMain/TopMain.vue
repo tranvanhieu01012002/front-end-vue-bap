@@ -47,10 +47,6 @@ export default defineComponent({
   width: 100%;
   padding-top: var(--padding-top-main);
 }
-.container-div {
-  width: 76vw;
-  margin: 0px auto;
-}
 .content {
   height: 50vh;
   background-color: #46178f;

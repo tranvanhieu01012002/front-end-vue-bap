@@ -6,3 +6,8 @@
 .padding-t {
   padding: var(--padding-top-main) 0px;
 }
+
+.container-div {
+  width: 76vw;
+  margin: 0px auto;
+}

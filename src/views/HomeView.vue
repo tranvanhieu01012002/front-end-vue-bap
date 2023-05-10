@@ -2,6 +2,7 @@
   <div class="home">
     <TopMain />
     <SecondMain />
+    <CountUser />
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
@@ -14,7 +15,7 @@ import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 import OpenGame from "@/components/SelectGame/OpenGame.vue";
 import TopMain from "@/components/TopMain/TopMain.vue";
 import SecondMain from "@/components/SecondMain/SecondMain.vue";
-
+import CountUser from "@/components/CountUser/CountUser.vue";
 import { LaravelEchoService } from "@/services";
 
 export default defineComponent({
@@ -24,6 +25,7 @@ export default defineComponent({
     OpenGame,
     TopMain,
     SecondMain,
+    CountUser,
   },
   created() {
     LaravelEchoService.init();
