@@ -4,6 +4,7 @@ import alertMixin from "./alertMixin";
 import actionEditableHtmlMixin from "./actionEditableHtmlMixin";
 import authInputMixin from "./authInputMixin";
 import modalMixin from "./modalMixin";
+import userInfoMixin from "./userInfoMixin";
 
 export {
   nextQuestionMixin,
@@ -12,4 +13,5 @@ export {
   actionEditableHtmlMixin,
   authInputMixin,
   modalMixin,
+  userInfoMixin,
 };

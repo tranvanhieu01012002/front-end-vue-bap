@@ -7,17 +7,17 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapState } from "pinia";
+import { mapActions } from "pinia";
 import { useUserStore } from "@/store/userStore";
 import UserRepository from "@/helpers/axios/UserRepository";
+import { userInfoMixin } from "@/mixins";
+
 export default defineComponent({
   name: "HelloWorld",
   props: {
     msg: String,
   },
-  computed: {
-    ...mapState(useUserStore, { user: "getUsername" }),
-  },
+  mixins: [userInfoMixin],
   methods: {
     ...mapActions(useUserStore, ["updateUser"]),
     async getUserInfo() {

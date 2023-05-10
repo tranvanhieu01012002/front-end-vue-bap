@@ -11,6 +11,7 @@ export default defineComponent({
 });
 </script>
 <style>
+@import "@/assets/css/variable.css";
 nav {
   padding: 30px;
 }
