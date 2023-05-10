@@ -24,6 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
     meta: {
       requiresAuth: true,
+      label: "Home",
     },
   },
   {
@@ -32,6 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     component: AboutView,
     meta: {
       requiresAuth: false,
+      label: "About",
     },
   },
   {
@@ -40,6 +42,7 @@ const routes: Array<RouteRecordRaw> = [
     component: LoginView,
     meta: {
       requiresAuth: false,
+      label: "Login",
     },
   },
   {
@@ -48,6 +51,7 @@ const routes: Array<RouteRecordRaw> = [
     component: UserView,
     meta: {
       requiresAuth: true,
+      label: "Users",
     },
   },
   {

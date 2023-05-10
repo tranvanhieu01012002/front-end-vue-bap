@@ -5,6 +5,7 @@ declare module "vue-router" {
     isAdmin?: boolean;
     requiresAuth: boolean;
     requiresOpenRoom?: boolean;
+    label?: string;
   }
 }
 export {};
