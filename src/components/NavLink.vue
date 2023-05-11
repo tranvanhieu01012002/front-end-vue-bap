@@ -27,7 +27,7 @@ import RightBar from "./NavBar/RightBar.vue";
 export default defineComponent({
   data() {
     return {
-      links: routes.slice(0, 4),
+      links: routes.slice(0, 5),
     };
   },
   components: {

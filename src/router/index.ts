@@ -16,6 +16,7 @@ import CreateQuestionView from "../views/CreateQuestionView.vue";
 import { useUserStore } from "@/store";
 import RegisterView from "../views/RegisterView.vue";
 import ConfirmRegister from "../views/ConfirmRegister.vue";
+import GameView from "../views/GameView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -52,6 +53,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       label: "Users",
+    },
+  },
+  {
+    path: "/play",
+    name: "play",
+    component: GameView,
+    meta: {
+      requiresAuth: true,
+      label: "Play",
     },
   },
   {
