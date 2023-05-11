@@ -11,3 +11,12 @@
   width: 76vw;
   margin: 0px auto;
 }
+
+.container-div-max {
+  width: 96vw;
+  margin: 0px auto;
+}
+
+.ul {
+  list-style: none;
+}

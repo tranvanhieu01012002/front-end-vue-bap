@@ -8,6 +8,7 @@
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
   <OpenGame />
+  <FooterComponent />
 </template>
 
 <script lang="ts">
@@ -18,7 +19,7 @@ import TopMain from "@/components/TopMain/TopMain.vue";
 import SecondMain from "@/components/SecondMain/SecondMain.vue";
 import CountUser from "@/components/CountUser/CountUser.vue";
 import ExploreComponent from "@/components/Explore/ExploreComponent.vue";
-
+import FooterComponent from "@/components/Footer/FooterComponent.vue";
 import { LaravelEchoService } from "@/services";
 
 export default defineComponent({
@@ -30,6 +31,7 @@ export default defineComponent({
     SecondMain,
     CountUser,
     ExploreComponent,
+    FooterComponent,
   },
   created() {
     LaravelEchoService.init();
