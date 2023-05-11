@@ -2,7 +2,7 @@
   <div class="count-user padding-top">
     <CenterText>
       <span>More</span>
-      <h2>10000000</h2>
+      <h2>{{ users.toLocaleString("en-US") }}</h2>
       <span>players a year</span>
     </CenterText>
     <div class="list-aw container-div">
@@ -25,6 +25,7 @@ export default defineComponent({
   data() {
     return {
       answers: listAnswersWithShape,
+      users: 10000000,
     };
   },
   components: {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-xxl-4 col-md-6 col-sm-12">
     <b-card
       title="Card Title"
       img-src="https://picsum.photos/600/300/?image=25"
