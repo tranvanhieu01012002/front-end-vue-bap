@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
-import listAnswers from "./listAnswers";
-import Question from "@/interfaces/Question";
-import AnswerInterface from "@/interfaces/AnswerInterface";
+import { listAnswers } from "./";
 import { QuestionService } from "@/services";
 import { router } from "@/router";
-import UserRank from "@/interfaces/UserRank";
 import { useTimerStore } from "./timerStore";
-import { ParamFunction } from "@/interfaces";
+import {
+  ParamFunction,
+  UserRank,
+  AnswerInterface,
+  Question,
+} from "@/interfaces";
 import { useModalStore } from "./modalStore";
 import { printListNumber } from "@/helpers";
 

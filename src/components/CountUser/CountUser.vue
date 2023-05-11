@@ -7,10 +7,11 @@
     </CenterText>
     <div class="list-aw container-div">
       <div class="row">
-        <AnswerComponent />
-        <AnswerComponent />
-        <AnswerComponent />
-        <AnswerComponent />
+        <AnswerComponent
+          v-for="answer in answers"
+          :key="answer.shape"
+          :answer="answer"
+        />
       </div>
     </div>
   </div>
@@ -19,7 +20,13 @@
 import { defineComponent } from "vue";
 import CenterText from "../SecondMain/CenterText.vue";
 import AnswerComponent from "../AnswerComponent.vue";
+import { listAnswersWithShape } from "@/store/listAnswers";
 export default defineComponent({
+  data() {
+    return {
+      answers: listAnswersWithShape,
+    };
+  },
   components: {
     CenterText,
     AnswerComponent,

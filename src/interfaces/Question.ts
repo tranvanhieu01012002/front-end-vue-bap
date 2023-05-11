@@ -1,4 +1,4 @@
-import AnswerInterface from "./AnswerInterface";
+import { AnswerInterface } from "./";
 
 interface Question {
   id: string;

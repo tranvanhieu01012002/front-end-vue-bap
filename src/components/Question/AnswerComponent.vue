@@ -21,7 +21,7 @@
 </template>
 <script lang="ts">
 import { PropType, defineComponent } from "vue";
-import type AnswerInterface from "@/interfaces/AnswerInterface";
+import type { AnswerInterface } from "@/interfaces";
 import {
   isRoomOwnerMixin,
   nextQuestionMixin,

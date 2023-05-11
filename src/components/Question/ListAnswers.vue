@@ -13,7 +13,7 @@
 <script lang="ts">
 import { PropType, defineComponent } from "vue";
 import AnswerComponent from "./AnswerComponent.vue";
-import AnswerInterface from "@/interfaces/AnswerInterface";
+import { AnswerInterface } from "@/interfaces";
 export default defineComponent({
   props: {
     answers: {

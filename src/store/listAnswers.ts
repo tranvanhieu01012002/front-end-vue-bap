@@ -1,4 +1,4 @@
-import AnswerInterface from "@/interfaces/AnswerInterface";
+import { AnswerWithShapeInterface, AnswerInterface } from "@/interfaces";
 const prefixCss = "alert alert-";
 
 const listAnswers: AnswerInterface[] = [
@@ -20,4 +20,18 @@ const listAnswers: AnswerInterface[] = [
   },
 ];
 
-export default listAnswers;
+const listAnswersWithShape: AnswerWithShapeInterface[] = [
+  {
+    shape: "shape-rectangle",
+  },
+  {
+    shape: "shape-square",
+  },
+  {
+    shape: "shape-diamond",
+  },
+  {
+    shape: "shape-cycle",
+  },
+];
+export { listAnswers, listAnswersWithShape };

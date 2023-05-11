@@ -1,6 +1,5 @@
-interface AnswerInterface {
+interface CoreAnswerInterface {
   id?: number;
-  character: string;
   bgColor: string;
   isCorrect?: boolean;
   content?: string;
@@ -8,5 +7,4 @@ interface AnswerInterface {
   questionId?: number;
   question_id?: number;
 }
-
-export default AnswerInterface;
+export default CoreAnswerInterface;

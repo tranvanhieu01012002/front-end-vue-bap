@@ -1,5 +1,5 @@
 import Account from "./Account";
-import AnswerInterface from "./AnswerInterface";
+import { AnswerInterface, AnswerWithShapeInterface } from "./Answer";
 import BootstrapTableField from "./BootstrapTableField";
 import Question from "./Question";
 import ResponseResult from "./ResponseResult";
@@ -22,4 +22,5 @@ export {
   SetQuestion,
   Alert,
   UserVerifyEmail,
+  AnswerWithShapeInterface,
 };
