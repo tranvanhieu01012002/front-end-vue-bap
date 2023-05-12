@@ -3,9 +3,9 @@
     <div class="container">
       <!-- <OpenGame /> -->
       <div class="row">
-        <ProfileComponent class="col-3" />
-        <DoubleComponent class="col-6" />
-        <ProfileComponent class="col-3" />
+        <ProfileComponent class="col-xxl-3 col-md-6 col-sm-12" />
+        <DoubleComponent class="col-xxl-6 col-md-6 col-sm-12" />
+        <MyKahootComponent class="col-xxl-3 col-md-6 col-sm-12" />
       </div>
     </div>
   </div>
@@ -16,6 +16,7 @@ import { defineComponent } from "vue"; // @ is an alias to /src
 // import OpenGame from "@/components/SelectGame/OpenGame.vue";
 import ProfileComponent from "@/components/Home/ProfileComponent.vue";
 import DoubleComponent from "@/components/Home/DoubleComponent.vue";
+import MyKahootComponent from "@/components/Home/MyKahootComponent.vue";
 import { LaravelEchoService } from "@/services";
 
 export default defineComponent({
@@ -24,6 +25,7 @@ export default defineComponent({
     // OpenGame,
     ProfileComponent,
     DoubleComponent,
+    MyKahootComponent,
   },
   created() {
     LaravelEchoService.init();
