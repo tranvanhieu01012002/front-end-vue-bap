@@ -1,40 +1,36 @@
 <template>
-  <div class="home">
-    <TopMain />
-    <SecondMain />
-    <CountUser />
-    <ExploreComponent />
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div class="bg">
+    <div class="container">
+      <!-- <OpenGame /> -->
+      <div class="row">
+        <ProfileComponent class="col-3" />
+        <ProfileComponent class="col-6" />
+        <ProfileComponent class="col-3" />
+      </div>
+    </div>
   </div>
-  <OpenGame />
-  <FooterComponent />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-import OpenGame from "@/components/SelectGame/OpenGame.vue";
-import TopMain from "@/components/TopMain/TopMain.vue";
-import SecondMain from "@/components/SecondMain/SecondMain.vue";
-import CountUser from "@/components/CountUser/CountUser.vue";
-import ExploreComponent from "@/components/Explore/ExploreComponent.vue";
-import FooterComponent from "@/components/Footer/FooterComponent.vue";
+import { defineComponent } from "vue"; // @ is an alias to /src
+// import OpenGame from "@/components/SelectGame/OpenGame.vue";
+import ProfileComponent from "@/components/Home/ProfileComponent.vue";
 import { LaravelEchoService } from "@/services";
 
 export default defineComponent({
   name: "HomeView",
   components: {
-    HelloWorld,
-    OpenGame,
-    TopMain,
-    SecondMain,
-    CountUser,
-    ExploreComponent,
-    FooterComponent,
+    // OpenGame,
+    ProfileComponent,
   },
   created() {
     LaravelEchoService.init();
   },
 });
 </script>
+<style scoped>
+.bg {
+  background-color: #fafafa;
+  height: 94vh;
+}
+</style>

@@ -7,11 +7,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import "nprogress/nprogress.css";
 import vue3GoogleLogin from "vue3-google-login";
+import FontAwesomeIcon from "./icon";
 
-// import Echo from "laravel-echo";
 const pinia = createPinia();
 
 createApp(App)
+  .component("font-awesome-icon", FontAwesomeIcon)
   .use(BootstrapVue3)
   .use(vue3GoogleLogin, {
     clientId: process.env.VUE_APP_GOOGLE_CLIENT || "ahihi do ngok",
