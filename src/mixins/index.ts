@@ -5,6 +5,7 @@ import actionEditableHtmlMixin from "./actionEditableHtmlMixin";
 import authInputMixin from "./authInputMixin";
 import modalMixin from "./modalMixin";
 import userInfoMixin from "./userInfoMixin";
+import openRoomMixin from "./openRoomMixin";
 
 export {
   nextQuestionMixin,
@@ -14,4 +15,5 @@ export {
   authInputMixin,
   modalMixin,
   userInfoMixin,
+  openRoomMixin,
 };

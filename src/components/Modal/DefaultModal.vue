@@ -14,8 +14,8 @@
   </b-modal>
 </template>
 <script lang="ts">
-import { RoomService } from "@/services";
 import { defineComponent } from "vue";
+import { openRoomMixin } from "@/mixins";
 
 export default defineComponent({
   props: {
@@ -24,12 +24,11 @@ export default defineComponent({
       required: true,
     },
   },
+  mixins: [openRoomMixin],
   emits: ["hiddenModal"],
   data() {
     return {
       model: false,
-      room: "",
-      error: "",
     };
   },
   watch: {
@@ -40,24 +39,6 @@ export default defineComponent({
   methods: {
     hiddenModal: function () {
       this.$emit("hiddenModal", !this.isOpenedModal);
-    },
-    checkForm: function () {
-      if (Number.isNaN(parseInt(this.room))) {
-        this.error = "Please enter only number";
-        return false;
-      } else {
-        return true;
-      }
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    submit: async function (e: any) {
-      if (this.checkForm()) {
-        this.error = "";
-        const roomService = new RoomService();
-        await roomService.openRoom(this.room);
-      } else {
-        e.preventDefault();
-      }
     },
   },
 });
