@@ -1,6 +1,6 @@
 <template>
   <div class="p-2">
-    <div class="profile">
+    <div class="container-profile-component">
       <div class="content">
         <div>
           <div class="name">
@@ -55,13 +55,6 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.profile {
-  background-color: #fff;
-  width: 100%;
-  height: 600px;
-  padding: 10px;
-  border-radius: 5px;
-}
 .content {
   width: 100%;
   height: 100%;

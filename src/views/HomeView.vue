@@ -4,7 +4,7 @@
       <!-- <OpenGame /> -->
       <div class="row">
         <ProfileComponent class="col-3" />
-        <ProfileComponent class="col-6" />
+        <DoubleComponent class="col-6" />
         <ProfileComponent class="col-3" />
       </div>
     </div>
@@ -15,6 +15,7 @@
 import { defineComponent } from "vue"; // @ is an alias to /src
 // import OpenGame from "@/components/SelectGame/OpenGame.vue";
 import ProfileComponent from "@/components/Home/ProfileComponent.vue";
+import DoubleComponent from "@/components/Home/DoubleComponent.vue";
 import { LaravelEchoService } from "@/services";
 
 export default defineComponent({
@@ -22,6 +23,7 @@ export default defineComponent({
   components: {
     // OpenGame,
     ProfileComponent,
+    DoubleComponent,
   },
   created() {
     LaravelEchoService.init();
