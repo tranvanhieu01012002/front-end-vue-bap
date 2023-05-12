@@ -17,6 +17,7 @@ import { useUserStore } from "@/store";
 import RegisterView from "../views/RegisterView.vue";
 import ConfirmRegister from "../views/ConfirmRegister.vue";
 import GameView from "../views/GameView.vue";
+import LibraryView from "../views/LibraryView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,6 +63,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       label: "Play",
+    },
+  },
+  {
+    path: "/library",
+    name: "library",
+    component: LibraryView,
+    meta: {
+      requiresAuth: true,
+      label: "Library",
     },
   },
   {
