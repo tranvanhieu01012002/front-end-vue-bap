@@ -11,6 +11,9 @@ import {
   faShieldHalved,
   faCircleExclamation,
   faMagnifyingGlass,
+  faCircleUser,
+  faPen,
+  faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -21,7 +24,10 @@ library.add(
   faStar,
   faShieldHalved,
   faCircleExclamation,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faCircleUser,
+  faPen,
+  faEllipsisVertical
 );
 
 export default FontAwesomeIcon;

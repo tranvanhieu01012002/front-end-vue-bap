@@ -6,13 +6,15 @@ import ResponseResult from "./ResponseResult";
 import UserInfo from "./UserInfo";
 import UserRank from "./UserRank";
 import ParamFunction from "./ParamFunction";
-import SetQuestion from "./SetQuestionInterface";
+import { SetQuestion, SetQuestionResponse } from "./SetQuestion";
 import Alert from "./Alert";
 import UserVerifyEmail from "./UserVerifyEmail";
 
 export {
+  Alert,
   Account,
   AnswerInterface,
+  AnswerWithShapeInterface,
   BootstrapTableField,
   Question,
   ResponseResult,
@@ -20,7 +22,6 @@ export {
   UserRank,
   ParamFunction,
   SetQuestion,
-  Alert,
+  SetQuestionResponse,
   UserVerifyEmail,
-  AnswerWithShapeInterface,
 };

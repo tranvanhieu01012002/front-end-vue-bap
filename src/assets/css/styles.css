@@ -36,3 +36,13 @@
 a.link {
   color: black;
 }
+
+.img-cover-question {
+  /* width: 110px; */
+  background-color: #cccccc;
+  background-image: url("@/assets/images/cover-question-kahoot.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  align-items: end;
+}

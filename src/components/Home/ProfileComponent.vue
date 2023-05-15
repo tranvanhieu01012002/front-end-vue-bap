@@ -34,12 +34,13 @@ import { defineComponent } from "vue";
 import TopContent from "./Profile/TopContent.vue";
 import PlanComponent from "./Profile/PlanComponent.vue";
 import VerifyProfile from "./Profile/VerifyProfile.vue";
+import { useUserStore } from "@/store";
+import { mapState } from "pinia";
 
 export default defineComponent({
   data() {
     return {
       name: "hieu",
-      email: "hieu.tran23@student.passerellesnumeriques.org",
     };
   },
   components: {
@@ -48,9 +49,7 @@ export default defineComponent({
     VerifyProfile,
   },
   computed: {
-    showEmail(): string {
-      return this.email.split("@")[0];
-    },
+    ...mapState(useUserStore, { showEmail: "getShortEmail" }),
   },
 });
 </script>
