@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Auth from "@/helpers/auth";
 import nProgress from "nprogress";
 import { useUserStore } from "@/store";
-import UserRepository from "@/helpers/axios/UserRepository";
 import routes from "./routeArray";
 
 const router = createRouter({
@@ -14,7 +13,7 @@ router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
   const auth = new Auth();
 
-  if (to.meta.requiresAuth && !auth.isLogin)
+  if (to.meta.requiresAuth && !(await auth.checkLogin()))
     return next({
       path: "/login",
       query: { redirect: to.fullPath },
@@ -24,11 +23,6 @@ router.beforeEach(async (to, from, next) => {
       path: "/",
     });
   } else {
-    if (!userStore.checkExistUser) {
-      const user = new UserRepository();
-      const { data } = await user.profile();
-      userStore.updateUser(data);
-    }
     next();
   }
 });

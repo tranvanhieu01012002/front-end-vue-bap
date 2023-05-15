@@ -25,7 +25,7 @@ http.interceptors.response.use(
       case 401:
         console.log("401 r kia");
         localStorage.removeItem("token");
-        return router.push("/login");
+        return;
       case 403:
         return router.push({ name: "home" });
       default:

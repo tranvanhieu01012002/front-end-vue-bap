@@ -1,7 +1,12 @@
 <template>
-  <div class="set-question-container d-flex">
+  <div :class="showCss">
     <div class="checkbox d-flex flex-column justify-content-center">
-      <input type="checkbox" class="input-checkbox" id="" />
+      <input
+        :checked="setQuestion.isChecked"
+        @input="$emit('clickCheckBox', index)"
+        type="checkbox"
+        class="input-checkbox"
+      />
     </div>
     <div class="img img-cover-question d-flex justify-content-center">
       <QuestionNumber>{{ setQuestion.questions_count }}</QuestionNumber>
@@ -54,6 +59,20 @@ export default defineComponent({
     author: {
       type: String,
       required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ["clickCheckBox"],
+  computed: {
+    showCss: function (): string {
+      let isChecked = "";
+      if (this.setQuestion.isChecked) {
+        isChecked = "checked";
+      }
+      return `${isChecked} set-question-container d-flex`;
     },
   },
 });
@@ -110,5 +129,8 @@ export default defineComponent({
 .input-checkbox {
   height: 20px;
   width: 20px;
+}
+.checked {
+  border: 2px solid #46178f;
 }
 </style>

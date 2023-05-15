@@ -2,14 +2,16 @@
   <div class="bg padding-t">
     <div class="container">
       <div><FilterBar /></div>
-      <div>
+      <form>
         <SetQuestion
           v-for="(setQuestion, index) in setQuestions"
           :key="index"
           :set-question="setQuestion"
           :author="getShortEmail"
+          :index="index"
+          @click-check-box="clickCheckBox"
         />
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -35,9 +37,22 @@ export default defineComponent({
   computed: {
     ...mapState(useUserStore, ["getShortEmail"]),
   },
-  async mounted() {
+  methods: {
+    clickCheckBox: function (index: number) {
+      this.setQuestions = this.setQuestions.map((item, indexArr) =>
+        index === indexArr
+          ? { ...item, isChecked: !item.isChecked }
+          : { ...item }
+      );
+      console.log(this.setQuestions);
+    },
+  },
+  async created() {
     const { data } = await this.setQuestionRepository.getAll();
-    this.setQuestions = data;
+    this.setQuestions = data.map((item: SetQuestionResponse) => ({
+      ...item,
+      isChecked: false,
+    }));
   },
 });
 </script>
