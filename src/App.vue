@@ -12,7 +12,7 @@ export default defineComponent({
 // https://kahoot.com/home/mobile-app/
 </script>
 <style>
-@import "@/assets/css/variable.css";
+@import "@/assets/css/index.css";
 nav {
   padding: 30px;
 }
