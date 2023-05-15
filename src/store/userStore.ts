@@ -13,12 +13,10 @@ export const useUserStore = defineStore("userStore", {
       return this.user.email;
     },
     getShortEmail(): string {
-      // return this.user.email.split("@")[0] ?? "undefined";
-      console.log(this.user.email);
-      return (
-        "hieu.tran23@student.passerellesnumeriques.org".split("@")[0] ??
-        "undefined"
-      );
+      return this.user.email ? this.user.email.split("@")[0] : "undefined";
+    },
+    checkExistUser(): boolean {
+      return this.user.id ? true : false;
     },
   },
   actions: {
