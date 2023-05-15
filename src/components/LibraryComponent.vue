@@ -29,6 +29,7 @@ import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
 import { mapState } from "pinia";
 import { useUserStore } from "@/store";
 import SelectAllBar from "@/components/Library/SelectAllBar.vue";
+import { useSearchStore } from "@/store";
 
 export default defineComponent({
   data() {
@@ -38,6 +39,15 @@ export default defineComponent({
       setQuestionRepository: new SetQuestionRepository("set-questions"),
     };
   },
+  watch: {
+    text: async function (newValue: string): Promise<boolean> {
+      await this.getData();
+      this.setQuestions = this.setQuestions.filter((item) =>
+        item.name.includes(newValue)
+      );
+      return true;
+    },
+  },
   components: {
     FilterBar,
     SetQuestion,
@@ -45,6 +55,7 @@ export default defineComponent({
   },
   computed: {
     ...mapState(useUserStore, ["getShortEmail"]),
+    ...mapState(useSearchStore, ["text"]),
   },
   methods: {
     calculateTotal: function () {
@@ -67,13 +78,16 @@ export default defineComponent({
       }));
       this.calculateTotal();
     },
+    async getData() {
+      const { data } = await this.setQuestionRepository.getAll();
+      this.setQuestions = data.map((item: SetQuestionResponse) => ({
+        ...item,
+        isChecked: false,
+      }));
+    },
   },
   async created() {
-    const { data } = await this.setQuestionRepository.getAll();
-    this.setQuestions = data.map((item: SetQuestionResponse) => ({
-      ...item,
-      isChecked: false,
-    }));
+    await this.getData();
   },
 });
 </script>

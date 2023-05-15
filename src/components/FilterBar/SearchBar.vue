@@ -5,14 +5,28 @@
         <label class="icon"
           ><font-awesome-icon :icon="['fas', 'magnifying-glass']"
         /></label>
-        <input placeholder="Search" class="input" />
+        <input
+          placeholder="Search"
+          :value="text"
+          @input="event => input((event.target as HTMLInputElement).value)"
+          class="input"
+        />
       </div>
     </form>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-export default defineComponent({});
+import { useSearchStore } from "@/store";
+import { mapState, mapActions } from "pinia";
+export default defineComponent({
+  computed: {
+    ...mapState(useSearchStore, ["text"]),
+  },
+  methods: {
+    ...mapActions(useSearchStore, ["input"]),
+  },
+});
 </script>
 <style scoped>
 .search {

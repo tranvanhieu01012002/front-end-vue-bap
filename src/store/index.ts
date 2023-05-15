@@ -4,6 +4,7 @@ import { useQuestionStore } from "./questionStore";
 import { useUserStore } from "./userStore";
 import { useTimerStore } from "./timerStore";
 import { useModalStore } from "./modalStore";
+import { useSearchStore } from "./searchStore";
 export {
   listAnswers,
   useAuthStore,
@@ -11,4 +12,5 @@ export {
   useUserStore,
   useTimerStore,
   useModalStore,
+  useSearchStore,
 };
