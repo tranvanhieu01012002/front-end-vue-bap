@@ -46,3 +46,8 @@ a.link {
   background-size: cover;
   align-items: end;
 }
+
+.input-checkbox {
+  height: 20px;
+  width: 20px;
+}

@@ -126,10 +126,6 @@ export default defineComponent({
 .checkbox {
   padding: 0px 10px;
 }
-.input-checkbox {
-  height: 20px;
-  width: 20px;
-}
 .checked {
   border: 2px solid #46178f;
 }
