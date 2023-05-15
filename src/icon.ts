@@ -10,6 +10,7 @@ import {
   faStar,
   faShieldHalved,
   faCircleExclamation,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -19,7 +20,8 @@ library.add(
   faCircleQuestion,
   faStar,
   faShieldHalved,
-  faCircleExclamation
+  faCircleExclamation,
+  faMagnifyingGlass
 );
 
 export default FontAwesomeIcon;

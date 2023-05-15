@@ -54,13 +54,13 @@ export default defineComponent({
 </script>
 <style scoped>
 li {
-  padding: 5px 20px;
+  padding: 6px 20px;
   border-left: 1px solid #000;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
-  color: ;
+  color: var(--text-primary-color);
 }
 li:last-child {
   border-right: 1px solid #000;
