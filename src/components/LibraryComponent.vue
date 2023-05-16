@@ -7,7 +7,7 @@
           totalSelected
         }}</SelectAllBar>
       </div>
-      <form>
+      <form v-if="setQuestions.length > 0">
         <SetQuestion
           v-for="(setQuestion, index) in setQuestions"
           :key="index"
@@ -17,6 +17,7 @@
           @click-check-box="clickCheckBox"
         />
       </form>
+      <div v-else><NotFound /></div>
     </div>
   </div>
 </template>
@@ -30,7 +31,7 @@ import { mapState } from "pinia";
 import { useUserStore } from "@/store";
 import SelectAllBar from "@/components/Library/SelectAllBar.vue";
 import { useSearchStore } from "@/store";
-
+import NotFound from "./Library/NotFound.vue";
 export default defineComponent({
   data() {
     return {
@@ -52,6 +53,7 @@ export default defineComponent({
     FilterBar,
     SetQuestion,
     SelectAllBar,
+    NotFound,
   },
   computed: {
     ...mapState(useUserStore, ["getShortEmail"]),
