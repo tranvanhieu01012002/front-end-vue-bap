@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between">
       <div class="left d-flex padding-t-select-all-bar">
         <input
-          v-model="checkAll"
+          :checked="checked"
           @input="
             $emit('clickCheckAll', ($event.target as HTMLInputElement).checked)
           "
@@ -22,10 +22,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  data() {
-    return {
-      checkAll: false,
-    };
+  props: {
+    checked: {
+      type: Boolean,
+      required: true,
+    },
   },
   emits: ["clickCheckAll"],
 });

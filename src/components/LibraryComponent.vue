@@ -3,9 +3,11 @@
     <div class="container">
       <div><FilterBar /></div>
       <div v-if="totalSelected > 0">
-        <SelectAllBar @click-check-all="clickCheckAll">{{
-          totalSelected
-        }}</SelectAllBar>
+        <SelectAllBar
+          :checked="totalSelected == setQuestions.length"
+          @click-check-all="clickCheckAll"
+          >{{ totalSelected }}</SelectAllBar
+        >
       </div>
       <div v-if="setQuestions.length > 0">
         <SetQuestion
