@@ -23,11 +23,18 @@
       </div>
       <div class="right-content d-flex flex-column justify-content-between">
         <div class="top-right-content d-flex justify-content-end">
-          <font-awesome-icon class="icon" :icon="['fas', 'pen']" />
-          <font-awesome-icon
-            class="icon"
-            :icon="['fas', 'ellipsis-vertical']"
-          />
+          <button
+            class="btn-unset"
+            @click="$emit('showListQuestions', setQuestion.id)"
+          >
+            <font-awesome-icon class="icon" :icon="['fas', 'pen']" />
+          </button>
+          <button class="btn-unset">
+            <font-awesome-icon
+              class="icon"
+              :icon="['fas', 'ellipsis-vertical']"
+            />
+          </button>
         </div>
         <div class="bottom-right-content d-flex">
           <div class="left-g-button d-flex">
@@ -35,7 +42,12 @@
             <div class="plays"><li>3 plays</li></div>
           </div>
           <div class="g-button">
-            <button class="btn btn-dark">Assign</button>
+            <button
+              @click="$emit('startGame', setQuestion.id)"
+              class="btn btn-dark"
+            >
+              Assign
+            </button>
             <button class="btn btn-primary">Start</button>
           </div>
         </div>
@@ -65,7 +77,7 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["clickCheckBox"],
+  emits: ["clickCheckBox", "showListQuestions", "startGame"],
   computed: {
     showCss: function (): string {
       let isChecked = "";
@@ -128,5 +140,9 @@ export default defineComponent({
 }
 .checked {
   border: 2px solid #46178f;
+}
+.btn-unset {
+  all: unset;
+  cursor: pointer;
 }
 </style>

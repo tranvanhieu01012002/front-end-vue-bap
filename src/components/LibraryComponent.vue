@@ -7,7 +7,7 @@
           totalSelected
         }}</SelectAllBar>
       </div>
-      <form v-if="setQuestions.length > 0">
+      <div v-if="setQuestions.length > 0">
         <SetQuestion
           v-for="(setQuestion, index) in setQuestions"
           :key="index"
@@ -15,8 +15,10 @@
           :author="getShortEmail"
           :index="index"
           @click-check-box="clickCheckBox"
+          @show-list-questions="showListQuestions"
+          @start-game="createRoom"
         />
-      </form>
+      </div>
       <div v-else><NotFound /></div>
     </div>
   </div>
@@ -25,13 +27,15 @@
 import { defineComponent } from "vue";
 import FilterBar from "./FilterBar/FilterBar.vue";
 import SetQuestion from "@/components/SetQuestion/SetQuestion.vue";
-import { SetQuestionResponse } from "@/interfaces";
-import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
+import SelectAllBar from "@/components/Library/SelectAllBar.vue";
+import NotFound from "./Library/NotFound.vue";
 import { mapState } from "pinia";
 import { useUserStore } from "@/store";
-import SelectAllBar from "@/components/Library/SelectAllBar.vue";
 import { useSearchStore } from "@/store";
-import NotFound from "./Library/NotFound.vue";
+import { router } from "@/router";
+import { SetQuestionResponse } from "@/interfaces";
+import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
+import { LaravelEchoService, RoomService } from "@/services";
 export default defineComponent({
   data() {
     return {
@@ -87,9 +91,23 @@ export default defineComponent({
         isChecked: false,
       }));
     },
+    showListQuestions: function (id: number) {
+      return router.push({
+        name: "list-questions",
+        params: {
+          setQuestionId: id,
+          questionId: -1,
+        },
+      });
+    },
+    async createRoom(setQuestionId: number) {
+      console.log(1);
+      await new RoomService().createRoom(setQuestionId);
+    },
   },
   async created() {
     await this.getData();
+    LaravelEchoService.init();
   },
 });
 </script>
