@@ -30,14 +30,16 @@ export default defineComponent({});
     rgba(0, 0, 255, 0.5),
     rgba(255, 255, 0, 0.5)
   );
+  color: #fff;
 }
 .top {
   position: relative;
 }
 img {
   width: 200px;
-  bottom: 5px;
+  bottom: -65px;
   position: absolute;
+  z-index: -1;
 }
 .text {
   bottom: 2px;

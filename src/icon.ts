@@ -14,6 +14,7 @@ import {
   faCircleUser,
   faPen,
   faEllipsisVertical,
+  faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -27,7 +28,8 @@ library.add(
   faMagnifyingGlass,
   faCircleUser,
   faPen,
-  faEllipsisVertical
+  faEllipsisVertical,
+  faCaretDown
 );
 
 export default FontAwesomeIcon;
