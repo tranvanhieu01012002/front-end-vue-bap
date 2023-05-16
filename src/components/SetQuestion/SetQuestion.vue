@@ -1,15 +1,17 @@
 <template>
-  <div :class="showCss">
+  <div ref="el" :class="showCss">
     <div class="checkbox d-flex flex-column justify-content-center">
       <input
         :checked="setQuestion.isChecked"
-        @input="$emit('clickCheckBox', index)"
+        @input="emits('clickCheckBox', index)"
         type="checkbox"
         class="input-checkbox"
       />
     </div>
-    <div class="img img-cover-question d-flex justify-content-center">
-      <QuestionNumber>{{ setQuestion.questions_count }}</QuestionNumber>
+    <div :class="hideSmall">
+      <div class="img img-cover-question d-flex justify-content-center">
+        <QuestionNumber>{{ setQuestion.questions_count }}</QuestionNumber>
+      </div>
     </div>
     <div class="data-content d-flex justify-content-between">
       <div class="left-content d-flex flex-column justify-content-between">
@@ -25,7 +27,7 @@
         <div class="top-right-content d-flex justify-content-end">
           <button
             class="btn-unset"
-            @click="$emit('showListQuestions', setQuestion.id)"
+            @click="emits('showListQuestions', setQuestion.id)"
           >
             <font-awesome-icon class="icon" :icon="['fas', 'pen']" />
           </button>
@@ -37,57 +39,72 @@
           </button>
         </div>
         <div class="bottom-right-content d-flex">
-          <div class="left-g-button d-flex">
+          <div :class="[leftGBtn]">
             <div class="time">Updated at: {{ setQuestion.updated_at }}</div>
             <div class="plays"><li>3 plays</li></div>
           </div>
-          <div class="g-button">
+          <div class="g-button d-flex">
             <button
-              @click="$emit('startGame', setQuestion.id)"
-              class="btn btn-dark"
+              @click="emits('startGame', setQuestion.id)"
+              :class="['btn btn-dark', btnSize]"
             >
               Assign
             </button>
-            <button class="btn btn-primary">Start</button>
+            <button :class="['btn btn-primary', btnSize]">Start</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { PropType, defineComponent } from "vue";
+<script setup lang="ts">
+import { defineProps, computed, PropType, defineEmits, ref } from "vue";
 import QuestionNumber from "../Home/MyKahoot/QuestionNumber.vue";
 import { SetQuestionResponse } from "@/interfaces";
-export default defineComponent({
-  components: {
-    QuestionNumber,
+import { useResizeObserver } from "@vueuse/core";
+const props = defineProps({
+  setQuestion: {
+    type: Object as PropType<SetQuestionResponse>,
+    required: true,
   },
-  props: {
-    setQuestion: {
-      type: Object as PropType<SetQuestionResponse>,
-      required: true,
-    },
-    author: {
-      type: String,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
+  author: {
+    type: String,
+    required: true,
   },
-  emits: ["clickCheckBox", "showListQuestions", "startGame"],
-  computed: {
-    showCss: function (): string {
-      let isChecked = "";
-      if (this.setQuestion.isChecked) {
-        isChecked = "checked";
-      }
-      return `${isChecked} set-question-container d-flex`;
-    },
+  index: {
+    type: Number,
+    required: true,
   },
 });
+const el = ref();
+const leftGBtn = ref("left-g-button d-flex");
+const btnSize = ref("");
+const hideSmall = ref("hide-small");
+const showCss = computed(() => {
+  let isChecked = "";
+  if (props.setQuestion.isChecked) {
+    isChecked = "checked";
+  }
+  return `${isChecked} set-question-container d-flex justify-content-center`;
+});
+
+useResizeObserver(el, (entries) => {
+  const entry = entries[0];
+  const { width } = entry.contentRect;
+  if (width <= 1200) {
+    leftGBtn.value = "left-g-button-hide";
+    btnSize.value = "btn-sm";
+    if (width <= 550) {
+      hideSmall.value = "hide-small";
+    }
+  } else {
+    leftGBtn.value = "left-g-button d-flex";
+    btnSize.value = "";
+    hideSmall.value = "";
+  }
+});
+
+const emits = defineEmits(["clickCheckBox", "showListQuestions", "startGame"]);
 </script>
 <style scoped>
 .set-question-container {
@@ -132,6 +149,9 @@ export default defineComponent({
 .left-g-button {
   padding: 7px 5px 0px 0px;
 }
+.left-g-button-hide {
+  display: none;
+}
 .plays {
   margin-left: 5px;
 }
@@ -144,5 +164,8 @@ export default defineComponent({
 .btn-unset {
   all: unset;
   cursor: pointer;
+}
+.hide-small {
+  display: none;
 }
 </style>

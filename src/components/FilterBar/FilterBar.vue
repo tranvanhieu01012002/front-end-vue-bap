@@ -1,59 +1,68 @@
 <template>
   <div class="row">
-    <ul class="ul d-flex col-4">
+    <component ref="el" :is="lists" class="ul d-flex col-4">
       <template v-for="(item, index) in listFilter" :key="index">
-        <li :class="item.isActive ? 'active' : ''">
+        <component
+          :is="itemList"
+          class="li"
+          :class="item.isActive ? 'active' : ''"
+        >
           <button @click="() => choseTab(index)">
             {{ item.content }}
           </button>
-        </li>
+        </component>
       </template>
-    </ul>
+    </component>
     <SearchBar />
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
+import { useResizeObserver } from "@vueuse/core";
 import SearchBar from "./SearchBar.vue";
-export default defineComponent({
-  data() {
-    return {
-      listFilter: [
-        {
-          content: "Recent",
-          isActive: true,
-        },
-        {
-          content: "Share with me",
-          isActive: false,
-        },
-        {
-          content: "Recent",
-          isActive: false,
-        },
-        {
-          content: "Recent",
-          isActive: false,
-        },
-      ],
-    };
+const listFilter = ref([
+  {
+    content: "Recent",
+    isActive: true,
   },
-  components: {
-    SearchBar,
+  {
+    content: "Share with me",
+    isActive: false,
   },
-  methods: {
-    choseTab: function (index: number) {
-      this.listFilter = this.listFilter.map((item, indexArr) => {
-        if (indexArr === index) {
-          return { ...item, isActive: true };
-        } else return { ...item, isActive: false };
-      });
-    },
+  {
+    content: "Recent",
+    isActive: false,
   },
+  {
+    content: "Recent",
+    isActive: false,
+  },
+]);
+const el = ref();
+const lists = ref("ul");
+const itemList = ref("li");
+const choseTab = function (index: number) {
+  listFilter.value = listFilter.value.map((item, indexArr) => {
+    if (indexArr === index) {
+      return { ...item, isActive: true };
+    } else return { ...item, isActive: false };
+  });
+};
+
+useResizeObserver(el, (entries) => {
+  const entry = entries[0];
+  const { width } = entry.contentRect;
+  if (width <= 350) {
+    lists.value = "select";
+    itemList.value = "option";
+  } else {
+    lists.value = "ul";
+    itemList.value = "li";
+  }
 });
 </script>
 <style scoped>
-li {
+.li {
   padding: 6px 20px;
   border-left: 1px solid #000;
   border-top: 1px solid #000;
