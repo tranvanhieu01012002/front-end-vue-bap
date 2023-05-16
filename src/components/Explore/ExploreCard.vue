@@ -5,7 +5,6 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem"
       class="mb-2"
     >
       <div>

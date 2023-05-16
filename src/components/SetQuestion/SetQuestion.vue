@@ -165,7 +165,4 @@ const emits = defineEmits(["clickCheckBox", "showListQuestions", "startGame"]);
   all: unset;
   cursor: pointer;
 }
-.hide-small {
-  display: none;
-}
 </style>

@@ -51,3 +51,7 @@ a.link {
   height: 20px;
   width: 20px;
 }
+
+.hide-small {
+  display: none;
+}

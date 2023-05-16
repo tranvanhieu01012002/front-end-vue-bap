@@ -20,7 +20,7 @@ export default defineComponent({
     SecondMain,
     CountUser,
     ExploreComponent,
-    FooterComponent,
+    // FooterComponent,
   },
 });
 </script>

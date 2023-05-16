@@ -1,5 +1,5 @@
 <template>
-  <div class="row padding-top-main">
+  <div class="row padding-top-main d-flex justify-content-center">
     <AlertTopMainVue />
     <AlertTopMainVue />
     <AlertTopMainVue />

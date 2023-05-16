@@ -43,12 +43,10 @@ export default defineComponent({
 <style scoped>
 .top-main {
   background-color: var(--primary-color);
-  height: 75vh;
   width: 100%;
   padding-top: var(--padding-top-main);
 }
 .content {
-  height: 50vh;
   background-color: #46178f;
   color: #fff;
 }
@@ -61,5 +59,14 @@ export default defineComponent({
 }
 .content-right img {
   width: 100%;
+}
+@media screen and (max-width: 1028px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+  .content-left-text {
+    font-size: 13px;
+  }
 }
 </style>
