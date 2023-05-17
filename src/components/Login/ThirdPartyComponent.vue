@@ -31,6 +31,7 @@ const login = async () => {
   border: 1px solid #000;
   padding: 10px 5px;
   border-radius: 8px;
+  cursor: pointer;
   margin-bottom: 10px;
 }
 </style>
