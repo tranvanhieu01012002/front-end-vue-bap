@@ -55,3 +55,24 @@ a.link {
 .hide-small {
   display: none;
 }
+
+.caret-icon {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .flex-column-responsive {
+    flex-direction: column;
+    /* display: none; */
+  }
+  .list-social {
+    display: none;
+  }
+  .caret-icon {
+    display: block;
+    margin-left: 10px;
+  }
+  .center {
+    display: flex;
+    flex-direction: column;
+  }
+}

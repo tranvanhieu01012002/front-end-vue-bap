@@ -46,24 +46,9 @@ img {
 .border-text {
   font-weight: bolder;
 }
-.caret-icon {
-  display: none;
-}
-@media screen and (max-width: 800px) {
-  .flex-column-responsive {
-    flex-direction: column;
-    /* display: none; */
-  }
-  .list-social {
-    display: none;
-  }
-  .caret-icon {
-    display: block;
-    margin-left: 10px;
-  }
-  .center {
-    display: flex;
-    flex-direction: column;
+@media screen and (max-width: 600px) {
+  .right-item img {
+    width: 20px;
   }
 }
 </style>

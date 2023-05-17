@@ -1,25 +1,49 @@
 <template>
   <div class="container-div">
-    <div class="header-text">Footer item</div>
+    <div class="header-text d-flex">
+      <div class="">Footer item</div>
+      <div @click="showBar" :class="['caret-icon']">
+        <font-awesome-icon
+          :icon="['fas', isShow ? 'caret-up' : 'caret-down']"
+        />
+      </div>
+    </div>
     <div class="footer-dark">
-      <ul>
-        <li>Company</li>
-        <li>Leadership</li>
-        <li>Careers</li>
-        <li>Open positions</li>
-        <li>Press</li>
-        <li>Investor relations</li>
-        <li>Company events</li>
-        <li>Contact us</li>
-      </ul>
+      <div class="show-items">
+        <ul class="">
+          <li v-for="item in list" :key="item">{{ item }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({});
+<script setup lang="ts">
+import { ref } from "vue";
+const list = ref([
+  "Company",
+  "Leadership",
+  "Careers",
+  "Open positions",
+  "Press",
+  "Investor relations",
+  "Company events",
+  "Contact us",
+]);
+const isShow = ref(false);
+const showBar = () => {
+  isShow.value = !isShow.value;
+};
 </script>
 <style scoped>
+.show-items,
+.show-active {
+  display: flex;
+}
+@media screen and (max-width: 650px) {
+  .show-items {
+    display: none;
+  }
+}
 .footer-dark ul {
   padding: 0;
   list-style: none;
