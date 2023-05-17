@@ -9,7 +9,7 @@
       <ThirdParty />
     </div>
     <div class="bottom text-center">
-      Don't have an account? <a href="#">Sign up</a>
+      Don't have an account? <router-link to="register">Sign up</router-link>
     </div>
   </div>
 </template>
