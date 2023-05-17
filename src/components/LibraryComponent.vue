@@ -36,16 +36,13 @@ import NotFound from "./Library/NotFound.vue";
 import { useUserStore } from "@/store";
 import { useSearchStore } from "@/store";
 import { router } from "@/router";
-import { SetQuestionResponse } from "@/interfaces";
-import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
+import { useGetSetQuestion } from "@/hooks";
 import { LaravelEchoService, RoomService } from "@/services";
 
 const totalSelected: Ref<number> = ref(0);
-const setQuestions: Ref<SetQuestionResponse[]> = ref([]);
-const setQuestionRepository = ref(new SetQuestionRepository("set-questions"));
-
 const { getShortEmail } = storeToRefs(useUserStore());
 const { text } = storeToRefs(useSearchStore());
+const { setQuestions, getData } = useGetSetQuestion();
 
 watch(text, async function (newValue: string): Promise<boolean> {
   await getData();
@@ -55,13 +52,6 @@ watch(text, async function (newValue: string): Promise<boolean> {
   return true;
 });
 
-const getData = async () => {
-  const { data } = await setQuestionRepository.value.getAll();
-  setQuestions.value = data.map((item: SetQuestionResponse) => ({
-    ...item,
-    isChecked: false,
-  }));
-};
 const createRoom = async (setQuestionId: number) => {
   await new RoomService().createRoom(setQuestionId);
 };

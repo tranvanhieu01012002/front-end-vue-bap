@@ -60,7 +60,7 @@ const onSubmit = async (event: Event) => {
     const { data } = await formPost.login(userInfo.value);
     localStorage.setItem("token", data.token);
     updateUser(data.user);
-    setIsLogin(!!isLogin);
+    setIsLogin(isLogin.value);
     const { redirect } = route.query;
     const routeRedirect = redirect ? redirect.toString() : "/";
     return router.push(routeRedirect);

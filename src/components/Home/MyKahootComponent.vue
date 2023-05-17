@@ -5,23 +5,43 @@
         <div class="head-text"><strong>My Kahoot</strong></div>
       </div>
       <div class="center">
-        <MyKahootQuestion />
-        <MyKahootQuestion />
-        <MyKahootQuestion />
+        <template
+          v-for="(setQuestion, index) in setQuestions"
+          :key="setQuestion.id"
+        >
+          <MyKahootQuestion v-if="index < noNumberShow">
+            <template #question>
+              {{ setQuestion.questions_count }}
+            </template>
+            <template #name>
+              {{ setQuestion.name.toUpperCase() }}
+            </template>
+            <template #author>{{ getShortEmail }}</template>
+          </MyKahootQuestion>
+        </template>
       </div>
       <div class="footer text-center">
-        <div class="view"><a href="#" class="link">See all (4)</a></div>
+        <div class="view">
+          <router-link to="library"
+            >See all {{ setQuestions.length - noNumberShow }}</router-link
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import MyKahootQuestion from "./MyKahoot/MyKahootQuestion.vue";
-export default defineComponent({
-  components: {
-    MyKahootQuestion,
-  },
+import { useGetSetQuestion } from "@/hooks";
+import { useUserStore } from "@/store";
+import { storeToRefs } from "pinia";
+import { onMounted, ref } from "vue";
+const noNumberShow = ref(3);
+const { setQuestions, getData } = useGetSetQuestion();
+const userStore = useUserStore();
+const { getShortEmail } = storeToRefs(userStore);
+onMounted(() => {
+  getData();
 });
 </script>
 <style scoped>
