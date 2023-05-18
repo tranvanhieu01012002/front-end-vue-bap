@@ -10,7 +10,7 @@
             }}</small>
           </div>
         </div>
-        <div class="share-area">
+        <div v-if="editable.status" class="share-area">
           <button @click="updateCorrectAnswer" class="btn-unset">
             <div
               :class="[

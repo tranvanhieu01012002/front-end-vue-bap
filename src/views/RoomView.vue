@@ -15,97 +15,79 @@
     <p>oh can not start game without any users</p>
   </BasicModal>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
-import { defineComponent } from "vue";
-import { mapActions, mapState } from "pinia";
+import { defineProps, ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 import { useQuestionStore, useUserStore } from "@/store/";
 import UserInfoVue from "../components/User/UserInfoVue.vue";
 import CycleLoader from "@/components/Loader/CycleLoader.vue";
 import BasicModal from "@/components/Modal/BasicModal.vue";
 import { LaravelEchoService } from "@/services";
 import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
-import { nextQuestionMixin } from "@/mixins";
 import { ResponseResult } from "@/interfaces";
-import { isRoomOwnerMixin } from "@/mixins";
 import { useModalStore } from "@/store/";
+import { useNextQuestion } from "@/hooks";
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+  setQuestionId: {
+    type: String,
+    required: true,
+  },
+});
+const users = ref([] as UserInfo[]);
+const { getQuestion } = useQuestionStore();
+const { openModal } = useModalStore();
+const { roomOwnerId } = storeToRefs(useUserStore());
 
-export default defineComponent({
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-    setQuestionId: {
-      type: String,
-      required: true,
-    },
-  },
-  mixins: [nextQuestionMixin, isRoomOwnerMixin],
-  components: {
-    UserInfoVue,
-    CycleLoader,
-    NextQuestionButton,
-    BasicModal,
-  },
-  methods: {
-    ...mapActions(useQuestionStore, ["getQuestion", "receiveShowData"]),
-    ...mapActions(useModalStore, ["openModal"]),
-    startGame: function () {
-      if (this.users.length > 0) {
-        this.nextQuestionMixinFn();
-      } else {
-        this.openModal("Open a room");
+const {
+  receiveNextQuestionWithTime,
+  receiveShowDataWithTime,
+  nextQuestionWithTime,
+} = useNextQuestion();
+const startGame = () => {
+  if (users.value.length >= 0) {
+    nextQuestionWithTime();
+  } else {
+    openModal("Open a room");
+  }
+};
+onMounted(() => {
+  LaravelEchoService.init();
+  window.Echo.join(`room.${props.id}`)
+    .here((users: UserInfo[]) => {
+      // if (this.roomOwnerService.checkRoomOwner()) {
+      //   this.users = [];
+      // } else {
+      //   console.log(this.roomOwnerId);
+      //   this.users = users;
+      // }
+      console.log("full user before filter", users);
+      users = users.filter((user) => user.id !== roomOwnerId.value);
+    })
+    .joining((user: UserInfo) => {
+      if (user.id !== roomOwnerId.value) {
+        users.value.push(user);
       }
-    },
-  },
-  computed: {
-    ...mapState(useUserStore, ["roomOwnerId"]),
-  },
-  data() {
-    return {
-      users: [] as UserInfo[],
-    };
-  },
-  created() {
-    LaravelEchoService.init();
-  },
-  mounted() {
-    window.Echo.join(`room.${this.id}`)
-      .here((users: UserInfo[]) => {
-        // if (this.roomOwnerService.checkRoomOwner()) {
-        //   this.users = [];
-        // } else {
-        //   console.log(this.roomOwnerId);
-        //   this.users = users;
-        // }
-        console.log("full user before filter", users);
-        this.users = users.filter((user) => user.id !== this.roomOwnerId);
-      })
-      .joining((user: UserInfo) => {
-        if (user.id !== this.roomOwnerId) {
-          this.users.push(user);
-        }
-        console.log(user, "joining...");
-      })
-      .leaving((user: UserInfo) => {
-        this.users = this.users.filter(
-          (userInRoom) => !(userInRoom.id === user.id)
-        );
-        console.log(user, "leaving");
-      })
-      .listen("RoomEvent", (e: unknown) => {
-        this.receiveNextQuestionMixin();
-        console.log(e);
-      })
-      .listen("ShowResult", (e: ResponseResult) => {
-        console.log("show result", e);
-        this.receiveShowDataMixin(e.data);
-      });
-    this.getQuestion(+this.setQuestionId);
-  },
-  // beforeUnmount() {
-  //   this.roomOwnerService.removeRoomOwner();
-  // },
+      console.log(user, "joining...");
+    })
+    .leaving((user: UserInfo) => {
+      users.value = users.value.filter(
+        (userInRoom) => !(userInRoom.id === user.id)
+      );
+      console.log(user, "leaving");
+    })
+    .listen("RoomEvent", (e: unknown) => {
+      receiveNextQuestionWithTime();
+      console.log(e);
+    })
+    .listen("ShowResult", (e: ResponseResult) => {
+      console.log("show result", e);
+      receiveShowDataWithTime(e.data);
+    });
+  getQuestion(+props.setQuestionId);
 });
 </script>
