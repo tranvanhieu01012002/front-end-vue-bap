@@ -17,6 +17,11 @@ import {
   faEye,
   faEyeSlash,
   faCheck,
+  faVolumeLow,
+  faVolumeHigh,
+  faVolumeMute,
+  faGear,
+  faExpand,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -34,7 +39,12 @@ library.add(
   faCaretUp,
   faEye,
   faEyeSlash,
-  faCheck
+  faCheck,
+  faVolumeLow,
+  faVolumeHigh,
+  faVolumeMute,
+  faGear,
+  faExpand
 );
 
 export default FontAwesomeIcon;

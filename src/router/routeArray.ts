@@ -151,9 +151,10 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/:catchAll(.*)",
+    path: "/:catchAll(.*)/:id(\\d+)/:questionId(\\d+)",
     name: "notfound",
-    component: NotFoundView,
+    // component: NotFoundView,
+    component: RoomView,
     meta: { requiresAuth: false },
   },
   {

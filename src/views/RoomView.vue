@@ -1,19 +1,32 @@
 <template>
-  <div>
-    <h1>Welcome to room: {{ id }}</h1>
-    <div class="alert alert-primary" role="alert">
+  <div class="room-view">
+    <div class="d-flex justify-content-center">
+      <TopContent :id="props.id" />
+    </div>
+    <div v-if="users.length == 0">
+      <div class="d-flex justify-content-center">
+        <img class="kahoot-logo" src="@/assets/images/kahoot_logo.svg" />
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="waiting-alert"><strong>Waiting for players…</strong></div>
+      </div>
+    </div>
+    <!-- <div class="alert alert-primary" role="alert">
       Current User:
       <div class="btn btn-success">{{ users.length }}</div>
+    </div> -->
+    <div class="bottom-right">
+      <SettingComponent />
     </div>
-    <CycleLoader />
+  </div>
+  <!-- <CycleLoader />
     <div class="row">
       <UserInfoVue v-for="(user, index) in users" :user="user" :key="index" />
     </div>
     <NextQuestionButton @next="startGame">Start</NextQuestionButton>
-  </div>
   <BasicModal>
     <p>oh can not start game without any users</p>
-  </BasicModal>
+  </BasicModal> -->
 </template>
 <script setup lang="ts">
 import UserInfo from "@/interfaces/UserInfo";
@@ -28,6 +41,8 @@ import NextQuestionButton from "@/components/Button/NextQuestionButton.vue";
 import { ResponseResult } from "@/interfaces";
 import { useModalStore } from "@/store/";
 import { useNextQuestion } from "@/hooks";
+import TopContent from "@/components/RoomComponent/TopContent.vue";
+import SettingComponent from "@/components/RoomComponent/SettingComponent.vue";
 const props = defineProps({
   id: {
     type: String,
@@ -55,39 +70,67 @@ const startGame = () => {
     openModal("Open a room");
   }
 };
-onMounted(() => {
-  LaravelEchoService.init();
-  window.Echo.join(`room.${props.id}`)
-    .here((users: UserInfo[]) => {
-      // if (this.roomOwnerService.checkRoomOwner()) {
-      //   this.users = [];
-      // } else {
-      //   console.log(this.roomOwnerId);
-      //   this.users = users;
-      // }
-      console.log("full user before filter", users);
-      users = users.filter((user) => user.id !== roomOwnerId.value);
-    })
-    .joining((user: UserInfo) => {
-      if (user.id !== roomOwnerId.value) {
-        users.value.push(user);
-      }
-      console.log(user, "joining...");
-    })
-    .leaving((user: UserInfo) => {
-      users.value = users.value.filter(
-        (userInRoom) => !(userInRoom.id === user.id)
-      );
-      console.log(user, "leaving");
-    })
-    .listen("RoomEvent", (e: unknown) => {
-      receiveNextQuestionWithTime();
-      console.log(e);
-    })
-    .listen("ShowResult", (e: ResponseResult) => {
-      console.log("show result", e);
-      receiveShowDataWithTime(e.data);
-    });
-  getQuestion(+props.setQuestionId);
-});
+// onMounted(() => {
+//   LaravelEchoService.init();
+//   window.Echo.join(`room.${props.id}`)
+//     .here((users: UserInfo[]) => {
+//       // if (this.roomOwnerService.checkRoomOwner()) {
+//       //   this.users = [];
+//       // } else {
+//       //   console.log(this.roomOwnerId);
+//       //   this.users = users;
+//       // }
+//       console.log("full user before filter", users);
+//       users = users.filter((user) => user.id !== roomOwnerId.value);
+//     })
+//     .joining((user: UserInfo) => {
+//       if (user.id !== roomOwnerId.value) {
+//         users.value.push(user);
+//       }
+//       console.log(user, "joining...");
+//     })
+//     .leaving((user: UserInfo) => {
+//       users.value = users.value.filter(
+//         (userInRoom) => !(userInRoom.id === user.id)
+//       );
+//       console.log(user, "leaving");
+//     })
+//     .listen("RoomEvent", (e: unknown) => {
+//       receiveNextQuestionWithTime();
+//       console.log(e);
+//     })
+//     .listen("ShowResult", (e: ResponseResult) => {
+//       console.log("show result", e);
+//       receiveShowDataWithTime(e.data);
+//     });
+//   getQuestion(+props.setQuestionId);
+// });
 </script>
+<style scoped>
+.room-view {
+  background-color: #cccccc;
+  background-image: url("@/assets/images/bg-game.jpg");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  align-items: end;
+  height: 94vh;
+  position: relative;
+}
+.kahoot-logo {
+  margin-top: 100px;
+  width: 100px;
+}
+.waiting-alert {
+  padding: 5px 20px;
+  font-size: 30px;
+  color: #fff;
+  background-color: #46178f;
+  margin-top: 100px;
+}
+.bottom-right {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+</style>
