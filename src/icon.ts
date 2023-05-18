@@ -1,9 +1,7 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-
-/* import font awesome icon component */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
-/* import specific icons */
+
 import {
   faUserSecret,
   faUser,
@@ -18,9 +16,9 @@ import {
   faCaretUp,
   faEye,
   faEyeSlash,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
-/* add icons to the library */
 library.add(
   faUserSecret,
   faUser,
@@ -35,7 +33,8 @@ library.add(
   faCaretDown,
   faCaretUp,
   faEye,
-  faEyeSlash
+  faEyeSlash,
+  faCheck
 );
 
 export default FontAwesomeIcon;

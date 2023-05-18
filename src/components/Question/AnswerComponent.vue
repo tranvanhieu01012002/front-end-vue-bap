@@ -1,10 +1,5 @@
 <template>
-  <button
-    v-on:click="chooseAnswer"
-    class="answer"
-    :class="answer.bgColor"
-    role="alert"
-  >
+  <button v-on:click="chooseAnswer" class="answer" :class="answer.bgColor">
     <div @click="updateCorrectAnswer" class="character">
       {{ answer.character }}
     </div>
@@ -115,11 +110,5 @@ button {
 .answer:hover {
   background-color: rgb(251, 16, 173);
   cursor: pointer;
-}
-.question-text {
-  margin: 8px 10px;
-}
-.btn {
-  height: 70px;
 }
 </style>

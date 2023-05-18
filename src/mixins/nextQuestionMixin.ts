@@ -11,6 +11,7 @@ export default defineComponent({
       "viewResultStore",
       "receiveNextQuestion",
       "answerQuestion",
+      "receiveShowData",
     ]),
     ...mapActions(useTimerStore, [
       "startTimeBar",

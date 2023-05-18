@@ -1,29 +1,33 @@
 <template>
   <div class="col-6">
-    <div>answer view</div>
     <div class="list-answer d-flex flex-column justify-content-between">
       <AnswerComponent
         :answer="answer"
-        v-for="answer in answers"
-        :key="answer.character"
+        v-for="(answer, index) in answersWithShape"
+        :key="index"
       />
     </div>
   </div>
 </template>
-<script lang="ts">
-import { PropType, defineComponent } from "vue";
-import AnswerComponent from "./AnswerComponent.vue";
-import { AnswerInterface } from "@/interfaces";
-export default defineComponent({
-  props: {
-    answers: {
-      type: Object as PropType<Array<AnswerInterface>>,
-      required: true,
-    },
+<script setup lang="ts">
+import { PropType, defineProps, computed } from "vue";
+// import AnswerComponent from "./AnswerComponent.vue";
+import AnswerComponent from "../AnswerComponent.vue";
+import { AnswerInterface, AnswerWithShapeInterface } from "@/interfaces";
+import { listAnswersWithShape } from "@/store/listAnswers";
+
+const props = defineProps({
+  answers: {
+    type: Object as PropType<Array<AnswerInterface>>,
+    required: true,
   },
-  components: {
-    AnswerComponent,
-  },
+});
+const answersWithShape = computed((): AnswerWithShapeInterface[] => {
+  const shapes = listAnswersWithShape;
+  return props.answers.map((item, index) => ({
+    ...item,
+    ...shapes[index],
+  }));
 });
 </script>
 <style scoped>

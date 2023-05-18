@@ -8,6 +8,7 @@
     <div class="list-aw container-div">
       <div class="row">
         <AnswerComponent
+          class="col-3"
           v-for="answer in answers"
           :key="answer.shape"
           :answer="answer"

@@ -1,10 +1,11 @@
 <template>
-  <div>create question view</div>
-  <PageQuestion v-if="isLoaded" :question-id="questionId" />
-  <ListFormQuestionVue />
-  <BasicModal>
-    <p>sai r cu</p>
-  </BasicModal>
+  <div class="container">
+    <PageQuestion v-if="isLoaded" :question-id="questionId" />
+    <ListFormQuestionVue />
+    <BasicModal>
+      <p>sai r cu</p>
+    </BasicModal>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

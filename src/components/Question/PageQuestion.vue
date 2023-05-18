@@ -1,6 +1,5 @@
 <template>
-  <div>question views</div>
-  <div>
+  <div class="page-question">
     <div class="m-2">
       <ProgressBar />
     </div>
@@ -11,8 +10,6 @@
         :question="getContentQuestion"
       />
       <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
-      <!-- <QuestionLeft :question="question" />
-      <ListAnswers :answers="answers" /> -->
     </div>
     <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
   </div>

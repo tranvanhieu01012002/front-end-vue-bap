@@ -1,6 +1,5 @@
 <template>
   <div class="col-5 left">
-    <!-- <div>Question view</div> -->
     <img
       :src="question.image ?? defaultImg"
       class="rounded mx-auto d-block img-thumbnail"
@@ -47,6 +46,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .col-5 {
+  height: 400px;
   background-color: aqua;
   padding: 0px;
 }

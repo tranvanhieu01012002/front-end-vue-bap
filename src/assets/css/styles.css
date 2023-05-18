@@ -76,3 +76,7 @@ a.link {
     flex-direction: column;
   }
 }
+
+.btn-unset {
+  all: unset;
+}

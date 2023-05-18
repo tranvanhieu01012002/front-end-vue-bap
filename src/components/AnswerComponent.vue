@@ -1,44 +1,107 @@
 <template>
-  <div class="col-3 d-flex align-content-center flex-wrap">
-    <div :class="showCssBg">
-      <div class="shape" :class="showCss"></div>
-      <div class="text align-middle">{{ answer.content }}</div>
+  <button @click="chooseAnswer" class="btn-unset">
+    <div class="d-flex">
+      <div :class="[showCssBg, 'd-flex justify-content-between']">
+        <div class="share-area"><div class="shape" :class="showCss"></div></div>
+        <div class="text">
+          <div>
+            <small contenteditable="true" @blur="onInput">{{
+              answer.content
+            }}</small>
+          </div>
+        </div>
+        <div class="share-area">
+          <button @click="updateCorrectAnswer" class="btn-unset">
+            <div
+              :class="[
+                'checked shape d-flex justify-content-center align-items-center',
+                answer.isCorrect ? 'checked-correct' : '',
+              ]"
+            >
+              <strong v-if="answer.isCorrect"
+                ><font-awesome-icon
+                  class="checked-icon"
+                  :icon="['fas', 'check']"
+              /></strong>
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
+  </button>
 </template>
-<script lang="ts">
+<script setup lang="ts">
+import { PropType, defineProps, computed, ref } from "vue";
 import { AnswerWithShapeInterface } from "@/interfaces";
-import { defineComponent, PropType } from "vue";
-export default defineComponent({
-  props: {
-    answer: {
-      type: Object as PropType<AnswerWithShapeInterface>,
-      required: true,
-    },
-  },
-  computed: {
-    showCss() {
-      return `shape ${this.answer.shape}`;
-    },
-    showCssBg() {
-      return `p-3 answer bg-${this.answer.shape}`;
-    },
+import { useQuestionStore } from "@/store";
+import { EnableEditQuestion } from "@/services";
+import { useNextQuestion, useRoomOwner } from "@/hooks";
+
+const props = defineProps({
+  answer: {
+    type: Object as PropType<AnswerWithShapeInterface>,
+    required: true,
   },
 });
+const { answerQuestionWithTime } = useNextQuestion();
+const { isRoomOwner } = useRoomOwner();
+const { updateAnswer } = useQuestionStore();
+
+const editable = ref(new EnableEditQuestion());
+
+const showCss = computed((): string => {
+  return `shape ${props.answer.shape}`;
+});
+const showCssBg = computed(() => {
+  return `p-3 answer bg-${props.answer.shape}`;
+});
+
+const onInput = (e: Event) => {
+  updateAnswer({
+    ...props.answer,
+    questionId: props.answer.question_id,
+    content: (e.target as HTMLElement).innerText,
+    character: "A",
+    bgColor: "blue",
+  });
+};
+
+const updateCorrectAnswer = () => {
+  if (editable.value.status) {
+    updateAnswer({
+      ...props.answer,
+      questionId: props.answer.question_id,
+      is_correct: true,
+      isCorrect: true,
+      character: "A",
+      bgColor: "blue",
+    });
+  }
+};
+
+const chooseAnswer = () => {
+  if (!isRoomOwner.value && !editable.value.status) {
+    answerQuestionWithTime(props.answer.isCorrect ?? false);
+  }
+};
 </script>
 <style scoped>
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .answer {
   height: 76px;
-  width: 335px;
+  width: 100%;
   border-radius: 5px;
   color: #fff;
-  font-size: 20px;
 }
 .answer:hover {
   cursor: pointer;
 }
 .shape {
-  margin: 0px 10px;
+  margin: 0px 8px;
 }
 .shape-cycle {
   border-radius: 50%;
@@ -97,5 +160,17 @@ export default defineComponent({
 .bg-shape-cycle {
   background-color: #d09f37;
   box-shadow: 0px 4px 5px 0px #9b7729;
+}
+.checked {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  border: 4px solid #fff;
+}
+.checked-icon {
+  font-size: 30px;
+}
+.checked-correct {
+  background-color: #66bf39;
 }
 </style>
