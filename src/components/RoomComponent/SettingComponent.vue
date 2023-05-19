@@ -26,28 +26,25 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
-const volume = ref(100);
+import { ref, computed, watch } from "vue";
+const volume = ref(0);
 const isShowVolume = ref(false);
-// const audio = ref(new Audio("/audio/song.mp3"));
+const audio = ref(new Audio("/audio/song.mp3"));
 const updateShowVolume = () => {
+  audio.value.volume = volume.value;
+  audio.value.pause();
+  audio.value.play();
   isShowVolume.value = !isShowVolume.value;
 };
-// watch(volume, (newValue: number) => {
-//   audio.value.volume = newValue / 100;
-// });
+watch(volume, (newValue: number) => {
+  audio.value.volume = newValue / 100;
+});
 const showVolume = computed(() => {
   if (volume.value == 0) {
     return "volume-mute";
   } else if (volume.value < 50) {
     return "volume-low";
   } else return "volume-high";
-});
-onMounted(() => {
-  const audio = new Audio("/audio/song.mp3");
-  audio.play();
-  audio.muted = true;
-  // audio.volume = volume.value / 100;
 });
 </script>
 <style scoped>

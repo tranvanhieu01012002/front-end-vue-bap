@@ -151,11 +151,12 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
   },
   {
-    path: "/:catchAll(.*)/:id(\\d+)/:questionId(\\d+)",
+    path: "/room-fake/:id(\\d+)/:setQuestionId(\\d+)",
     name: "notfound",
     // component: NotFoundView,
     component: RoomView,
     meta: { requiresAuth: false },
+    props: true,
   },
   {
     path: "/register",

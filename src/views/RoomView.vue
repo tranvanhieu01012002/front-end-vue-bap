@@ -57,7 +57,9 @@ const users = ref([] as UserInfo[]);
 const { getQuestion } = useQuestionStore();
 const { openModal } = useModalStore();
 const { roomOwnerId } = storeToRefs(useUserStore());
-
+onMounted(() => {
+  console.log(props.id);
+});
 const {
   receiveNextQuestionWithTime,
   receiveShowDataWithTime,
