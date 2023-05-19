@@ -50,5 +50,8 @@ img {
   .right-item img {
     width: 20px;
   }
+  .list-social {
+    width: 200px;
+  }
 }
 </style>

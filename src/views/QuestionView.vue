@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <PageQuestion :question-id="questionId" />
   </div>
 </template>

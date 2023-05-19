@@ -1,7 +1,13 @@
 <template>
   <button @click="chooseAnswer" class="btn-unset">
     <div class="d-flex">
-      <div :class="[showCssBg, 'd-flex justify-content-between']">
+      <div
+        :class="[
+          showCssBg,
+          'd-flex',
+          editable.status ? 'justify-content-between' : '',
+        ]"
+      >
         <div class="share-area"><div class="shape" :class="showCss"></div></div>
         <div class="text">
           <div>

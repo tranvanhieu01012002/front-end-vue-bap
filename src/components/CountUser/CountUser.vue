@@ -5,10 +5,10 @@
       <h2>{{ users.toLocaleString("en-US") }}</h2>
       <span>players a year</span>
     </CenterText>
-    <div class="list-aw container-div">
-      <div class="row">
+    <div class="list-answer container-div">
+      <div class="row d-flex justify-content-center">
         <AnswerComponent
-          class="col-3"
+          class="col-2"
           v-for="answer in answers"
           :key="answer.shape"
           :answer="answer"
@@ -40,5 +40,10 @@ export default defineComponent({
   background-color: #f2f2f2;
   height: 30vh;
   margin-top: var(--padding-top-main);
+}
+@media screen and (max-width: 500px) {
+  .list-answer {
+    display: none;
+  }
 }
 </style>

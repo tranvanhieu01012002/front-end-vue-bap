@@ -19,7 +19,7 @@ img {
 .d-flex {
   margin-right: 20px;
 }
-/* @media screen and (max-width: 1028px) {
+@media screen and (max-width: 500px) {
   .text {
     font-size: 10px;
   }
@@ -27,5 +27,5 @@ img {
     width: 20px;
     height: 20px;
   }
-} */
+}
 </style>

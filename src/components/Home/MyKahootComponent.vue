@@ -21,7 +21,7 @@
         </template>
       </div>
       <div class="footer text-center">
-        <div class="view">
+        <div v-if="setQuestions.length - noNumberShow > 0" class="view">
           <router-link to="library"
             >See all {{ setQuestions.length - noNumberShow }}</router-link
           >

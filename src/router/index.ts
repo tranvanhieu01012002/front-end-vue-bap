@@ -3,7 +3,11 @@ import Auth from "@/helpers/auth";
 import nProgress from "nprogress";
 import { useUserStore } from "@/store";
 import routes from "./routeArray";
+import { nextTick } from "vue";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+const defaultTitle = "G learning";
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
@@ -26,7 +30,10 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
-router.afterEach(() => {
+router.afterEach((to, from) => {
+  nextTick(() => {
+    document.title = (to.meta.label ?? defaultTitle) + " | G learning";
+  });
   nProgress.done();
 });
 

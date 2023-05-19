@@ -1,5 +1,4 @@
 <template>
-  <!-- <LoginForm /> -->
   <div class="login-view d-flex justify-content-center align-items-center">
     <div class="top"></div>
     <LoginContainer />
@@ -7,15 +6,13 @@
   </div>
 </template>
 <script setup lang="ts">
-// import LoginForm from "@/components/Form/LoginForm.vue";
 import LoginContainer from "@/components/Login/LoginContainer.vue";
 </script>
 <style scoped>
 .login-view {
   background-color: #f2f2f2;
-  height: 94vh;
+  height: 100vh;
   width: 100%;
-  height: 94vh;
   position: relative;
   overflow: hidden;
 }
