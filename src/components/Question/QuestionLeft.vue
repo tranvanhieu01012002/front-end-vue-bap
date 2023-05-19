@@ -1,5 +1,5 @@
 <template>
-  <div class="col-5 left">
+  <div class="left">
     <img
       :src="question.image ?? defaultImg"
       class="rounded mx-auto d-block img-thumbnail"
@@ -10,7 +10,7 @@
       @keyup.enter="onStop"
       @blur="onInput"
       v-text="question.content"
-      :contenteditable="true"
+      :contenteditable="editable.status"
       class="question-text"
     ></div>
   </div>
@@ -45,10 +45,9 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.col-5 {
+.left {
   height: 400px;
-  background-color: aqua;
-  padding: 0px;
+  background-color: #f2f2f2;
 }
 .question-text {
   background-color: rgb(197, 207, 8);
@@ -57,36 +56,12 @@ export default defineComponent({
   border-radius: 25px;
   margin: 10px;
 }
-.question-text:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  margin: -10px;
-  background-image: linear-gradient(to right top, #87838e, #5b5a5a);
-  border-radius: inherit;
-}
 .mx-auto {
   width: 400px;
 }
-.left {
-  border: 10px solid #f93466;
-  background: rgb(230, 193, 173);
-  position: relative;
-  background-clip: padding-box;
-  border: 10px solid transparent;
-  background-color: #919191;
-  /* border-radius: 20px; */
-  border-top-left-radius: 60px;
-  border-bottom-right-radius: 60px;
-}
-.left:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  margin: -10px;
-  background-image: linear-gradient(to right top, #fff151, #f55656);
-  border-radius: inherit;
+@media screen and (max-width: 600px) {
+  .mx-auto {
+    width: 200px;
+  }
 }
 </style>

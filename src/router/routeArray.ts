@@ -37,16 +37,6 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/login",
-    name: "login",
-    component: LoginView,
-    meta: {
-      requiresAuth: false,
-      label: "Login",
-      layout: "no-header",
-    },
-  },
-  {
     path: "/users",
     name: "users",
     component: UserView,
@@ -162,6 +152,16 @@ const routes: Array<RouteRecordRaw> = [
     component: ConfirmRegister,
     meta: { requiresAuth: false, layout: "default" },
     props: true,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+    meta: {
+      requiresAuth: false,
+      label: "Login",
+      layout: "no-header",
+    },
   },
   {
     path: "/:catchAll(.*)",

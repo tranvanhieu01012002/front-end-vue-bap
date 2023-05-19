@@ -1,72 +1,56 @@
 <template>
-  <div class="page-question">
-    <div class="m-2">
+  <div class="page-question padding-t">
+    <div v-if="!editable.status" class="m-2">
       <ProgressBar />
     </div>
     <div class="row" v-if="getListCurrentAnswers.length !== 0">
       <QuestionLeft
         @update-question-content="updateQuestion"
-        class="col-6"
+        class="col-xl-6 col-sm-12 col-xs-12"
         :question="getContentQuestion"
       />
-      <ListAnswers class="col-6" :answers="getListCurrentAnswers" />
+      <ListAnswers
+        class="col-xl-6 col-sm-12 col-xs-12"
+        :answers="getListCurrentAnswers"
+      />
     </div>
-    <NextQuestionButton @next="showResult">Stop</NextQuestionButton>
+    <NextQuestionButton v-if="!editable.status" @next="showResultWithTime"
+      >Stop</NextQuestionButton
+    >
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-import { mapActions, mapState } from "pinia";
-import { useQuestionStore } from "@/store/questionStore";
+<script setup lang="ts">
+import { defineProps, ref } from "vue";
+import { storeToRefs } from "pinia";
 import QuestionLeft from "./QuestionLeft.vue";
 import ListAnswers from "./ListAnswers.vue";
 import NextQuestionButton from "../Button/NextQuestionButton.vue";
-import { isRoomOwnerMixin, nextQuestionMixin } from "@/mixins";
 import ProgressBar from "./ProgressBar.vue";
+import { useNextQuestion } from "@/hooks";
+import { useQuestionStore } from "@/store/";
+import { EnableEditQuestion } from "@/services";
 
-export default defineComponent({
-  name: "PageQuestion",
-  props: {
-    questionId: {
-      type: String,
-      required: true,
-    },
-  },
-  mixins: [nextQuestionMixin, isRoomOwnerMixin],
-  components: {
-    QuestionLeft,
-    ListAnswers,
-    NextQuestionButton,
-    ProgressBar,
-  },
-  computed: {
-    ...mapState(useQuestionStore, [
-      "getContentQuestion",
-      "getListCurrentAnswers",
-      "questions",
-    ]),
-  },
-  methods: {
-    ...mapActions(useQuestionStore, ["updateQuestions"]),
-    updateQuestion(text: string) {
-      this.updateQuestions(
-        this.questions.map((item) =>
-          item.id == this.questionId ? { ...item, content: text } : item
-        )
-      );
-    },
-  },
-  // https://www.vecteezy.com/vector-art/6140087-design-of-quiz-in-gradient-color-question-and-answers-template-quiz-game-in-tv-show
-  data() {
-    return {
-      question: {
-        id: "22",
-        content: "Fasdfsdf",
-        image:
-          "https://1000logos.net/wp-content/uploads/2021/11/Docker-Logo-2013.png",
-        answers: [{ character: ":adsfdas", bgColor: "Fasdfdsf" }],
-      },
-    };
+const props = defineProps({
+  questionId: {
+    type: String,
+    required: true,
   },
 });
+
+const editable = ref(new EnableEditQuestion());
+
+const { showResultWithTime } = useNextQuestion();
+const questionStore = useQuestionStore();
+
+const { getContentQuestion, getListCurrentAnswers, questions } =
+  storeToRefs(questionStore);
+const { updateQuestions } = questionStore;
+
+const updateQuestion = (text: string) => {
+  updateQuestions(
+    questions.value.map((item) =>
+      item.id == props.questionId ? { ...item, content: text } : item
+    )
+  );
+};
 </script>

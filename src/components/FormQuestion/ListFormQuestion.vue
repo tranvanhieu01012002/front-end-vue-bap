@@ -1,6 +1,6 @@
 <template>
   <HeadListFormQuestion />
-  <div class="d-flex list">
+  <div class="list">
     <div>
       <Draggable
         class="d-flex"
