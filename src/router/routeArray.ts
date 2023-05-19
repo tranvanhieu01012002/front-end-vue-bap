@@ -24,6 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       label: "Home",
+      layout: "default",
     },
   },
   {
@@ -42,6 +43,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: false,
       label: "Login",
+      layout: "no-header",
     },
   },
   {
@@ -51,6 +53,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       label: "Users",
+      layout: "default",
     },
   },
   {
@@ -60,6 +63,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       label: "Play",
+      layout: "default",
     },
   },
   {
@@ -69,6 +73,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       label: "Library",
+      layout: "default",
     },
   },
   {
@@ -77,6 +82,7 @@ const routes: Array<RouteRecordRaw> = [
     component: DetailUserView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
     props: true,
   },
@@ -87,6 +93,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true,
       requiresOpenRoom: true,
+      layout: "default",
     },
     props: true,
   },
@@ -96,6 +103,7 @@ const routes: Array<RouteRecordRaw> = [
     component: SetQuestionView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
   },
   {
@@ -104,6 +112,7 @@ const routes: Array<RouteRecordRaw> = [
     component: SetQuestionView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
     props: true,
   },
@@ -113,6 +122,7 @@ const routes: Array<RouteRecordRaw> = [
     component: CreateQuestionView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
     props: true,
   },
@@ -122,6 +132,7 @@ const routes: Array<RouteRecordRaw> = [
     component: QuestionView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
     props: true,
   },
@@ -131,6 +142,7 @@ const routes: Array<RouteRecordRaw> = [
     component: LoadingView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
     props: true,
   },
@@ -140,6 +152,7 @@ const routes: Array<RouteRecordRaw> = [
     component: ResultView,
     meta: {
       requiresAuth: true,
+      layout: "default",
     },
     props: true,
   },
@@ -147,22 +160,20 @@ const routes: Array<RouteRecordRaw> = [
     path: "/confirm/:id",
     name: "confirm",
     component: ConfirmRegister,
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: false, layout: "default" },
     props: true,
   },
   {
-    path: "/room-fake/:id(\\d+)/:setQuestionId(\\d+)",
+    path: "/:catchAll(.*)",
     name: "notfound",
-    // component: NotFoundView,
-    component: RoomView,
-    meta: { requiresAuth: false },
-    props: true,
+    component: NotFoundView,
+    meta: { requiresAuth: false, layout: "default" },
   },
   {
     path: "/register",
     name: "register",
     component: RegisterView,
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: false, layout: "default" },
   },
 ];
 

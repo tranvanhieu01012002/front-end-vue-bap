@@ -44,13 +44,13 @@
             <div class="plays"><li>3 plays</li></div>
           </div>
           <div class="g-button d-flex">
+            <button :class="['btn btn-dark', btnSize]">Assign</button>
             <button
               @click="emits('startGame', setQuestion.id)"
-              :class="['btn btn-dark', btnSize]"
+              :class="['btn btn-primary', btnSize]"
             >
-              Assign
+              Start
             </button>
-            <button :class="['btn btn-primary', btnSize]">Start</button>
           </div>
         </div>
       </div>

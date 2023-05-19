@@ -16,8 +16,6 @@
       </b-collapse>
     </b-navbar>
   </div>
-  <div><router-view /></div>
-  <!-- <div class="container"><router-view /></div> -->
 </template>
 <script lang="ts">
 import { routes } from "../router";

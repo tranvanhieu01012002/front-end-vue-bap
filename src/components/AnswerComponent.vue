@@ -5,7 +5,7 @@
         <div class="share-area"><div class="shape" :class="showCss"></div></div>
         <div class="text">
           <div>
-            <small contenteditable="true" @blur="onInput">{{
+            <small :contenteditable="!editable" @blur="onInput">{{
               answer.content
             }}</small>
           </div>

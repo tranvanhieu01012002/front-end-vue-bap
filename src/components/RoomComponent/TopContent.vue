@@ -56,4 +56,19 @@ const props = defineProps({
 .pin {
   font-size: 80px;
 }
+
+@media screen and (max-width: 800px) {
+  .right {
+    display: none;
+  }
+  .link {
+    width: 150px;
+  }
+  .game-pin {
+    padding: 5px 5px 0px 5px;
+  }
+  .pin {
+    font-size: 30px;
+  }
+}
 </style>

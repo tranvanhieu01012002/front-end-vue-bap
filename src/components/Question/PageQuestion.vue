@@ -66,32 +66,6 @@ export default defineComponent({
           "https://1000logos.net/wp-content/uploads/2021/11/Docker-Logo-2013.png",
         answers: [{ character: ":adsfdas", bgColor: "Fasdfdsf" }],
       },
-      answers: [
-        {
-          character: "A",
-          bgColor: "alert alert-" + "primary",
-          content:
-            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
-        },
-        {
-          character: "B",
-          bgColor: "alert alert-" + "secondary",
-          content:
-            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
-        },
-        {
-          character: "C",
-          bgColor: "alert alert-" + "warning",
-          content:
-            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
-        },
-        {
-          character: "D",
-          bgColor: "alert alert-" + "dark",
-          content:
-            "loremfasd fasd fsd dsf sdf sdf sdf dsf dsf dsf sd asd sdf sdf",
-        },
-      ],
     };
   },
 });

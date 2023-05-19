@@ -1,5 +1,5 @@
 <template>
-  <div class="setting d-flex">
+  <div ref="el" class="setting d-flex">
     <div class="show-user g-bg">
       <strong
         ><font-awesome-icon :icon="['fas', 'user']" /> <slot></slot
@@ -21,17 +21,22 @@
         max="100"
       />
       <font-awesome-icon class="icon-setting" :icon="['fas', 'gear']" />
-      <font-awesome-icon class="icon-setting" :icon="['fas', 'expand']" />
+      <font-awesome-icon
+        class="icon-setting"
+        :onclick="toggle"
+        :icon="['fas', 'expand']"
+      />
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
+import { useFullscreen } from "@vueuse/core";
 const volume = ref(0);
 const isShowVolume = ref(false);
 const audio = ref(new Audio("/audio/song.mp3"));
 const updateShowVolume = () => {
-  audio.value.volume = volume.value;
+  audio.value.volume = volume.value / 100;
   audio.value.pause();
   audio.value.play();
   isShowVolume.value = !isShowVolume.value;
@@ -46,6 +51,8 @@ const showVolume = computed(() => {
     return "volume-low";
   } else return "volume-high";
 });
+const el = ref<HTMLElement | null>(null);
+const { toggle } = useFullscreen(el);
 </script>
 <style scoped>
 .setting {

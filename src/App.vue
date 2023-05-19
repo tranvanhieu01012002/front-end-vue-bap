@@ -1,15 +1,16 @@
 <template>
-  <nav-link></nav-link>
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
-<script lang="ts">
-import NavLink from "./components/NavLink.vue";
-import { defineComponent } from "vue";
-export default defineComponent({
-  components: {
-    NavLink,
-  },
+<script setup lang="ts">
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+const defaultLayout = "default";
+const route = useRoute();
+const layout = computed((): string => {
+  return (route.meta.layout ?? defaultLayout) + "-layout";
 });
-// https://kahoot.com/home/mobile-app/
 </script>
 <style>
 @import "@/assets/css/index.css";
