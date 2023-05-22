@@ -7,6 +7,9 @@ export const useSetQuestionStore = defineStore("setQuestionStore", () => {
   const getSetQuestions = computed((): SetQuestionResponse[] => {
     return setQuestions.value;
   });
+  const getFavorite = () => {
+    setQuestions.value = setQuestions.value.filter((item) => item.favorite);
+  };
   const updateSetQuestion = (setQuestionsInput: SetQuestionResponse[]) => {
     setQuestions.value = setQuestionsInput;
   };
@@ -27,5 +30,11 @@ export const useSetQuestionStore = defineStore("setQuestionStore", () => {
     setQuestions.value = data;
     return data;
   };
-  return { setQuestions, getSetQuestions, updateSetQuestion, updateFavorite };
+  return {
+    setQuestions,
+    getSetQuestions,
+    updateSetQuestion,
+    updateFavorite,
+    getFavorite,
+  };
 });

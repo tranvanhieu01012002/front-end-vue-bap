@@ -18,8 +18,10 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import { useSetQuestionStore } from "@/store";
 import { useResizeObserver } from "@vueuse/core";
 import SearchBar from "./SearchBar.vue";
+import { useGetSetQuestion } from "@/hooks";
 const listFilter = ref([
   {
     content: "Recent",
@@ -30,7 +32,7 @@ const listFilter = ref([
     isActive: false,
   },
   {
-    content: "Recent",
+    content: "Favorite",
     isActive: false,
   },
   {
@@ -41,14 +43,23 @@ const listFilter = ref([
 const el = ref();
 const lists = ref("ul");
 const itemList = ref("li");
-const choseTab = function (index: number) {
+const { getFavorite } = useSetQuestionStore();
+const { getData } = useGetSetQuestion();
+const choseTab = async (index: number) => {
   listFilter.value = listFilter.value.map((item, indexArr) => {
     if (indexArr === index) {
+      switch (item.content) {
+        case "Favorite":
+          getFavorite();
+          break;
+        default:
+          getData();
+          break;
+      }
       return { ...item, isActive: true };
     } else return { ...item, isActive: false };
   });
 };
-
 useResizeObserver(el, (entries) => {
   const entry = entries[0];
   const { width } = entry.contentRect;
@@ -71,12 +82,15 @@ useResizeObserver(el, (entries) => {
   font-weight: bold;
   color: var(--text-primary-color);
 }
+
 li:last-child {
   border-right: 1px solid #000;
 }
+
 .active {
   background-color: #fff;
 }
+
 button {
   all: unset;
   cursor: pointer;

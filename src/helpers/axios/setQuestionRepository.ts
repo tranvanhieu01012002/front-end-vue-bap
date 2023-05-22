@@ -11,4 +11,8 @@ export default class SetQuestionRepository extends BaseRepository {
     this.setResource("set-questions");
     return await this.update(setQuestionId, setQuestion);
   }
+  async search(searchText: string): Promise<AxiosResponse> {
+    this.setResource(`set-questions/s=${searchText}`);
+    return await this.get();
+  }
 }
