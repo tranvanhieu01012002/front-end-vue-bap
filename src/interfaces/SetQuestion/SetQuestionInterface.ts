@@ -4,4 +4,5 @@ export default interface SetQuestion {
   questions_count: number;
   user_id?: string;
   favorite?: boolean;
+  status?: string;
 }

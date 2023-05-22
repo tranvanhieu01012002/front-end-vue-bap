@@ -9,12 +9,16 @@
           v-for="(setQuestion, index) in setQuestions"
           :key="setQuestion.id"
         >
-          <MyKahootQuestion v-if="index < noNumberShow">
+          <MyKahootQuestion
+            left-css="col-5"
+            right-css="col-7"
+            v-if="index < noNumberShow"
+          >
             <template #question>
               {{ setQuestion.questions_count }}
             </template>
             <template #name>
-              {{ setQuestion.name.toUpperCase() }}
+              {{ setQuestion.name ? setQuestion.name.toUpperCase() : "" }}
             </template>
             <template #author>{{ getShortEmail }}</template>
           </MyKahootQuestion>

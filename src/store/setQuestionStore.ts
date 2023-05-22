@@ -18,15 +18,36 @@ export const useSetQuestionStore = defineStore("setQuestionStore", () => {
     id: number,
     status: boolean
   ): Promise<SetQuestionResponse[]> => {
-    const setQuestionsRepo = new SetQuestionRepository();
     const setQuestionDefault: SetQuestion = {
       id: -1,
       questions_count: -1,
-    };
-    const { data } = await setQuestionsRepo.updateSetQuestion(id + "", {
-      ...setQuestionDefault,
       favorite: status,
-    });
+    };
+    return await updateSetQuestionRepo(id, setQuestionDefault);
+  };
+
+  const updateStatus = async (
+    id: number,
+    status: string
+  ): Promise<SetQuestionResponse[]> => {
+    const setQuestionDefault: SetQuestion = {
+      id: -1,
+      questions_count: -1,
+      status,
+    };
+    return await updateSetQuestionRepo(id, setQuestionDefault);
+  };
+
+  const updateSetQuestionRepo = async (
+    id: number,
+    setQuestion: SetQuestion
+  ) => {
+    const setQuestionsRepo = new SetQuestionRepository();
+
+    const { data } = await setQuestionsRepo.updateSetQuestion(
+      id + "",
+      setQuestion
+    );
     setQuestions.value = data;
     return data;
   };
@@ -36,5 +57,6 @@ export const useSetQuestionStore = defineStore("setQuestionStore", () => {
     updateSetQuestion,
     updateFavorite,
     getFavorite,
+    updateStatus,
   };
 });

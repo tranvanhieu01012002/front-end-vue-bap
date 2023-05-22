@@ -52,8 +52,15 @@
                 {{ showFavorite.text }} favorite
               </button></b-dropdown-item
             >
-            <!-- <b-dropdown-item>Another action</b-dropdown-item> -->
-            <!-- <b-dropdown-item>Something else here...</b-dropdown-item> -->
+            <b-dropdown-item
+              ><button class="btn-unset" @click="updateStatus">
+                {{
+                  setQuestion.status && setQuestion.status === "publish"
+                    ? "Undo share"
+                    : "Share"
+                }}
+              </button></b-dropdown-item
+            >
           </b-dropdown>
         </div>
         <div class="bottom-right-content d-flex">
@@ -132,11 +139,15 @@ useResizeObserver(el, (entries) => {
 const updateFavorite = () => {
   emits("updateFavorite", props.setQuestion.id, props.setQuestion.favorite);
 };
+const updateStatus = () => {
+  emits("updateStatus", props.setQuestion.id, props.setQuestion.status);
+};
 const emits = defineEmits([
   "clickCheckBox",
   "showListQuestions",
   "startGame",
   "updateFavorite",
+  "updateStatus",
 ]);
 </script>
 <style scoped>
