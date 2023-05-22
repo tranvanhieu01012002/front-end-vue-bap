@@ -93,9 +93,15 @@ export default defineComponent({
     },
 
     async updateName(setQuestionId: string, newName: string) {
-      const { data } = await this.setQuestionRepository.updateNameSetQuestion(
+      const { data } = await this.setQuestionRepository.updateSetQuestion(
         setQuestionId,
-        newName
+        {
+          name: newName,
+          id: +setQuestionId,
+          // set default question count because use the setQUestion interface,
+          // this property not show in BE
+          questions_count: -1,
+        }
       );
       this.setQuestions = data;
     },

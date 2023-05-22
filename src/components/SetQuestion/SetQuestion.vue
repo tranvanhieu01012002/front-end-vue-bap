@@ -31,12 +31,30 @@
           >
             <font-awesome-icon class="icon" :icon="['fas', 'pen']" />
           </button>
-          <button class="btn-unset">
-            <font-awesome-icon
-              class="icon"
-              :icon="['fas', 'ellipsis-vertical']"
-            />
-          </button>
+          <b-dropdown
+            size="lg"
+            variant="link"
+            toggle-class="text-decoration-none"
+            no-caret
+          >
+            <template #button-content>
+              <font-awesome-icon
+                class="icon"
+                :icon="['fas', 'ellipsis-vertical']"
+              />
+            </template>
+            <b-dropdown-item>
+              <button @click="updateFavorite" class="btn-unset">
+                <font-awesome-icon
+                  :class="showFavorite.isFavorite ? 'star-favorite' : ''"
+                  :icon="['fas', 'star']"
+                />
+                {{ showFavorite.text }} favorite
+              </button></b-dropdown-item
+            >
+            <!-- <b-dropdown-item>Another action</b-dropdown-item> -->
+            <!-- <b-dropdown-item>Something else here...</b-dropdown-item> -->
+          </b-dropdown>
         </div>
         <div class="bottom-right-content d-flex">
           <div :class="[leftGBtn]">
@@ -62,6 +80,7 @@ import { defineProps, computed, PropType, defineEmits, ref } from "vue";
 import QuestionNumber from "../Home/MyKahoot/QuestionNumber.vue";
 import { SetQuestionResponse } from "@/interfaces";
 import { useResizeObserver } from "@vueuse/core";
+import { Favorite } from "@/interfaces";
 const props = defineProps({
   setQuestion: {
     type: Object as PropType<SetQuestionResponse>,
@@ -88,6 +107,12 @@ const showCss = computed(() => {
   return `${isChecked} set-question-container d-flex justify-content-center`;
 });
 
+const showFavorite = computed((): Favorite => {
+  return props.setQuestion.favorite
+    ? { text: "Remove from", isFavorite: false }
+    : { text: "Add to", isFavorite: true };
+});
+
 useResizeObserver(el, (entries) => {
   const entry = entries[0];
   const { width } = entry.contentRect;
@@ -104,7 +129,15 @@ useResizeObserver(el, (entries) => {
   }
 });
 
-const emits = defineEmits(["clickCheckBox", "showListQuestions", "startGame"]);
+const updateFavorite = () => {
+  emits("updateFavorite", props.setQuestion.id, props.setQuestion.favorite);
+};
+const emits = defineEmits([
+  "clickCheckBox",
+  "showListQuestions",
+  "startGame",
+  "updateFavorite",
+]);
 </script>
 <style scoped>
 .set-question-container {
@@ -164,5 +197,8 @@ const emits = defineEmits(["clickCheckBox", "showListQuestions", "startGame"]);
 .btn-unset {
   all: unset;
   cursor: pointer;
+}
+.star-favorite {
+  color: yellow;
 }
 </style>

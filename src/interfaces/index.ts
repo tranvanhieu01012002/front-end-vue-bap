@@ -9,6 +9,7 @@ import ParamFunction from "./ParamFunction";
 import { SetQuestion, SetQuestionResponse } from "./SetQuestion";
 import Alert from "./Alert";
 import UserVerifyEmail from "./UserVerifyEmail";
+import Favorite from "./Favorite";
 
 export {
   Alert,
@@ -24,4 +25,5 @@ export {
   SetQuestion,
   SetQuestionResponse,
   UserVerifyEmail,
+  Favorite,
 };

@@ -2,12 +2,10 @@ import SetQuestionRepository from "@/helpers/axios/setQuestionRepository";
 import { SetQuestionResponse } from "@/interfaces";
 import { useSetQuestionStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { ref, Ref } from "vue";
 
 export const useGetSetQuestion = () => {
-  const setQuestions: Ref<SetQuestionResponse[]> = ref([]);
   const setQuestionStore = useSetQuestionStore();
-  const { getSetQuestions } = storeToRefs(setQuestionStore);
+  const { getSetQuestions, setQuestions } = storeToRefs(setQuestionStore);
 
   const getData = async () => {
     if (getSetQuestions.value.length === 0) {
