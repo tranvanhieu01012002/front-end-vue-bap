@@ -53,6 +53,11 @@
               </button></b-dropdown-item
             >
             <b-dropdown-item
+              ><button class="btn-unset" @click="deleteSetQuestion">
+                {{ "Delete" }}
+              </button></b-dropdown-item
+            >
+            <b-dropdown-item
               ><button class="btn-unset" @click="updateStatus">
                 {{
                   setQuestion.status && setQuestion.status === "publish"
@@ -66,7 +71,9 @@
         <div class="bottom-right-content d-flex">
           <div :class="[leftGBtn]">
             <div class="time">Updated at: {{ setQuestion.updated_at }}</div>
-            <div class="plays"><li>3 plays</li></div>
+            <div class="plays">
+              <li>3 plays</li>
+            </div>
           </div>
           <div class="g-button d-flex">
             <button :class="['btn btn-dark', btnSize]">Assign</button>
@@ -136,19 +143,23 @@ useResizeObserver(el, (entries) => {
   }
 });
 
-const updateFavorite = () => {
-  emits("updateFavorite", props.setQuestion.id, props.setQuestion.favorite);
-};
-const updateStatus = () => {
-  emits("updateStatus", props.setQuestion.id, props.setQuestion.status);
-};
 const emits = defineEmits([
   "clickCheckBox",
   "showListQuestions",
   "startGame",
   "updateFavorite",
   "updateStatus",
+  "deleteSetQuestion",
 ]);
+const updateFavorite = () => {
+  emits("updateFavorite", props.setQuestion.id, props.setQuestion.favorite);
+};
+const updateStatus = () => {
+  emits("updateStatus", props.setQuestion.id, props.setQuestion.status);
+};
+const deleteSetQuestion = () => {
+  emits("deleteSetQuestion", props.setQuestion.id);
+};
 </script>
 <style scoped>
 .set-question-container {
@@ -159,56 +170,72 @@ const emits = defineEmits([
 
   transition: transform 0.25s;
 }
+
 .set-question-container:hover {
   transform: scale(1.02);
 }
+
 .data-content {
   padding: 17px 5px 5px 20px;
   width: calc(100% - 175px);
 }
+
 .left-content {
   height: 100%;
 }
+
 .img {
   height: 100%;
   width: 175px;
 }
+
 .top-right-content {
   font-size: 20px;
   padding-top: 5px;
 }
+
 .top-right-content .icon {
   padding-right: 15px;
 }
+
 .author svg {
   color: #46178f;
   font-size: 25px;
 }
+
 .author-text {
   padding: 0px 10px;
 }
+
 .btn-dark {
   margin-right: 5px;
 }
+
 .left-g-button {
   padding: 7px 5px 0px 0px;
 }
+
 .left-g-button-hide {
   display: none;
 }
+
 .plays {
   margin-left: 5px;
 }
+
 .checkbox {
   padding: 0px 10px;
 }
+
 .checked {
   border: 2px solid #46178f;
 }
+
 .btn-unset {
   all: unset;
   cursor: pointer;
 }
+
 .star-favorite {
   color: yellow;
 }

@@ -19,8 +19,9 @@
           @click-check-box="clickCheckBox"
           @show-list-questions="showListQuestions"
           @start-game="createRoom"
-          @update-favorite="updateFavoriteQuestion"
-          @update-status="updateStatusQuestion"
+          @update-favorite="updateFavorite"
+          @update-status="updateStatus"
+          @delete-set-question="deleteSetQuestion"
         />
       </div>
       <div v-else><NotFound /></div>
@@ -45,7 +46,8 @@ const { getShortEmail } = storeToRefs(useUserStore());
 const { text } = storeToRefs(useSearchStore());
 const { setQuestions, getData } = useGetSetQuestion();
 
-const { updateFavorite, updateStatus } = useSetQuestionStore();
+const { updateFavorite, updateStatus, deleteSetQuestion } =
+  useSetQuestionStore();
 watch(text, async function (newValue: string): Promise<boolean> {
   await getData();
   setQuestions.value = setQuestions.value.filter((item) =>
@@ -85,13 +87,7 @@ const showListQuestions = (id: number) => {
     },
   });
 };
-const updateFavoriteQuestion = async (id: number, status: boolean) => {
-  await updateFavorite(id, status);
-};
 
-const updateStatusQuestion = async (id: number, status: string) => {
-  await updateStatus(id, status);
-};
 onMounted(async () => {
   await getData();
   LaravelEchoService.init();

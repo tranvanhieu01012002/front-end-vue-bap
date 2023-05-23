@@ -51,6 +51,13 @@ export const useSetQuestionStore = defineStore("setQuestionStore", () => {
     setQuestions.value = data;
     return data;
   };
+
+  const deleteSetQuestion = async (id: number) => {
+    const setQuestionRepo = new SetQuestionRepository();
+    await setQuestionRepo.deleteSetQuestion(id);
+    setQuestions.value = setQuestions.value.filter((item) => item.id !== id);
+  };
+
   return {
     setQuestions,
     getSetQuestions,
@@ -58,5 +65,6 @@ export const useSetQuestionStore = defineStore("setQuestionStore", () => {
     updateFavorite,
     getFavorite,
     updateStatus,
+    deleteSetQuestion,
   };
 });

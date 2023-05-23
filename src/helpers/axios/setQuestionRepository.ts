@@ -21,4 +21,9 @@ export default class SetQuestionRepository extends BaseRepository {
     this.setResource(`set-questions/fork`);
     return await this.post({ id });
   }
+
+  async deleteSetQuestion(id: number): Promise<AxiosResponse> {
+    this.setResource(`set-questions`);
+    return await this.delete(id);
+  }
 }
