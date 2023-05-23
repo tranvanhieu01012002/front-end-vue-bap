@@ -1,11 +1,9 @@
 import { defineStore } from "pinia";
-export const useAuthStore = defineStore("authStore", {
-  state: () => ({ isLogin: false }),
-  getters: {},
-  actions: {
-    setIsLogin(status: boolean) {
-      console.log("update auth status");
-      this.isLogin = status;
-    },
-  },
+import { ref } from "vue";
+export const useAuthStore = defineStore("authStore", () => {
+  const isLogin = ref(false);
+  const setIsLogin = (status: boolean) => {
+    isLogin.value = status;
+  };
+  return { isLogin, setIsLogin };
 });

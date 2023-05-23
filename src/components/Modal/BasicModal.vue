@@ -8,6 +8,7 @@ import { defineComponent } from "vue";
 import { mapActions, mapState, mapWritableState } from "pinia";
 import { useModalStore } from "@/store";
 export default defineComponent({
+  emits: ["onOk"],
   computed: {
     ...mapWritableState(useModalStore, ["isOpen", "isOk"]),
     ...mapState(useModalStore, ["name"]),
@@ -16,6 +17,7 @@ export default defineComponent({
     onsubmit() {
       this.isOk = true;
       this.closeModal();
+      this.$emit("onOk");
     },
     ...mapActions(useModalStore, ["openModal", "closeModal"]),
   },

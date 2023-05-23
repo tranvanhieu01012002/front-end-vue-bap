@@ -1,5 +1,6 @@
 import UserRepository from "@/helpers/axios/UserRepository";
 import { UserInfo, UserVerifyEmail } from "@/interfaces";
+import { router } from "@/router";
 import axios from "axios";
 
 export default class AuthService {
@@ -44,5 +45,10 @@ export default class AuthService {
         throw new Error("different error than axios");
       }
     }
+  }
+
+  public logout() {
+    localStorage.removeItem("token");
+    router.push({ name: "login" });
   }
 }
