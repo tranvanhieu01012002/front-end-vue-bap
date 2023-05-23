@@ -21,7 +21,7 @@
           @start-game="createRoom"
           @update-favorite="updateFavorite"
           @update-status="updateStatus"
-          @delete-set-question="deleteSetQuestion"
+          @delete-set-question="deleteSet"
         />
       </div>
       <div v-else><NotFound /></div>
@@ -40,6 +40,8 @@ import { useUserStore, useSearchStore, useSetQuestionStore } from "@/store";
 import { router } from "@/router";
 import { useGetSetQuestion } from "@/hooks";
 import { LaravelEchoService, RoomService } from "@/services";
+import Swal from "sweetalert2";
+import { useToast } from "vue-toast-notification";
 
 const totalSelected: Ref<number> = ref(0);
 const { getShortEmail } = storeToRefs(useUserStore());
@@ -87,7 +89,18 @@ const showListQuestions = (id: number) => {
     },
   });
 };
-
+const deleteSet = (id: number) => {
+  Swal.fire({
+    title: "Do you want to Delete?",
+    showCancelButton: true,
+    confirmButtonText: "Yes",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await deleteSetQuestion(id);
+      useToast().success("delete successful");
+    }
+  });
+};
 onMounted(async () => {
   await getData();
   LaravelEchoService.init();

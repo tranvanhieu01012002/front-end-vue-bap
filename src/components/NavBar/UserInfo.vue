@@ -5,24 +5,25 @@
     </template>
     <div class="text-center">User: {{ getUsername }}</div>
     <b-dropdown-item href="#">Profile</b-dropdown-item>
-    <b-dropdown-item @click="openLogoutModal"> Log Out</b-dropdown-item>
+    <b-dropdown-item @click="logout"> Log Out</b-dropdown-item>
   </b-nav-item-dropdown>
-  <basic-modal @on-ok="logout">Really</basic-modal>
 </template>
 <script setup lang="ts">
 import { useGetUserInfo } from "@/hooks";
 import { AuthService } from "@/services";
-import { useModalStore } from "@/store";
-import BasicModal from "../Modal/BasicModal.vue";
-
+import Swal from "sweetalert2";
 const { getUsername } = useGetUserInfo();
 
-const { openModal } = useModalStore();
-const openLogoutModal = () => {
-  openModal("Do you want to logout");
-};
 const logout = () => {
-  const authService = new AuthService();
-  authService.logout();
+  Swal.fire({
+    title: "Do you want to log out?",
+    showCancelButton: true,
+    confirmButtonText: "Log out",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const authService = new AuthService();
+      authService.logout();
+    }
+  });
 };
 </script>

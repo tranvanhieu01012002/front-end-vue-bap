@@ -55,9 +55,10 @@ import SetQuestionPublish from "@/interfaces/SetQuestion/SetQuestionPublishInter
 import { useModalStore } from "@/store";
 import BasicModal from "../Modal/BasicModal.vue";
 import { SetQuestionService } from "@/services";
+import { useToast } from "vue-toast-notification";
 const publishQuestions = ref<SetQuestionPublish[]>([]);
 const currentIdSetQuestion = ref(0);
-const { openModal, closeModal } = useModalStore();
+const { openModal } = useModalStore();
 
 const openForkModal = (id: number) => {
   openModal("Do you want to fork this repo to your owner");
@@ -66,13 +67,12 @@ const openForkModal = (id: number) => {
 
 const fork = async () => {
   const setQuestionSer = new SetQuestionService();
-  const { data } = await setQuestionSer.forkSetQuestion(
-    currentIdSetQuestion.value
-  );
-  openModal(data.status);
-  setTimeout(() => {
-    closeModal();
-  }, 1000);
+  await setQuestionSer.forkSetQuestion(currentIdSetQuestion.value);
+  const toast = useToast();
+  toast.success("fork set question successful", {
+    position: "top-right",
+    duration: 5000,
+  });
 };
 
 onMounted(async () => {

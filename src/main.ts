@@ -6,6 +6,8 @@ import { createPinia } from "pinia";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import "nprogress/nprogress.css";
+import "vue-toast-notification/dist/theme-sugar.css";
+import "sweetalert2/src/sweetalert2.scss";
 import vue3GoogleLogin from "vue3-google-login";
 import FontAwesomeIcon from "./icon";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
