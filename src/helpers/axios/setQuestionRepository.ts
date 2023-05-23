@@ -16,4 +16,9 @@ export default class SetQuestionRepository extends BaseRepository {
     this.setResource(`set-questions/publish`);
     return await this.get();
   }
+
+  async forkSetQuestion(id: number): Promise<AxiosResponse> {
+    this.setResource(`set-questions/fork`);
+    return await this.post({ id });
+  }
 }

@@ -7,8 +7,9 @@
       <QuestionNumber><slot name="question"></slot></QuestionNumber>
     </div>
     <div class="d-flex justify-content-between flex-column" :class="rightCss">
-      <div class="team">
+      <div class="team d-flex justify-content-between">
         <a class="link" href="#"><slot name="name"></slot></a>
+        <slot name="fork"></slot>
       </div>
       <div class="bottom-info d-flex justify-content-between">
         <div class="author"><slot name="author"></slot></div>

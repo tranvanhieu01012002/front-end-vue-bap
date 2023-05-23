@@ -22,6 +22,7 @@ import {
   faVolumeMute,
   faGear,
   faExpand,
+  faCodeFork,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -44,7 +45,8 @@ library.add(
   faVolumeHigh,
   faVolumeMute,
   faGear,
-  faExpand
+  faExpand,
+  faCodeFork
 );
 
 export default FontAwesomeIcon;

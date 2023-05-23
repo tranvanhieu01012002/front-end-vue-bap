@@ -3,9 +3,13 @@
     <div class="container">
       <!-- <OpenGame /> -->
       <div class="row">
-        <ProfileComponent class="col-xxl-3 col-md-6 col-sm-12" />
-        <DoubleComponent class="col-xxl-6 col-md-6 col-sm-12" />
-        <MyKahootComponent class="col-xxl-3 col-md-6 col-sm-12" />
+        <div class="col-xl-3 col-md-6 col-sm-12">
+          <ProfileComponent />
+        </div>
+        <div class="col-xl-6 col-md-6 col-sm-12">
+          <DoubleComponent />
+        </div>
+        <div class="col-xl-3 col-md-6 col-sm-12"><MyKahootComponent /></div>
       </div>
     </div>
   </div>

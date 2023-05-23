@@ -4,6 +4,8 @@ import LaravelEchoService from "./laravelEchoService";
 import RoomOwnerService from "./roomOwnerService";
 import EnableEditQuestion from "./enableEditQuestion";
 import AuthService from "./authService";
+import SetQuestionService from "./setQuestionService";
+
 export {
   QuestionService,
   RoomService,
@@ -11,4 +13,5 @@ export {
   RoomOwnerService,
   EnableEditQuestion,
   AuthService,
+  SetQuestionService,
 };
