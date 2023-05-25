@@ -10,7 +10,7 @@ import LoginContainer from "@/components/Login/LoginContainer.vue";
 </script>
 <style scoped>
 .login-view {
-  background-color: #f2f2f2;
+  background-color: var(--bg-component);
   height: 100vh;
   width: 100%;
   position: relative;

@@ -17,7 +17,11 @@
 }
 
 .bg {
-  background-color: #f2f2f2;
+  background-color: var(--bg-main);
+  color: #000;
+}
+.bg-component {
+  background-color: var(--bg-component);
   color: #000;
 }
 

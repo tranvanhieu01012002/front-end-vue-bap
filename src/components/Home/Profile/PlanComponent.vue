@@ -1,5 +1,5 @@
 <template>
-  <div class="plan bg profile-child-block">
+  <div class="plan bg-component profile-child-block">
     <div class="d-flex d-flex justify-content-between">
       <div class="left"><slot name="left"></slot></div>
       <div>

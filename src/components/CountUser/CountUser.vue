@@ -37,7 +37,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .count-user {
-  background-color: #f2f2f2;
+  background-color: var(--bg-main);
   height: 30vh;
   margin-top: var(--padding-top-main);
 }

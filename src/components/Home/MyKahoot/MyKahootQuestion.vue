@@ -39,7 +39,7 @@ defineProps({
   height: 100%;
 }
 .bottom-info {
-  background-color: #f2f2f2;
+  background-color: var(--bg-component);
   height: 20px;
   width: 100%;
   font-size: 13px;

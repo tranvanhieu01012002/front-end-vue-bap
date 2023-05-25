@@ -16,14 +16,10 @@
       <b-dropdown-item href="#">FA</b-dropdown-item>
     </b-nav-item-dropdown>
     <UserInfo />
+    <ToggleTheme />
   </b-navbar-nav>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import UserInfo from "./UserInfo.vue";
-export default defineComponent({
-  components: {
-    UserInfo,
-  },
-});
+import ToggleTheme from "../ToggleTheme.vue";
 </script>

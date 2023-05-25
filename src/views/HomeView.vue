@@ -1,7 +1,6 @@
 <template>
   <div class="bg">
     <div class="container">
-      <button @click="openToast" class="btn btn-success">start</button>
       <!-- <OpenGame /> -->
       <div class="row">
         <div class="col-xl-3 col-md-6 col-sm-12">
@@ -53,7 +52,8 @@ export default defineComponent({
 </script>
 <style scoped>
 .bg {
-  background-color: #fafafa;
+  background-color: var(--bg-main);
+  /* background-color: #181717; */
   height: 94vh;
 }
 </style>

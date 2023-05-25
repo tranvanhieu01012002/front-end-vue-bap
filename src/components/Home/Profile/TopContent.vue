@@ -1,5 +1,5 @@
 <template>
-  <div class="top-content bg">
+  <div class="top-content bg-component">
     <div class="d-flex justify-content-between top-content-info">
       <div class="left">
         <div class="d-flex">

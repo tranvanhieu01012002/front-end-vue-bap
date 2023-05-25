@@ -1,5 +1,5 @@
 <template>
-  <div class="bg profile-child-block padding-top-verify">
+  <div class="bg-component profile-child-block padding-top-verify">
     <div class="top d-flex">
       <font-awesome-icon
         class="icon-shield"

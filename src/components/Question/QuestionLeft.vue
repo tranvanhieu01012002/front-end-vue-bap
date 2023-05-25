@@ -47,7 +47,7 @@ export default defineComponent({
 <style scoped>
 .left {
   height: 400px;
-  background-color: #f2f2f2;
+  background-color: var(--bg-component);
 }
 .question-text {
   background-color: rgb(197, 207, 8);

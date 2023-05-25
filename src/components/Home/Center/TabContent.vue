@@ -13,7 +13,7 @@ export default defineComponent({});
 </script>
 <style scoped>
 .content {
-  background-color: #f2f2f2;
+  background-color: var(--bg-component);
   border-radius: 5px;
   border: 1px dotted #555454;
   display: flex;
