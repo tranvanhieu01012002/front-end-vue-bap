@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="text-center"><strong>Login</strong></h4>
-    <form @submit="onSubmit">
+    <form class="bg-component" @submit="onSubmit">
       <div class="input-field d-flex flex-column mg-t-15">
         <label class="f-size-14"><strong>Username or email</strong></label>
         <input v-model="userInfo.email" class="input" type="text" />

@@ -1,5 +1,8 @@
 <template>
-  <div @click="login" class="component d-flex justify-content-between">
+  <div
+    @click="login"
+    class="bg-component component d-flex justify-content-between"
+  >
     <img src="@/assets/images/google-99694fa3.svg" />
     <div class="text-center">
       <div>Login by google</div>
