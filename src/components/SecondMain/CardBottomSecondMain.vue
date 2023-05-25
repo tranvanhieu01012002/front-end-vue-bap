@@ -7,7 +7,7 @@
       img-top
       tag="article"
       style="max-width: 20rem"
-      class="mb-2"
+      class="mb-2 bg-component"
     >
       <div>At School</div>
       <b-card-text>

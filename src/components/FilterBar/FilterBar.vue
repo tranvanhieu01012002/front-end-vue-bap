@@ -4,7 +4,7 @@
       <template v-for="(item, index) in listFilter" :key="index">
         <component
           :is="itemList"
-          class="li"
+          class="li bg-component"
           :class="item.isActive ? 'active' : ''"
         >
           <button @click="() => choseTab(index)">

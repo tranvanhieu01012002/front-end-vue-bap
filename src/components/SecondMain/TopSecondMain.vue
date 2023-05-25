@@ -1,6 +1,6 @@
 <template>
   <CenterText>
-    <h1>How does Kahoot! work?</h1>
+    <h1 class="bg-component">How does Kahoot! work?</h1>
   </CenterText>
   <div class="row">
     <CardSecondMain />

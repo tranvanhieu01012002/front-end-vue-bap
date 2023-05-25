@@ -5,7 +5,7 @@
       img-alt="Image"
       img-top
       tag="article"
-      class="mb-2"
+      class="mb-2 bg-component"
     >
       <div>
         <div class="center-item">
