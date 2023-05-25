@@ -164,15 +164,15 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/:catchAll(.*)",
-    name: "notfound",
-    component: NotFoundView,
-    meta: { requiresAuth: false, layout: "default" },
-  },
-  {
     path: "/register",
     name: "register",
     component: RegisterView,
+    meta: { requiresAuth: false, layout: "default" },
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "notfound",
+    component: NotFoundView,
     meta: { requiresAuth: false, layout: "default" },
   },
 ];

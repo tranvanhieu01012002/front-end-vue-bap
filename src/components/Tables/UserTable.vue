@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-component">
     <p>Current page is: {{ currentPage }}</p>
     <b-table
       sort-by="name"

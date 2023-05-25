@@ -2,10 +2,9 @@
   <div>
     <h4 class="text-center"><strong>Login</strong></h4>
     <form class="bg-component" @submit="onSubmit">
-      <div class="input-field d-flex flex-column mg-t-15">
-        <label class="f-size-14"><strong>Username or email</strong></label>
-        <input v-model="userInfo.email" class="input" type="text" />
-      </div>
+      <BasicInput :value="userInfo.email" @input="inputEmail"
+        ><template #label>Enter email or username</template></BasicInput
+      >
       <div class="input-field d-flex flex-column mg-t-15">
         <label class="f-size-14"><strong>Password</strong></label>
         <div class="input d-flex justify-content-between">
@@ -41,6 +40,7 @@ import { useAuthStore, useUserStore } from "@/store";
 import nProgress from "nprogress";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
+import BasicInput from "../Input/BasicInput.vue";
 
 const userInfo = ref<Account>({ email: "", password: "" });
 const isShow = ref(false);
@@ -52,6 +52,10 @@ const router = useRouter();
 const route = useRoute();
 const { setIsLogin } = authStore;
 const { updateUser } = userStore;
+
+const inputEmail = (text: string): void => {
+  userInfo.value.email = text;
+};
 
 const onSubmit = async (event: Event) => {
   event.preventDefault();

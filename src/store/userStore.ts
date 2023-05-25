@@ -18,6 +18,9 @@ export const useUserStore = defineStore("userStore", {
     checkExistUser(): boolean {
       return this.user.id ? true : false;
     },
+    getIdUser(): string {
+      return this.user.id;
+    },
   },
   actions: {
     updateUser(user: UserInfo) {

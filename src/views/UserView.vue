@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-div bg">
     <h1>list Users</h1>
     <UserTable />
   </div>
