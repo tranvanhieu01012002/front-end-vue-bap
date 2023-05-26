@@ -37,5 +37,10 @@ class UserRepository extends BaseRepository {
     this.setResource("users");
     return await this.get();
   }
+
+  async updateUser(user: UserInfo): Promise<AxiosResponse> {
+    this.setResource("profile");
+    return await this.update(user.id, user);
+  }
 }
 export default UserRepository;

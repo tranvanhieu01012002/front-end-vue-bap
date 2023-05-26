@@ -3,6 +3,7 @@ import { useNextQuestion } from "./useNextQuestion";
 import { useRoomOwner } from "./useRoomOwner";
 import { useGetUserInfo } from "./useGetUserInfo";
 import { useTheme } from "./useTheme";
+import { useInputField } from "./useInputField";
 
 export {
   useGetSetQuestion,
@@ -10,4 +11,5 @@ export {
   useRoomOwner,
   useGetUserInfo,
   useTheme,
+  useInputField,
 };

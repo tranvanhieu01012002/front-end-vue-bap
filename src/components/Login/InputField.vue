@@ -2,7 +2,9 @@
   <div>
     <h4 class="text-center"><strong>Login</strong></h4>
     <form class="bg-component" @submit="onSubmit">
-      <BasicInput :value="userInfo.email" @input="inputEmail"
+      <BasicInput
+        :value="userInfo.email"
+        @input="(email) => inputAccountValue('email', email, userInfo)"
         ><template #label>Enter email or username</template></BasicInput
       >
       <div class="input-field d-flex flex-column mg-t-15">
@@ -41,6 +43,7 @@ import nProgress from "nprogress";
 import { storeToRefs } from "pinia";
 import { useRouter, useRoute } from "vue-router";
 import BasicInput from "../Input/BasicInput.vue";
+import { useInputField } from "@/hooks";
 
 const userInfo = ref<Account>({ email: "", password: "" });
 const isShow = ref(false);
@@ -52,10 +55,7 @@ const router = useRouter();
 const route = useRoute();
 const { setIsLogin } = authStore;
 const { updateUser } = userStore;
-
-const inputEmail = (text: string): void => {
-  userInfo.value.email = text;
-};
+const { inputAccountValue } = useInputField();
 
 const onSubmit = async (event: Event) => {
   event.preventDefault();

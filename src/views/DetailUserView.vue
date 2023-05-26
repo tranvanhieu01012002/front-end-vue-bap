@@ -2,9 +2,7 @@
   <div class="bg container">
     <div class="bg-component">
       <h2 class="">Settings</h2>
-      <div class="row">
-        <UserInformation />
-      </div>
+      <div class="row"><UserInformation :user="user" /></div>
     </div>
   </div>
 </template>
