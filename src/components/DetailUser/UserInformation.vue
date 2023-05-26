@@ -10,7 +10,7 @@
           class="img d-flex justify-content-center align-items-center col-3"
         >
           <font-awesome-icon class="icon" :icon="['fas', 'camera']" />
-          <input ref="input" class="hide" type="file" />
+          <input @change="onChange" ref="input" class="hide" type="file" />
         </div>
       </div>
       <div class="col-xxl-9 col-md-8 col-sm-12">
@@ -44,13 +44,23 @@ const { user } = storeToRefs(userStore);
 const input = ref();
 const { inputUserValue } = useInputField();
 const { open } = useToast();
+
+const userRepo = new UserRepository();
+
 const choseImg = () => {
   (input.value as HTMLInputElement).click();
 };
 
+const onChange = () => {
+  const file = (input.value as HTMLInputElement).files?.[0];
+  if (file) {
+    userRepo.updateImage(user.value.id, file);
+  } else {
+    console.log("co cai nit");
+  }
+};
 const onSubmit = async (e: Event) => {
   e.preventDefault();
-  const userRepo = new UserRepository();
   try {
     const { data } = await userRepo.updateUser(user.value);
     user.value = data;
