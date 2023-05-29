@@ -43,12 +43,10 @@ class UserRepository extends BaseRepository {
     return await this.update(user.id, user);
   }
 
-  async updateImage(id: string, file: File): Promise<AxiosResponse> {
+  async updateImage(id: string, image: File): Promise<AxiosResponse> {
     this.setResource(`profile/${id}`);
-    const form = new FormData();
-    form.append("image", file);
     return await this.post(
-      { ...form, _method: "PUT" },
+      { image, _method: "PUT" },
       {
         headers: {
           "Content-Type": "multipart/form-data",

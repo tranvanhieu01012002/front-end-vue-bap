@@ -5,11 +5,13 @@
       <div
         class="col-xxl-3 col-md-8 col-sm-12 d-flex justify-content-center padding-t-min"
       >
-        <div
-          @click="choseImg"
-          class="img d-flex justify-content-center align-items-center col-3"
-        >
-          <font-awesome-icon class="icon" :icon="['fas', 'camera']" />
+        <div class="img d-flex col-3">
+          <font-awesome-icon
+            @click="choseImg"
+            class="icon"
+            :icon="['fas', 'camera']"
+          />
+          <img :src="user.image ?? ''" />
           <input @change="onChange" ref="input" class="hide" type="file" />
         </div>
       </div>
@@ -44,19 +46,37 @@ const { user } = storeToRefs(userStore);
 const input = ref();
 const { inputUserValue } = useInputField();
 const { open } = useToast();
-
 const userRepo = new UserRepository();
 
 const choseImg = () => {
   (input.value as HTMLInputElement).click();
 };
 
-const onChange = () => {
+const onChange = async () => {
   const file = (input.value as HTMLInputElement).files?.[0];
   if (file) {
-    userRepo.updateImage(user.value.id, file);
+    try {
+      const { data } = await userRepo.updateImage(user.value.id, file);
+      user.value.image = data.path;
+      open({
+        message: "Updated profile",
+        type: "success",
+        position: "top-right",
+      });
+    } catch (error: any) {
+      console.log(error);
+      open({
+        message: "Ops, Something were wrong",
+        type: "error",
+        position: "top-right",
+      });
+    }
   } else {
-    console.log("co cai nit");
+    open({
+      message: "Ops, Something were wrong",
+      type: "error",
+      position: "top-right",
+    });
   }
 };
 const onSubmit = async (e: Event) => {
@@ -82,18 +102,26 @@ const onSubmit = async (e: Event) => {
 .col-6 {
   background-color: #fff;
 }
+
 .img {
   height: 130px;
   width: 130px;
   background-color: #969393;
   border: 2px dotted #52c675;
+  position: relative;
 }
+
 .hide {
   display: none;
 }
+
 .icon {
   font-size: 40px;
+  position: absolute;
+  top: 45px;
+  left: 45px;
 }
+
 .padding-t-min {
   padding-top: 20px;
 }
