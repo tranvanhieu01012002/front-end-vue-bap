@@ -1,5 +1,6 @@
 <template>
   <div class="home bg">
+    <BluetoothComponent />
     <TopMain />
     <SecondMain />
     <CountUser />
@@ -14,6 +15,7 @@ import SecondMain from "@/components/SecondMain/SecondMain.vue";
 import CountUser from "@/components/CountUser/CountUser.vue";
 import ExploreComponent from "@/components/Explore/ExploreComponent.vue";
 import FooterComponent from "@/components/Footer/FooterComponent.vue";
+import BluetoothComponent from "@/components/BluetoothComponent.vue";
 export default defineComponent({
   components: {
     TopMain,
