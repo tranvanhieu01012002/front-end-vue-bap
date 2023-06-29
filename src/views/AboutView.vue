@@ -23,6 +23,7 @@ export default defineComponent({
     CountUser,
     ExploreComponent,
     FooterComponent,
+    BluetoothComponent,
   },
 });
 </script>
