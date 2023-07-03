@@ -9,11 +9,12 @@
     </div>
 
     <div v-if="isSupported">
-      <button @click="requestDevice()">Request Bluetooth Device</button>
+      <button @click="">Request Bluetooth Device</button>
     </div>
 
     <div v-if="device">
       <p>Device Name: {{ device.name }}</p>
+      <p>battery: {{ batteryPercent }}</p>
     </div>
 
     <div v-if="isConnected" class="bg-green-500 text-white p-3 rounded-md">
@@ -34,10 +35,47 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useBluetooth } from "@vueuse/core";
 
 const { isSupported, isConnected, device, requestDevice, server, error } =
   useBluetooth({
     acceptAllDevices: true,
+    optionalServices: ["battery_service"],
   });
+
+const batteryPercent = ref<undefined | number>();
+
+const isGettingBatteryLevels = ref(false);
+
+async function getBatteryLevels() {
+  isGettingBatteryLevels.value = true;
+
+  // Get the battery service:
+  const batteryService = await server.value.getPrimaryService(
+    "battery_service"
+  );
+
+  // Get the current battery level
+  const batteryLevelCharacteristic = await batteryService.getCharacteristic(
+    "battery_level"
+  );
+
+  // Listen to when characteristic value changes on `characteristicvaluechanged` event:
+  batteryLevelCharacteristic.addEventListener(
+    "characteristicvaluechanged",
+    (event: any) => {
+      batteryPercent.value = event.target.value.getUint8(0);
+    }
+  );
+
+  // Convert received buffer to number:
+  const batteryLevel = await batteryLevelCharacteristic.readValue();
+  console.log(batteryLevel);
+  batteryPercent.value = await batteryLevel.getUint8(0);
+}
+const handle = async () => {
+  await requestDevice();
+  await getBatteryLevels();
+};
 </script>
